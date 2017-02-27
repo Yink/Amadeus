@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     ImageView kurisu;
     AnimationDrawable animation;
     HashMap<String, String> map;
+    int state = 0;
     private final int eyes_closed = 0;
     private final int normal = 1;
     private final int sad = 2;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         kurisu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speak("Konban wa, Okabe. Okaeri!",normal);}
+                speak("Konban wa, Okabe. Okaeri!",state);
+                state=(state+1)%12;}
 
         });
     }
@@ -85,6 +87,47 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     }
 
     public void speak(String text, int state){
+        switch (state){
+            case eyes_closed:
+                kurisu.setImageResource(R.drawable.kurisu_1);
+                break;
+            case normal:
+                kurisu.setImageResource(R.drawable.kurisu_2);
+                break;
+            case sad:
+                kurisu.setImageResource(R.drawable.kurisu_3);
+                break;
+            case indifferent:
+                kurisu.setImageResource(R.drawable.kurisu_4);
+                break;
+            case wink:
+                kurisu.setImageResource(R.drawable.kurisu_5);
+                break;
+            case pissed:
+                kurisu.setImageResource(R.drawable.kurisu_6);
+                break;
+            case annoyed:
+                kurisu.setImageResource(R.drawable.kurisu_7);
+                break;
+            case disappointed:
+                kurisu.setImageResource(R.drawable.kurisu_8);
+                break;
+            case happy:
+                kurisu.setImageResource(R.drawable.kurisu_9);
+                break;
+            case angry:
+                kurisu.setImageResource(R.drawable.kurisu_10);
+                break;
+            case blush:
+                kurisu.setImageResource(R.drawable.kurisu_11);
+                break;
+            case side:
+                kurisu.setImageResource(R.drawable.kurisu_12);
+                break;
+            default:kurisu.setImageResource(R.drawable.kurisu_2);
+
+        }
+        animation = (AnimationDrawable) kurisu.getDrawable();
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,"UniqueID");
         tts.speak(text,TextToSpeech.QUEUE_FLUSH,map);
     }
