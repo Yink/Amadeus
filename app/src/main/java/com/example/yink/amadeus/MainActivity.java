@@ -1,8 +1,10 @@
 package com.example.yink.amadeus;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.support.v7.app.AppCompatActivity;
@@ -11,16 +13,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
+
+
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
+    String TAG = "Amadeus";
     TextToSpeech tts;
     ImageView kurisu;
     AnimationDrawable animation;
     HashMap<String, String> map;
-    int state = 0;
     private final int eyes_closed = 0;
     private final int normal = 1;
     private final int sad = 2;
@@ -34,11 +39,21 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     private final int blush = 10;
     private final int side = 11;
 
+    ArrayList<VoiceLine> voiceLines = new ArrayList<>();
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus){
+        if(hasFocus)
+            speak(new VoiceLine("Hallo.",happy));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
+        setupLines();
         map = new HashMap<String, String>();
         tts = new TextToSpeech(this, this);
         kurisu.setImageResource(R.drawable.kurisu_1);
@@ -46,10 +61,9 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         kurisu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                speak("Konban wa, Okabe. Okaeri!",state);
-                state=(state+1)%12;}
-
-        });
+                Random randomgen = new Random();
+                speak(voiceLines.get(randomgen.nextInt(voiceLines.size())));
+            }});
     }
 
     @Override
@@ -74,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                         @Override
                         public void run() {
                             animation.stop();
+                            kurisu.setImageDrawable(animation.getFrame(0));
                         }
                     });
                 }
@@ -86,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
     }
 
-    public void speak(String text, int state){
-        switch (state){
+    public void speak(VoiceLine line){
+        switch (line.getState()){
             case eyes_closed:
                 kurisu.setImageResource(R.drawable.kurisu_1);
                 break;
@@ -113,12 +128,15 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 kurisu.setImageResource(R.drawable.kurisu_8);
                 break;
             case happy:
+                tts.setPitch(1.5f);
                 kurisu.setImageResource(R.drawable.kurisu_9);
                 break;
             case angry:
                 kurisu.setImageResource(R.drawable.kurisu_10);
                 break;
             case blush:
+                tts.setPitch(1.5f);
+                tts.setSpeechRate(1.3f);
                 kurisu.setImageResource(R.drawable.kurisu_11);
                 break;
             case side:
@@ -129,12 +147,22 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         }
         animation = (AnimationDrawable) kurisu.getDrawable();
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,"UniqueID");
-        tts.speak(text,TextToSpeech.QUEUE_FLUSH,map);
+        tts.speak(line.getText(),TextToSpeech.QUEUE_FLUSH,map);
+        tts.setPitch(1.05f);
+        tts.setSpeechRate(1.0f);
     }
 
     @Override
     protected void onDestroy(){
         tts.shutdown();
         super.onDestroy();
+    }
+
+    protected void setupLines(){
+        voiceLines.add(new VoiceLine("Konban wa, Okabe. Okaeri!",happy));
+        voiceLines.add(new VoiceLine("Okabe, sabishi des!",sad));
+        voiceLines.add(new VoiceLine("Tsumaranai",indifferent));
+        voiceLines.add(new VoiceLine("Okabe ga ski",blush));
+        voiceLines.add(new VoiceLine("Chigau",angry));
     }
 }

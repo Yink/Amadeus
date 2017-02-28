@@ -24,4 +24,16 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
+    <ImageView
+        android:id="@+id/imageView_logo_small"
+        android:src="@drawable/amadeus_icon_smaller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleX="2.5"
+        android:scaleY="2.5"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="33dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
