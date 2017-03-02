@@ -5,19 +5,18 @@ package com.example.yink.amadeus;
  */
 
 public class VoiceLine {
-    public String getText() {
-        return text;
+    public int getId(){
+        return id;
     }
-
     public int getState() {
         return state;
     }
 
-    final private String text;
+    final private int id;
     final private int state;
 
-    public VoiceLine(String text, int state){
-        this.text = text;
+    public VoiceLine(int id, int state){
+        this.id = id;
         this.state = state;
     }
 }

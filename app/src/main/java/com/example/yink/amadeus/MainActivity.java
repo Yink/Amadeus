@@ -1,31 +1,38 @@
 package com.example.yink.amadeus;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
+/**
+ * Big thanks to https://github.com/RIP95 aka Emojikage
+ */
+
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.drawable.AnimationDrawable;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
+import android.media.MediaPlayer;
+import android.os.Handler;
+import android.os.SystemClock;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Random;
 
 
-
-public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener{
-    String TAG = "Amadeus";
-    TextToSpeech tts;
+public class MainActivity extends AppCompatActivity {
+    final String TAG = "Amadeus";
+    MediaPlayer mediaPlayer;
     ImageView kurisu;
     AnimationDrawable animation;
-    HashMap<String, String> map;
+    Handler handler;
+    Boolean looping = false;
+
+    private SpeechRecognizer sr;
+    protected static final int REQ_CODE_SPEECH_INPUT = 1;
+
     private final int eyes_closed = 0;
     private final int normal = 1;
     private final int sad = 2;
@@ -44,8 +51,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus){
-        if(hasFocus)
-            speak(new VoiceLine("Hallo.",happy));
+        if(hasFocus){
+            speak(new VoiceLine(R.raw.hello,happy));
+        }
+
     }
 
     @Override
@@ -53,55 +62,47 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
+        handler = new Handler();
         setupLines();
-        map = new HashMap<String, String>();
-        tts = new TextToSpeech(this, this);
         kurisu.setImageResource(R.drawable.kurisu_1);
         animation = (AnimationDrawable) kurisu.getDrawable();
+
+        sr = SpeechRecognizer.createSpeechRecognizer(this);
+        sr.setRecognitionListener(new listener());
+
+        final Runnable loop = new Runnable() {
+            @Override
+            public void run() {
+                Random randomgen = new Random();
+                speak(voiceLines.get(randomgen.nextInt(voiceLines.size())));
+                handler.postDelayed(this,5000+randomgen.nextInt(5)*1000);
+            }
+        };
         kurisu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Random randomgen = new Random();
-                speak(voiceLines.get(randomgen.nextInt(voiceLines.size())));
+                promptSpeechInput();
+
             }});
+
+        kurisu.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if(!looping){
+                    looping =true;
+                    handler.post(loop);
+                }else{
+                    handler.removeCallbacks(loop);
+                    looping = false;
+                }
+                return true;
+            }
+        });
     }
 
-    @Override
-    public void onInit(int status) {
-        if(status==TextToSpeech.SUCCESS){
-            tts.setLanguage(Locale.JAPAN);
-            tts.setPitch(1.05f);
-            tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
-                @Override
-                public void onStart(String s) {
-                   runOnUiThread(new Runnable() {
-                       @Override
-                       public void run() {
-                           animation.start();
-                       }
-                   });
-                }
-
-                @Override
-                public void onDone(String s) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            animation.stop();
-                            kurisu.setImageDrawable(animation.getFrame(0));
-                        }
-                    });
-                }
-
-                @Override
-                public void onError(String s) {
-                    animation.stop();
-                }
-            });
-        }
-    }
 
     public void speak(VoiceLine line){
+
         switch (line.getState()){
             case eyes_closed:
                 kurisu.setImageResource(R.drawable.kurisu_1);
@@ -128,15 +129,12 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
                 kurisu.setImageResource(R.drawable.kurisu_8);
                 break;
             case happy:
-                tts.setPitch(1.5f);
                 kurisu.setImageResource(R.drawable.kurisu_9);
                 break;
             case angry:
                 kurisu.setImageResource(R.drawable.kurisu_10);
                 break;
             case blush:
-                tts.setPitch(1.5f);
-                tts.setSpeechRate(1.3f);
                 kurisu.setImageResource(R.drawable.kurisu_11);
                 break;
             case side:
@@ -146,23 +144,118 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
 
         }
         animation = (AnimationDrawable) kurisu.getDrawable();
-        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID,"UniqueID");
-        tts.speak(line.getText(),TextToSpeech.QUEUE_FLUSH,map);
-        tts.setPitch(1.05f);
-        tts.setSpeechRate(1.0f);
+        mediaPlayer = mediaPlayer.create(this,line.getId());
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                animation.stop();
+                kurisu.setImageDrawable(animation.getFrame(0));
+                mediaPlayer.release();
+            }
+        });
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        animation.start();
+                    }
+                });
+            }
+        });
+        mediaPlayer.start();
+        animation.start();
+    }
+
+    private void answerSpeech(String request){
+        if (request.equals("hello")) {
+            speak(new VoiceLine(R.raw.hello,happy));
+        }else if (request.equals("nice body")) {
+            speak(new VoiceLine(R.raw.devilish_pervert,angry));
+        }
     }
 
     @Override
     protected void onDestroy(){
-        tts.shutdown();
+        if(sr!=null)
+            sr.destroy();
         super.onDestroy();
     }
 
-    protected void setupLines(){
-        voiceLines.add(new VoiceLine("Konban wa, Okabe. Okaeri!",happy));
-        voiceLines.add(new VoiceLine("Okabe, sabishi des!",sad));
-        voiceLines.add(new VoiceLine("Tsumaranai",indifferent));
-        voiceLines.add(new VoiceLine("Okabe ga ski",blush));
-        voiceLines.add(new VoiceLine("Chigau",angry));
+    @Override
+    protected void onStop(){
+        mediaPlayer.release();
+        mediaPlayer = null;
+        super.onStop();
     }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+    }
+
+    private void setupLines(){
+        voiceLines.add(new VoiceLine(R.raw.daga_kotowaru,annoyed));
+        voiceLines.add(new VoiceLine(R.raw.devilish_pervert,angry));
+        voiceLines.add(new VoiceLine(R.raw.i_guess,indifferent));
+        voiceLines.add(new VoiceLine(R.raw.nice,wink));
+        voiceLines.add(new VoiceLine(R.raw.pervert_confirmed,pissed));
+        voiceLines.add(new VoiceLine(R.raw.sorry,sad));
+        voiceLines.add(new VoiceLine(R.raw.sounds_tough,side));
+        voiceLines.add(new VoiceLine(R.raw.this_guy_hopeless,disappointed));
+    }
+
+    private void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                getString(R.string.speech_prompt));
+
+        sr.startListening(intent);
+    }
+
+    public class listener implements RecognitionListener {
+        final String TAG = "Amadeus.listener";
+
+        public void onReadyForSpeech(Bundle params) {
+            Log.d(TAG, "onReadyForSpeech");
+        }
+        public void onBeginningOfSpeech() {
+            Log.d(TAG, "onBeginningOfSpeech");
+        }
+        public void onRmsChanged(float rmsdB) {
+            Log.d(TAG, "onRmsChanged");
+        }
+        public void onBufferReceived(byte[] buffer) {
+            Log.d(TAG, "onBufferReceived");
+        }
+        public void onEndOfSpeech() {
+            Log.d(TAG, "onEndofSpeech");
+        }
+        public void onError(int error) {
+            Log.d(TAG,  "error " +  error);
+        }
+        public void onResults(Bundle results) {
+            String str = "";
+            Log.d(TAG, "onResults " + results);
+            ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            str += data.get(0);
+            answerSpeech(str);
+
+        }
+        public void onPartialResults(Bundle partialResults) {
+            Log.d(TAG, "onPartialResults");
+        }
+        public void onEvent(int eventType, Bundle params) {
+            Log.d(TAG, "onEvent " + eventType);
+        }
+
+    }
+
+
+
 }
+
