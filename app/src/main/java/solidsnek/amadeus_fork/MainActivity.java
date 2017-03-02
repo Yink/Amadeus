@@ -1,5 +1,6 @@
 package solidsnek.amadeus_fork;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -11,8 +12,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.speech.RecognizerIntent;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView kurisu;
     AnimationDrawable animation;
 
+    /* Don't forget about permission to use audio! */
     private SpeechRecognizer sr;
     protected static final int REQ_CODE_SPEECH_INPUT = 1;
 
@@ -44,16 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        //tts.shutdown();
         super.onDestroy();
     }
 
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "solidsnek.amadeus_fork");
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                getString(R.string.speech_prompt));
 
-        intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS,1);
         sr.startListening(intent);
     }
 
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             MediaPlayer m = MediaPlayer.create(getApplicationContext(), raw);
 
             kurisu.setImageResource(sprite);
+            animation = (AnimationDrawable) kurisu.getDrawable();
 
             if (m.isPlaying()) {
                 m.stop();
@@ -70,6 +76,31 @@ public class MainActivity extends AppCompatActivity {
             }
 
             m.start();
+
+            m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            animation.start();
+                        }
+                    });
+                }
+            });
+
+            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            animation.stop();
+                            kurisu.setImageDrawable(animation.getFrame(0));
+                        }
+                    });
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
