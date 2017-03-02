@@ -1,6 +1,5 @@
 package solidsnek.amadeus_fork;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -12,10 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.speech.RecognizerIntent;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Locale;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,9 +22,30 @@ public class MainActivity extends AppCompatActivity {
     ImageView kurisu;
     AnimationDrawable animation;
 
+    private class Mood {
+        public static final int HAPPY = R.drawable.kurisu_9;
+        public static final int PISSED = R.drawable.kurisu_6;
+        public static final int ANNOYED = R.drawable.kurisu_7;
+        public static final int ANGRY = R.drawable.kurisu_10;
+        public static final int BLUSH = R.drawable.kurisu_11;
+        public static final int SIDE = R.drawable.kurisu_12;
+        public static final int SAD = R.drawable.kurisu_3;
+        public static final int NORMAL = R.drawable.kurisu_2;
+        public static final int EYES_CLOSED = R.drawable.kurisu_1;
+        public static final int WINK = R.drawable.kurisu_5;
+        public static final int DISAPPOINTED = R.drawable.kurisu_8;
+        public static final int INDIFFERENT = R.drawable.kurisu_4;
+    }
+
     /* Don't forget about permission to use audio! */
     private SpeechRecognizer sr;
-    protected static final int REQ_CODE_SPEECH_INPUT = 1;
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus) {
+            speak(R.raw.haro, Mood.HAPPY);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        if (sr != null)
+            sr.destroy();
+
         super.onDestroy();
     }
 
@@ -55,18 +78,17 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                getString(R.string.speech_prompt));
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
 
         sr.startListening(intent);
     }
 
-    public void play(int raw, int sprite) {
+    public void speak(int raw, int mood) {
         try {
             MediaPlayer m = MediaPlayer.create(getApplicationContext(), raw);
 
-            kurisu.setImageResource(sprite);
+            kurisu.setImageResource(mood);
+
             animation = (AnimationDrawable) kurisu.getDrawable();
 
             if (m.isPlaying()) {
@@ -74,8 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 m.release();
                 m = new MediaPlayer();
             }
-
-            m.start();
 
             m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
@@ -92,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
             m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -101,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }
             });
+
+            m.start();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,11 +155,15 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             str += data.get(0);
-            if (str.equals("hello")) {
-                play(R.raw.haro, R.drawable.kurisu_9);
+
+            String[] greetingArr = new String[]{"ハロー", "おはよう", "こんにちは", "こんばんは"};
+            List<String> greeting = Arrays.asList(greetingArr);
+
+            if (greeting.contains(str)) {
+                speak(R.raw.haro, Mood.HAPPY);
             }
-            if (str.equals("hey")) {
-                play(R.raw.hai, R.drawable.kurisu_9);
+            if (str.equals("クリス")) {
+                speak(R.raw.hai, Mood.HAPPY);
             }
         }
         public void onPartialResults(Bundle partialResults) {

@@ -45,4 +45,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <ImageView
+        android:id="@+id/imageView_cancel"
+        android:layout_width="180.0dip"
+        android:layout_height="40.0dip"
+        android:src="@drawable/cancel_unselect"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:layout_below="@+id/textView_call"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp" />
+
 </RelativeLayout>
