@@ -1,10 +1,13 @@
 package solidsnek.amadeus_fork;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,10 +34,11 @@ public class MainActivity extends AppCompatActivity {
         public static final int SIDE = R.drawable.kurisu_12;
         public static final int SAD = R.drawable.kurisu_3;
         public static final int NORMAL = R.drawable.kurisu_2;
-        public static final int EYES_CLOSED = R.drawable.kurisu_1;
-        public static final int WINK = R.drawable.kurisu_5;
+        public static final int SLEEPY = R.drawable.kurisu_1;
+        public static final int WINKING = R.drawable.kurisu_5;
         public static final int DISAPPOINTED = R.drawable.kurisu_8;
         public static final int INDIFFERENT = R.drawable.kurisu_4;
+        public static final int SIDED_PLEASANT = R.drawable.kurisu_15;
     }
 
     /* Don't forget about permission to use audio! */
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         if (hasFocus) {
-            speak(R.raw.haro, Mood.HAPPY);
+            speak(R.raw.haro, Mood.SIDED_PLEASANT);
         }
     }
 
@@ -61,7 +65,16 @@ public class MainActivity extends AppCompatActivity {
         kurisu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                promptSpeechInput();
+                MainActivity host = (MainActivity) view.getContext();
+
+                int permissionCheck = ContextCompat.checkSelfPermission(host,
+                        Manifest.permission.RECORD_AUDIO);
+
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    promptSpeechInput();
+                } else {
+                    speak(R.raw.daga_kotowaru, Mood.PISSED);
+                }
             }
         });
     }
@@ -163,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 speak(R.raw.haro, Mood.HAPPY);
             }
             if (str.equals("クリス")) {
-                speak(R.raw.hai, Mood.HAPPY);
+                speak(R.raw.hai, Mood.NORMAL);
             }
         }
         public void onPartialResults(Bundle partialResults) {
