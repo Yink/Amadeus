@@ -169,10 +169,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void answerSpeech(String request){
-        if (request.equals("hello")) {
+        Log.e(TAG,request);
+        if (request.equals("ハロー")) {
             speak(new VoiceLine(R.raw.hello,happy));
-        }else if (request.equals("nice body")) {
+        }else if (request.equals("ナイスボディ")) {
             speak(new VoiceLine(R.raw.devilish_pervert,angry));
+        }else if (request.equals("クリスティーナ")) {
+            speak(new VoiceLine(R.raw.this_guy_hopeless,disappointed));
         }
     }
 
@@ -210,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                 getString(R.string.speech_prompt));
 
