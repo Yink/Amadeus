@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView kurisu;
     AnimationDrawable animation;
 
+    /* Mood constants. Less cpu cycles - a little bit more memory consumption */
     private class Mood {
         public static final int HAPPY = R.drawable.kurisu_9;
         public static final int PISSED = R.drawable.kurisu_6;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         public static final int DISAPPOINTED = R.drawable.kurisu_8;
         public static final int INDIFFERENT = R.drawable.kurisu_4;
         public static final int SIDED_PLEASANT = R.drawable.kurisu_15;
+        public static final int SIDED_WORRIED = R.drawable.kurisu_17;
     }
 
     /* Don't forget about permission to use audio! */
@@ -56,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
-        kurisu.setImageResource(R.drawable.kurisu_1);
         animation = (AnimationDrawable) kurisu.getDrawable();
 
         sr = SpeechRecognizer.createSpeechRecognizer(this);
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    class listener implements RecognitionListener {
+    private class listener implements RecognitionListener {
         public void onReadyForSpeech(Bundle params) {
             Log.d(TAG, "onReadyForSpeech");
         }
@@ -172,11 +173,18 @@ public class MainActivity extends AppCompatActivity {
             String[] greetingArr = new String[]{"ハロー", "おはよう", "こんにちは", "こんばんは"};
             List<String> greeting = Arrays.asList(greetingArr);
 
+            /*
+            * TODO: Probably not good idea to use bunch of else-if statements
+            */
             if (greeting.contains(str)) {
                 speak(R.raw.haro, Mood.HAPPY);
-            }
-            if (str.equals("クリス")) {
+            } else if (str.equals("クリス")) {
                 speak(R.raw.hai, Mood.NORMAL);
+            } else {
+                /*
+                * If voice input data doesn't match any preset
+                */
+                speak(R.raw.senpai, Mood.SIDED_WORRIED);
             }
         }
         public void onPartialResults(Bundle partialResults) {
