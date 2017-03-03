@@ -228,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             voiceLines.get(16 + randomGen.nextInt(7));
+
         }
     }
 
