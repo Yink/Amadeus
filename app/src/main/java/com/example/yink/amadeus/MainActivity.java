@@ -196,14 +196,6 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.this_guy_hopeless, Mood.DISAPPOINTED));
     }
 
-    public void onPartialResults(Bundle partialResults) {
-        Log.d(TAG, "onPartialResults");
-    }
-
-    public void onEvent(int eventType, Bundle params) {
-        Log.d(TAG, "onEvent " + eventType);
-    }
-
     private class Mood {
         static final int HAPPY = R.drawable.kurisu_9;
         static final int PISSED = R.drawable.kurisu_6;
