@@ -120,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                getString(R.string.speech_prompt));
 
         sr.startListening(intent);
     }
@@ -273,29 +271,22 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.tm_you_said, Mood.SIDED_WORRIED));
     }
 
-    public void onPartialResults(Bundle partialResults) {
-        Log.d(TAG, "onPartialResults");
-    }
-
-    public void onEvent(int eventType, Bundle params) {
-        Log.d(TAG, "onEvent " + eventType);
-    }
-
     private class Mood {
-        public static final int HAPPY = R.drawable.kurisu_9;
-        public static final int PISSED = R.drawable.kurisu_6;
-        public static final int ANNOYED = R.drawable.kurisu_7;
-        public static final int ANGRY = R.drawable.kurisu_10;
-        public static final int BLUSH = R.drawable.kurisu_11;
-        public static final int SIDE = R.drawable.kurisu_12;
-        public static final int SAD = R.drawable.kurisu_3;
-        public static final int NORMAL = R.drawable.kurisu_2;
-        public static final int SLEEPY = R.drawable.kurisu_1;
-        public static final int WINKING = R.drawable.kurisu_5;
-        public static final int DISAPPOINTED = R.drawable.kurisu_8;
-        public static final int INDIFFERENT = R.drawable.kurisu_4;
-        public static final int SIDED_PLEASANT = R.drawable.kurisu_15;
-        public static final int SIDED_WORRIED = R.drawable.kurisu_17;
+        static final int HAPPY = R.drawable.kurisu_9;
+        static final int PISSED = R.drawable.kurisu_6;
+        static final int ANNOYED = R.drawable.kurisu_7;
+        static final int ANGRY = R.drawable.kurisu_10;
+        static final int BLUSH = R.drawable.kurisu_11;
+        /* TODO: How should we name this mood?.. */
+        static final int SIDE = R.drawable.kurisu_12;
+        static final int SAD = R.drawable.kurisu_3;
+        static final int NORMAL = R.drawable.kurisu_2;
+        static final int SLEEPY = R.drawable.kurisu_1;
+        static final int WINKING = R.drawable.kurisu_5;
+        static final int DISAPPOINTED = R.drawable.kurisu_8;
+        static final int INDIFFERENT = R.drawable.kurisu_4;
+        static final int SIDED_PLEASANT = R.drawable.kurisu_15;
+        static final int SIDED_WORRIED = R.drawable.kurisu_17;
     }
 
     public class listener implements RecognitionListener {
