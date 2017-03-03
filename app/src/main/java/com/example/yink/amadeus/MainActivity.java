@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus){
         if(hasFocus){
-            speak(new VoiceLine(R.raw.hello, Mood.HAPPY));
+            speak(voiceLines.get(0));
         }
 
     }
@@ -177,17 +177,64 @@ public class MainActivity extends AppCompatActivity {
     private void answerSpeech(String request) {
         String[] greetingArr = new String[]{"ハロー", "おはよう", "こんにちは", "こんばんは"};
         List<String> greeting = Arrays.asList(greetingArr);
+        String[] pervertArr = new String[]{"ナイスボディ", "ほっと", "セクシー", "ボビーズ"};
+        List<String> pervert = Arrays.asList(pervertArr);
         Log.e(TAG, request);
-        if (greeting.contains(request)) {
-            speak(new VoiceLine(R.raw.hello, Mood.HAPPY));
-        } else if (request.equals("ナイスボディ")) {
-            speak(new VoiceLine(R.raw.devilish_pervert, Mood.ANGRY));
-        } else if (request.contains("クリスティーナ")) {
-            speak(new VoiceLine(R.raw.this_guy_hopeless, Mood.DISAPPOINTED));
+        Random randomGen = new Random();
+        if (request.contains("クリスティーナ")) {
+            switch (randomGen.nextInt(4)) {
+                case 0:
+                    speak(voiceLines.get(10));
+                    break;
+                case 1:
+                    speak(voiceLines.get(13));
+                    break;
+                case 2:
+                    speak(voiceLines.get(14));
+                    break;
+                case 3:
+                    speak(voiceLines.get(15));
+                    break;
+            }
+        } else if (request.contains("ぬるぽ")) {
+            speak(voiceLines.get(9));
+        } else if (request.contains("アットチャンネル") || request.contains("栗ご飯") || request.contains("カメハメハ")) {
+            speak(voiceLines.get(30 + randomGen.nextInt(2)));
+        } else if (request.contains("サリエリ") || request.contains("真帆") || request.contains("比屋定")) {
+            voiceLines.get(26 + randomGen.nextInt(4));
+        } else if (request.contains("タイムマシーン") || request.contains("cern") || request.contains("タイムトラベル")) {
+            speak(voiceLines.get(32 + randomGen.nextInt(5)));
+        } else if (greeting.contains(request)) {
+            switch (randomGen.nextInt(3)) {
+                case 0:
+                    speak(voiceLines.get(12));
+                    break;
+                case 1:
+                    speak(voiceLines.get(24));
+                    break;
+                case 2:
+                    speak(voiceLines.get(25));
+                    break;
+            }
+        } else if (pervert.contains(request)) {
+            switch (randomGen.nextInt(3)) {
+                case 0:
+                    speak(voiceLines.get(2));
+                    break;
+                case 1:
+                    speak(voiceLines.get(5));
+                    break;
+                case 2:
+                    speak(voiceLines.get(11));
+                    break;
+            }
+        } else {
+            voiceLines.get(16 + randomGen.nextInt(7));
         }
     }
 
     private void setupLines() {
+        voiceLines.add(new VoiceLine(R.raw.hello, Mood.HAPPY));
         voiceLines.add(new VoiceLine(R.raw.daga_kotowaru, Mood.ANNOYED));
         voiceLines.add(new VoiceLine(R.raw.devilish_pervert, Mood.ANGRY));
         voiceLines.add(new VoiceLine(R.raw.i_guess, Mood.INDIFFERENT));
@@ -196,6 +243,34 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.sorry, Mood.SAD));
         voiceLines.add(new VoiceLine(R.raw.sounds_tough, Mood.SIDE));
         voiceLines.add(new VoiceLine(R.raw.this_guy_hopeless, Mood.DISAPPOINTED));
+        voiceLines.add(new VoiceLine(R.raw.gah, Mood.INDIFFERENT));
+        voiceLines.add(new VoiceLine(R.raw.dont_add_tina, Mood.ANGRY)); //10
+        voiceLines.add(new VoiceLine(R.raw.pervert_idot_wanttodie, Mood.ANGRY));
+        voiceLines.add(new VoiceLine(R.raw.pleased_to_meet_you, Mood.SIDED_PLEASANT));
+        voiceLines.add(new VoiceLine(R.raw.who_the_hell_christina, Mood.PISSED));
+        voiceLines.add(new VoiceLine(R.raw.why_christina, Mood.PISSED));
+        voiceLines.add(new VoiceLine(R.raw.christina, Mood.ANNOYED)); //15
+        voiceLines.add(new VoiceLine(R.raw.ask_me_whatever, Mood.HAPPY));
+        voiceLines.add(new VoiceLine(R.raw.could_i_help, Mood.HAPPY));
+        voiceLines.add(new VoiceLine(R.raw.ask_me_whatever, Mood.HAPPY));
+        voiceLines.add(new VoiceLine(R.raw.what_do_you_want, Mood.HAPPY));
+        voiceLines.add(new VoiceLine(R.raw.what_is_it, Mood.HAPPY)); //20
+        voiceLines.add(new VoiceLine(R.raw.heheh, Mood.WINKING));
+        voiceLines.add(new VoiceLine(R.raw.huh_why_say, Mood.SIDED_WORRIED));
+        voiceLines.add(new VoiceLine(R.raw.you_sure, Mood.SIDED_WORRIED));
+        voiceLines.add(new VoiceLine(R.raw.nice_to_meet_okabe, Mood.SIDED_PLEASANT));
+        voiceLines.add(new VoiceLine(R.raw.look_forward_to_working, Mood.HAPPY)); //25
+        voiceLines.add(new VoiceLine(R.raw.senpai_question, Mood.SIDE));
+        voiceLines.add(new VoiceLine(R.raw.senpai_questionmark, Mood.SIDE));
+        voiceLines.add(new VoiceLine(R.raw.senpai_what_we_talkin, Mood.SIDED_WORRIED));
+        voiceLines.add(new VoiceLine(R.raw.senpai_who_is_this, Mood.NORMAL));
+        voiceLines.add(new VoiceLine(R.raw.senpai_please_dont_tell, Mood.BLUSH)); //30
+        voiceLines.add(new VoiceLine(R.raw.still_not_happy, Mood.BLUSH));
+        voiceLines.add(new VoiceLine(R.raw.tm_nonsense, Mood.DISAPPOINTED));
+        voiceLines.add(new VoiceLine(R.raw.tm_not_possible, Mood.DISAPPOINTED));
+        voiceLines.add(new VoiceLine(R.raw.tm_scientist_no_evidence, Mood.NORMAL));
+        voiceLines.add(new VoiceLine(R.raw.tm_we_dont_know, Mood.NORMAL)); //35
+        voiceLines.add(new VoiceLine(R.raw.tm_you_said, Mood.SIDED_WORRIED));
     }
 
     public void onPartialResults(Bundle partialResults) {
@@ -250,7 +325,6 @@ public class MainActivity extends AppCompatActivity {
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
             str += data.get(0);
             answerSpeech(str);
-
         }
         public void onPartialResults(Bundle partialResults) {
             Log.d(TAG, "onPartialResults");
