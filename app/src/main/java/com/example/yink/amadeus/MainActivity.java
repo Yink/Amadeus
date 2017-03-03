@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView kurisu;
     AnimationDrawable animation;
     Handler handler;
-    Boolean isLoop, isSpeaking = false;
+    Boolean isLoop = false;
+    Boolean isSpeaking = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     private SpeechRecognizer sr;
 
@@ -87,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onLongClick(View view) {
                 if (!isSpeaking) {
-                    if (!isLoop) {
-                        isLoop = true;
-                        handler.post(loop);
-                    } else {
-                        handler.removeCallbacks(loop);
-                        isLoop = false;
-                    }
+                if(!isLoop){
+                    isLoop =true;
+                    handler.post(loop);
+                }else{
+                    handler.removeCallbacks(loop);
+                    isLoop = false;
+                }
                 }
                 return true;
             }
@@ -101,20 +102,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        if (sr != null)
+    protected void onDestroy(){
+        if(sr!=null)
             sr.destroy();
+        isLoop = false;
         super.onDestroy();
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop(){
         isLoop = false;
         super.onStop();
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause(){
         isLoop = false;
         super.onPause();
     }
@@ -145,9 +147,6 @@ public class MainActivity extends AppCompatActivity {
             m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
-                    isSpeaking = true;
-                    mp.start();
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -160,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
             m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    isSpeaking = false;
                     mp.release();
 
                     runOnUiThread(new Runnable() {
@@ -168,21 +166,25 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             animation.stop();
                             kurisu.setImageDrawable(animation.getFrame(0));
+                            isSpeaking = false;
                         }
                     });
                 }
             });
+            isSpeaking = true;
+            m.start();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void answerSpeech(String input) {
-        List<String> greeting = Arrays.asList("ハロー", "おはよう", "こんにちは", "こんばんは");
-        Log.e(TAG, input);
+    private void answerSpeech(String request) {
+        String[] greetingArr = new String[]{"ハロー", "おはよう", "こんにちは", "こんばんは"};
+        List<String> greeting = Arrays.asList(greetingArr);
+        Log.e(TAG, request);
         Random randomGen = new Random();
-        if (input.contains("クリスティーナ")) {
+        if (request.contains("クリスティーナ")) {
             switch (randomGen.nextInt(4)) {
                 case 0:
                     speak(voiceLines.get(10));
@@ -197,17 +199,17 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(15));
                     break;
             }
-        } else if (input.contains("ぬるぽ")) {
+        } else if (request.contains("ぬるぽ")) {
             speak(voiceLines.get(9));
-        } else if (input.contains("アットチャンネル") || input.contains("栗ご飯") || input.contains("カメハメハ")) {
+        } else if (request.contains("アットチャンネル") || request.contains("栗ご飯") || request.contains("カメハメハ")) {
             speak(voiceLines.get(30 + randomGen.nextInt(2)));
-        } else if (input.contains("サリエリ") || input.contains("真帆") || input.contains("比屋定")) {
+        } else if (request.contains("サリエリ") || request.contains("真帆") || request.contains("比屋定")) {
             speak(voiceLines.get(26 + randomGen.nextInt(4)));
-        } else if (input.contains("タイムマシーン") || input.contains("cern") || input.contains("タイムトラベル")) {
+        } else if (request.contains("タイムマシーン") || request.contains("cern") || request.contains("タイムトラベル")) {
             speak(voiceLines.get(32 + randomGen.nextInt(5)));
-        } else if (input.contains("メモリー") || input.contains("アマデウス") || input.contains("サイエンス")) {
+        } else if (request.contains("メモリー") || request.contains("アマデウス") || request.contains("サイエンス")) {
             speak(voiceLines.get(37 + randomGen.nextInt(5)));
-        } else if (greeting.contains(input)) {
+        } else if (greeting.contains(request)) {
             switch (randomGen.nextInt(3)) {
                 case 0:
                     speak(voiceLines.get(12));
@@ -219,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(25));
                     break;
             }
-        } else if (input.contains("ナイスボディ") || input.contains("ほっと") || input.contains("セクシー") || input.contains("ボビーズ")) {
+        } else if (request.contains("ナイスボディ") || request.contains("ほっと") || request.contains("セクシー") || request.contains("ボビーズ")) {
             switch (randomGen.nextInt(3)) {
                 case 0:
                     speak(voiceLines.get(2));
@@ -339,3 +341,4 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+
