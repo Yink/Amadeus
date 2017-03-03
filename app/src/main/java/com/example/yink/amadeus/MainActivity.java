@@ -197,11 +197,11 @@ public class MainActivity extends AppCompatActivity {
         } else if (request.contains("アットチャンネル") || request.contains("栗ご飯") || request.contains("カメハメハ")) {
             speak(voiceLines.get(30 + randomGen.nextInt(2)));
         } else if (request.contains("サリエリ") || request.contains("真帆") || request.contains("比屋定")) {
-            voiceLines.get(26 + randomGen.nextInt(4));
+            speak(voiceLines.get(26 + randomGen.nextInt(4)));
         } else if (request.contains("タイムマシーン") || request.contains("cern") || request.contains("タイムトラベル")) {
             speak(voiceLines.get(32 + randomGen.nextInt(5)));
         } else if (request.contains("メモリー") || request.contains("アマデウス") || request.contains("サイエンス")) {
-            voiceLines.get(37 + randomGen.nextInt(5));
+            speak(voiceLines.get(37 + randomGen.nextInt(5)));
         } else if (greeting.contains(request)) {
             switch (randomGen.nextInt(3)) {
                 case 0:
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         } else {
-            voiceLines.get(16 + randomGen.nextInt(7));
+            speak(voiceLines.get(16 + randomGen.nextInt(7)));
         }
     }
 
