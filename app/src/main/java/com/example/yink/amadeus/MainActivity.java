@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView kurisu;
     AnimationDrawable animation;
     Handler handler;
-    Boolean looping = false;
+    Boolean isLoop = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     private SpeechRecognizer sr;
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         final Runnable loop = new Runnable() {
             @Override
             public void run() {
-                if (looping) {
+                if (isLoop) {
                 Random randomgen = new Random();
                 speak(voiceLines.get(randomgen.nextInt(voiceLines.size())));
                     handler.postDelayed(this, 5000 + randomgen.nextInt(5) * 1000);
@@ -72,10 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 int permissionCheck = ContextCompat.checkSelfPermission(host,
                         Manifest.permission.RECORD_AUDIO);
 
-                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                    promptSpeechInput();
-                } else {
-                    speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
+                /* Input while loop producing bugs and mixes with output */
+                if (!isLoop) {
+                    if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                        promptSpeechInput();
+                    } else {
+                        speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
+                    }
                 }
 
             }});
@@ -83,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if(!looping){
-                    looping =true;
+                if(!isLoop){
+                    isLoop =true;
                     handler.post(loop);
                 }else{
                     handler.removeCallbacks(loop);
-                    looping = false;
+                    isLoop = false;
                 }
                 return true;
             }
@@ -99,19 +102,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy(){
         if(sr!=null)
             sr.destroy();
-        looping = false;
+        isLoop = false;
         super.onDestroy();
     }
 
     @Override
     protected void onStop(){
-        looping = false;
+        isLoop = false;
         super.onStop();
     }
 
     @Override
     protected void onPause(){
-        looping = false;
+        isLoop = false;
         super.onPause();
     }
 
