@@ -120,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
-                getString(R.string.speech_prompt));
 
         sr.startListening(intent);
     }
@@ -212,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
         public static final int ANNOYED = R.drawable.kurisu_7;
         public static final int ANGRY = R.drawable.kurisu_10;
         public static final int BLUSH = R.drawable.kurisu_11;
+        /* TODO: How can we characterize this emotion?.. */
         public static final int SIDE = R.drawable.kurisu_12;
         public static final int SAD = R.drawable.kurisu_3;
         public static final int NORMAL = R.drawable.kurisu_2;
