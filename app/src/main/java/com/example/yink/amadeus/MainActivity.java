@@ -175,8 +175,6 @@ public class MainActivity extends AppCompatActivity {
     private void answerSpeech(String request) {
         String[] greetingArr = new String[]{"ハロー", "おはよう", "こんにちは", "こんばんは"};
         List<String> greeting = Arrays.asList(greetingArr);
-        String[] pervertArr = new String[]{"ナイスボディ", "ほっと", "セクシー", "ボビーズ"};
-        List<String> pervert = Arrays.asList(pervertArr);
         Log.e(TAG, request);
         Random randomGen = new Random();
         if (request.contains("クリスティーナ")) {
@@ -202,6 +200,8 @@ public class MainActivity extends AppCompatActivity {
             voiceLines.get(26 + randomGen.nextInt(4));
         } else if (request.contains("タイムマシーン") || request.contains("cern") || request.contains("タイムトラベル")) {
             speak(voiceLines.get(32 + randomGen.nextInt(5)));
+        } else if (request.contains("メモリー") || request.contains("アマデウス") || request.contains("サイエンス")) {
+            voiceLines.get(37 + randomGen.nextInt(5));
         } else if (greeting.contains(request)) {
             switch (randomGen.nextInt(3)) {
                 case 0:
@@ -214,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(25));
                     break;
             }
-        } else if (pervert.contains(request)) {
+        } else if (request.contains("ナイスボディ") || request.contains("ほっと") || request.contains("セクシー") || request.contains("ボビーズ")) {
             switch (randomGen.nextInt(3)) {
                 case 0:
                     speak(voiceLines.get(2));
@@ -228,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } else {
             voiceLines.get(16 + randomGen.nextInt(7));
-
         }
     }
 
@@ -270,6 +269,11 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.tm_scientist_no_evidence, Mood.NORMAL));
         voiceLines.add(new VoiceLine(R.raw.tm_we_dont_know, Mood.NORMAL)); //35
         voiceLines.add(new VoiceLine(R.raw.tm_you_said, Mood.SIDED_WORRIED));
+        voiceLines.add(new VoiceLine(R.raw.humans_software, Mood.NORMAL));
+        voiceLines.add(new VoiceLine(R.raw.memory_complex, Mood.INDIFFERENT));
+        voiceLines.add(new VoiceLine(R.raw.secret_diary, Mood.INDIFFERENT));
+        voiceLines.add(new VoiceLine(R.raw.modifying_memories_impossible, Mood.INDIFFERENT)); //40
+        voiceLines.add(new VoiceLine(R.raw.memories_christina, Mood.WINKING));
     }
 
     private class Mood {
