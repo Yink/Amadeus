@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Amadeus</string>
     <string name="call">Connect to Kurisu?</string>
+    <string name="connect">Connecting...</string>
 </resources>
