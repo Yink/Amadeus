@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     AnimationDrawable animation;
     Handler handler;
     Boolean isLoop = false;
+    Boolean isSpeaking = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     private SpeechRecognizer sr;
 
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         Manifest.permission.RECORD_AUDIO);
 
                 /* Input while loop producing bugs and mixes with output */
-                if (!isLoop) {
+                if (!isLoop && !isSpeaking) {
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                         promptSpeechInput();
                     } else {
@@ -86,12 +87,14 @@ public class MainActivity extends AppCompatActivity {
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                if (!isSpeaking) {
                 if(!isLoop){
                     isLoop =true;
                     handler.post(loop);
                 }else{
                     handler.removeCallbacks(loop);
                     isLoop = false;
+                }
                 }
                 return true;
             }
@@ -163,11 +166,12 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
                             animation.stop();
                             kurisu.setImageDrawable(animation.getFrame(0));
+                            isSpeaking = false;
                         }
                     });
                 }
             });
-
+            isSpeaking = true;
             m.start();
 
         } catch (Exception e) {
