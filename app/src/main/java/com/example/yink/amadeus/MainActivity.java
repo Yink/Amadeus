@@ -322,11 +322,11 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG,  "error " +  error);
         }
         public void onResults(Bundle results) {
-            String str = "";
+            String input = "";
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            str += data.get(0);
-            answerSpeech(str);
+            input += data.get(0);
+            answerSpeech(input);
         }
         public void onPartialResults(Bundle partialResults) {
             Log.d(TAG, "onPartialResults");
