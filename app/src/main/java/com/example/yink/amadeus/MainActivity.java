@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognitionListener;
@@ -29,7 +30,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = "Amadeus";
-    final int REQUEST_PERMISSION_RECORD_AUDIO = 1048596;
+    final int REQUEST_PERMISSION_RECORD_AUDIO = 1;
     ImageView kurisu;
     AnimationDrawable animation;
     Handler handler;
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
         handler = new Handler();
         setupLines();
+
+        if (Build.VERSION.SDK_INT > 21) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
+        }
 
         sr = SpeechRecognizer.createSpeechRecognizer(this);
         sr.setRecognitionListener(new listener());
@@ -79,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                         promptSpeechInput();
                     } else {
-                        ActivityCompat.requestPermissions(host, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
                         speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                     }
                 }
@@ -89,34 +93,16 @@ public class MainActivity extends AppCompatActivity {
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if (!isSpeaking) {
-                    if (!isLoop) {
-                        isLoop = true;
-                        handler.post(loop);
-                    } else {
-                        handler.removeCallbacks(loop);
-                        isLoop = false;
-                    }
+                if (!isLoop && !isSpeaking) {
+                    isLoop = true;
+                    handler.post(loop);
+                } else {
+                    handler.removeCallbacks(loop);
+                    isLoop = false;
                 }
                 return true;
             }
         });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PERMISSION_RECORD_AUDIO: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    promptSpeechInput();
-
-                } else {
-                    speak(voiceLines.get(6));
-                }
-                return;
-            }
-        }
     }
 
     @Override
