@@ -40,13 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private SpeechRecognizer sr;
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus) {
-            speak(voiceLines.get(0));
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
