@@ -37,11 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private SpeechRecognizer sr;
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus){
-        if(hasFocus){
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus) {
             speak(voiceLines.get(0));
         }
-
     }
 
     @Override

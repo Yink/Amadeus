@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Amadeus</string>
     <string name="call">Connect to Kurisu?</string>
-    <string name="connect">Connecting...</string>
-    <integer name="duration">25</integer>
+    <string name="connecting">Connecting...</string>
+    <string name="disconnected">Disconnected.</string>
+    <integer name="duration">40</integer>
 </resources>
