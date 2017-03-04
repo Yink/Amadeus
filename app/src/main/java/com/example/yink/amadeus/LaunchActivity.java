@@ -44,7 +44,7 @@ public class LaunchActivity extends AppCompatActivity {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
                             mp.start();
-                            status.setText(R.string.connect);
+                            status.setText(R.string.connecting);
                         }
                     });
 
@@ -75,10 +75,14 @@ public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        if (isPressed) {
+            status.setText(R.string.disconnected);
+        } else {
+            status.setText(R.string.call);
+        }
         isPressed = false;
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
-        status.setText(R.string.call);
         super.onResume();
     }
 }
