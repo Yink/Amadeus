@@ -81,10 +81,14 @@ public class MainActivity extends AppCompatActivity {
 
                 /* Input while loop producing bugs and mixes with output */
                 if (!isLoop && !isSpeaking) {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                         promptSpeechInput();
                     } else {
                         speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
+                    }
+                    } else {
+                        promptSpeechInput();
                     }
                 }
 
