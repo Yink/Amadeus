@@ -25,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageView_connect"
-        android:layout_alignParentStart="true"
         android:layout_marginBottom="39dp"
         android:fontFamily="monospace"
         android:text="@string/call"
@@ -38,9 +37,10 @@
         android:id="@+id/imageView_connect"
         android:layout_width="180.0dip"
         android:layout_height="40.0dip"
+        android:layout_alignLeft="@+id/imageView_cancel"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/imageView_cancel"
-        android:layout_marginBottom="137dp"
+        android:layout_marginBottom="136dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:src="@drawable/connect_unselect" />
@@ -49,12 +49,12 @@
         android:id="@+id/imageView_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/textView_call"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp"
+        android:layout_marginBottom="120dp"
         android:adjustViewBounds="true"
-        android:scaleX="2.5"
-        android:scaleY="2.5"
-
+        android:scaleX="4.5"
+        android:scaleY="4.5"
         android:src="@drawable/amadeus_icon" />
 
 </RelativeLayout>

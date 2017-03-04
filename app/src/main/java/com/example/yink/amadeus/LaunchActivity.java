@@ -1,6 +1,7 @@
 package com.example.yink.amadeus;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,16 +12,26 @@ import android.widget.TextView;
 public class LaunchActivity extends AppCompatActivity {
     ImageView connect, cancel;
     TextView status;
+    AnimationDrawable logo;
+    ImageView imageViewLogo;
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        if (hasFocus) {
+            logo.start();
+        }
+
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_launch);
         connect = (ImageView) findViewById(R.id.imageView_connect);
         cancel = (ImageView) findViewById(R.id.imageView_cancel);
         status = (TextView) findViewById(R.id.textView_call);
+        imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
+        imageViewLogo.setImageResource(R.drawable.logo_animation);
+        logo = (AnimationDrawable) imageViewLogo.getDrawable();
 
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);

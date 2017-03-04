@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item
+        android:drawable="@drawable/logo1"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo2"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo3"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo4"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo5"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo6"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo7"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo8"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo9"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo10"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo11"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo12"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo13"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo14"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo15"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo16"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo17"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo18"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo19"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo20"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo21"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo22"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo23"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo24"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo25"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo26"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo27"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo28"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo29"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo30"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo31"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo32"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo33"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo34"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo35"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo36"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo37"
+        android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo38"
+        android:duration="@integer/duration" />
+</animation-list>
