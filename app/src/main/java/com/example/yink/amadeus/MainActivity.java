@@ -14,6 +14,7 @@ import android.os.Handler;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +29,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = "Amadeus";
+    final int REQUEST_PERMISSION_RECORD_AUDIO = 1048596;
     ImageView kurisu;
     AnimationDrawable animation;
     Handler handler;
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                         promptSpeechInput();
                     } else {
+                        ActivityCompat.requestPermissions(host, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
                         speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                     }
                 }
@@ -98,6 +101,22 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSION_RECORD_AUDIO: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    promptSpeechInput();
+
+                } else {
+                    speak(voiceLines.get(6));
+                }
+                return;
+            }
+        }
     }
 
     @Override
@@ -242,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.devilish_pervert, Mood.ANGRY));
         voiceLines.add(new VoiceLine(R.raw.i_guess, Mood.INDIFFERENT));
         voiceLines.add(new VoiceLine(R.raw.nice, Mood.WINKING));
-        voiceLines.add(new VoiceLine(R.raw.pervert_confirmed, Mood.PISSED));
+        voiceLines.add(new VoiceLine(R.raw.pervert_confirmed, Mood.PISSED)); //5
         voiceLines.add(new VoiceLine(R.raw.sorry, Mood.SAD));
         voiceLines.add(new VoiceLine(R.raw.sounds_tough, Mood.SIDE));
         voiceLines.add(new VoiceLine(R.raw.this_guy_hopeless, Mood.DISAPPOINTED));
