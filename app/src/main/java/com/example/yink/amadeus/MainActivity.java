@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler();
         setupLines();
 
-        if (Build.VERSION.SDK_INT > 21) {
+        if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
         }
 
@@ -81,17 +81,12 @@ public class MainActivity extends AppCompatActivity {
 
                 /* Input while loop producing bugs and mixes with output */
                 if (!isLoop && !isSpeaking) {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                         promptSpeechInput();
                     } else {
                         speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                     }
-                    } else {
-                        promptSpeechInput();
-                    }
                 }
-
             }});
 
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
