@@ -14,14 +14,8 @@ public class LaunchActivity extends AppCompatActivity {
     TextView status;
     AnimationDrawable logo;
     ImageView imageViewLogo;
+    Boolean isPressed = false;
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus) {
-            logo.start();
-        }
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +26,7 @@ public class LaunchActivity extends AppCompatActivity {
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
         imageViewLogo.setImageResource(R.drawable.logo_animation);
         logo = (AnimationDrawable) imageViewLogo.getDrawable();
+        logo.start();
 
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
@@ -39,26 +34,29 @@ public class LaunchActivity extends AppCompatActivity {
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MediaPlayer m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
+                if (!isPressed) {
+                    isPressed = true;
+                    MediaPlayer m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
 
-                connect.setImageResource(R.drawable.connect_select);
+                    connect.setImageResource(R.drawable.connect_select);
 
-                m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        mp.start();
-                        status.setText(R.string.connect);
-                    }
-                });
+                    m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                            status.setText(R.string.connect);
+                        }
+                    });
 
-                m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.release();
-                        Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                    m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
+                            Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         });
 
@@ -76,7 +74,8 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
+        isPressed = false;
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
         status.setText(R.string.call);
