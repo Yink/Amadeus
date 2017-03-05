@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Boolean isLoop = false;
     Boolean isSpeaking = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
+    int shaman_girls = -1;
     private SpeechRecognizer sr;
 
     @Override
@@ -204,7 +205,36 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         } else if (input.contains("ぬるぽ")) {
-            speak(voiceLines.get(9));
+            shaman_girls += 1;
+            if (shaman_girls < 5) {
+                switch (randomGen.nextInt(2)) {
+                    case 0:
+                        speak(voiceLines.get(9));
+                        break;
+                    case 1:
+                        speak(voiceLines.get(42));
+                        break;
+                }
+            } else {
+                switch (shaman_girls) {
+                    case 5:
+                        speak(new VoiceLine(R.raw.leskinen_awesome, Mood.WINKING));
+                        break;
+                    case 6:
+                        speak(new VoiceLine(R.raw.leskinen_nice, Mood.WINKING));
+                        break;
+                    case 7:
+                        speak(new VoiceLine(R.raw.leskinen_oh_no, Mood.WINKING));
+                        break;
+                    case 8:
+                        speak(new VoiceLine(R.raw.leskinen_shaman, Mood.WINKING));
+                        break;
+                    case 9:
+                        speak(new VoiceLine(R.raw.leskinen_holy_cow, Mood.WINKING));
+                        shaman_girls = 0;
+                        break;
+                }
+            }
         } else if (input.contains("アットチャンネル") || input.contains("栗ご飯") || input.contains("カメハメハ")) {
             speak(voiceLines.get(30 + randomGen.nextInt(2)));
         } else if (input.contains("サリエリ") || input.contains("真帆") || input.contains("比屋定")) {
@@ -285,6 +315,7 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.secret_diary, Mood.INDIFFERENT));
         voiceLines.add(new VoiceLine(R.raw.modifying_memories_impossible, Mood.INDIFFERENT)); //40
         voiceLines.add(new VoiceLine(R.raw.memories_christina, Mood.WINKING));
+        voiceLines.add(new VoiceLine(R.raw.gah_extended, Mood.BLUSH));
     }
 
     private class Mood {
