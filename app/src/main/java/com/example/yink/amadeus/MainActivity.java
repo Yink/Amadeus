@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
         handler = new Handler();
         setupLines();
+        speak(voiceLines.get(0));
 
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
