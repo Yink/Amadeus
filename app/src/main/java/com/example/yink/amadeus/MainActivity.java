@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     private SpeechRecognizer sr;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +83,9 @@ public class MainActivity extends AppCompatActivity {
                             speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                         }
                     }
-                } else {
-                    promptSpeechInput();
+
                 }
+
             }});
 
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
