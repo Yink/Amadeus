@@ -5,6 +5,7 @@ package com.example.yink.amadeus;
  */
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -21,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -129,8 +131,33 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,"com.example.yink.amadeus");
 
-        sr.startListening(intent);
+        /* TODO: Make this damn thing work without dialog. */
+        //sr.startListening(intent);
+        try {
+            startActivityForResult(intent, 1);
+        } catch (ActivityNotFoundException a) {
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 1: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> input = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    answerSpeech(input.get(0));
+                }
+                break;
+            }
+
+        }
     }
 
     public void speak(VoiceLine line) {
@@ -304,7 +331,7 @@ public class MainActivity extends AppCompatActivity {
         static final int SIDED_WORRIED = R.drawable.kurisu_17;
     }
 
-    public class listener implements RecognitionListener {
+    private class listener implements RecognitionListener {
         final String TAG = "Amadeus.listener";
 
         public void onReadyForSpeech(Bundle params) {
