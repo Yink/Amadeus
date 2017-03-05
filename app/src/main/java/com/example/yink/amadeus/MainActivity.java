@@ -82,13 +82,13 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                         }
-                    } else {
-                        promptSpeechInput();
                     }
-
+                } else {
+                    promptSpeechInput();
                 }
-
-            }});
+            }
+                                  }
+        );
 
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
