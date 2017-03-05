@@ -129,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "com.example.yink.amadeus");
 
         sr.startListening(intent);
     }
