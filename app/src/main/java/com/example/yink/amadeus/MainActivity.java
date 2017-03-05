@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     int shaman_girls = -1;
     private SpeechRecognizer sr;
+    Random randomgen = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (isLoop) {
-                    Random randomgen = new Random();
                     speak(voiceLines.get(randomgen.nextInt(voiceLines.size())));
                     handler.postDelayed(this, 5000 + randomgen.nextInt(5) * 1000);
                 }
