@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,10 +31,10 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     final String TAG = "Amadeus";
     final int REQUEST_PERMISSION_RECORD_AUDIO = 1;
+    TextView subtitles;
     ImageView kurisu;
     AnimationDrawable animation;
     Handler handler;
-    Handler speechHandler;
     Boolean isLoop = false;
     Boolean isSpeaking = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
+        subtitles = (TextView) findViewById(R.id.textView_subtitles);
         handler = new Handler();
-        speechHandler = new Handler();
         setupLines();
         speak(voiceLines.get(0));
 
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                             promptSpeechInput();
                         } else {
-                            speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
+                            speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED, R.string.line_but_i_refuse));
                         }
                     }
 
@@ -139,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             MediaPlayer m = MediaPlayer.create(getApplicationContext(), line.getId());
 
             kurisu.setImageResource(line.getMood());
+            subtitles.setText(line.getSubtitle());
 
             animation = (AnimationDrawable) kurisu.getDrawable();
 
@@ -272,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupLines() {
-        voiceLines.add(new VoiceLine(R.raw.hello, Mood.HAPPY));
+        voiceLines.add(new VoiceLine(R.raw.hello, Mood.HAPPY, R.string.line_hello));
         voiceLines.add(new VoiceLine(R.raw.daga_kotowaru, Mood.ANNOYED));
         voiceLines.add(new VoiceLine(R.raw.devilish_pervert, Mood.ANGRY));
         voiceLines.add(new VoiceLine(R.raw.i_guess, Mood.INDIFFERENT));

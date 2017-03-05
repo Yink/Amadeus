@@ -36,4 +36,31 @@
         android:scaleY="2.5"
         android:src="@drawable/amadeus_icon_smaller" />
 
+    <ImageView
+        android:id="@+id/imageView_subtitles"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/subtitle_frame"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView_subtitles"
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:fontFamily="monospace"
+        android:text="@string/subtitles"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="#FFF"
+        android:textSize="16.0sp"
+        android:typeface="monospace"
+        android:shadowColor="#000"
+        android:shadowRadius="2"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_alignTop="@+id/imageView_subtitles"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp" />
+
 </RelativeLayout>
