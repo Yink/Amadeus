@@ -4,4 +4,8 @@
     <string name="connecting">Connecting...</string>
     <string name="disconnected">Disconnected.</string>
     <integer name="duration">40</integer>
+
+    <string name="subtitles">宇宙に始まりはあるが終わりはない。　—-無限 星にもまた始まりはあるが、自らの力をもって滅び逝く。　—-有限</string>
+    <string name="line_hello">ハロー。</string>
+    <string name="line_but_i_refuse">だが断る。</string>
 </resources>

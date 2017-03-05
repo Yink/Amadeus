@@ -7,10 +7,12 @@ package com.example.yink.amadeus;
 class VoiceLine {
     final private int id;
     final private int mood;
+    final private int subtitle;
 
-    VoiceLine(int id, int mood) {
+    VoiceLine(int id, int mood, int subtitle) {
         this.id = id;
         this.mood = mood;
+        this.subtitle = subtitle;
     }
 
     int getId(){
@@ -19,5 +21,9 @@ class VoiceLine {
 
     int getMood() {
         return mood;
+    }
+
+    int getSubtitle() {
+        return subtitle;
     }
 }
