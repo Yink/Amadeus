@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
         handler = new Handler();
         setupLines();
+        speak(voiceLines.get(0));
 
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
@@ -67,18 +68,22 @@ public class MainActivity extends AppCompatActivity {
         kurisu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity host = (MainActivity) view.getContext();
+                if (Build.VERSION.SDK_INT >= 23) {
+                    MainActivity host = (MainActivity) view.getContext();
 
-                int permissionCheck = ContextCompat.checkSelfPermission(host,
-                        Manifest.permission.RECORD_AUDIO);
+                    int permissionCheck = ContextCompat.checkSelfPermission(host,
+                            Manifest.permission.RECORD_AUDIO);
 
                 /* Input while loop producing bugs and mixes with output */
-                if (!isLoop && !isSpeaking) {
-                    if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                        promptSpeechInput();
-                    } else {
-                        speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
+                    if (!isLoop && !isSpeaking) {
+                        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                            promptSpeechInput();
+                        } else {
+                            speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
+                        }
                     }
+                } else {
+                    promptSpeechInput();
                 }
             }});
 
