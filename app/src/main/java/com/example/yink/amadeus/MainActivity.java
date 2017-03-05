@@ -5,7 +5,6 @@ package com.example.yink.amadeus;
  */
 
 import android.Manifest;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
@@ -22,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -328,6 +326,7 @@ public class MainActivity extends AppCompatActivity {
         public void onError(int error) {
             Log.d(TAG,  "error " +  error);
             sr.cancel();
+            speak(voiceLines.get(6));
         }
         public void onResults(Bundle results) {
             String input = "";
