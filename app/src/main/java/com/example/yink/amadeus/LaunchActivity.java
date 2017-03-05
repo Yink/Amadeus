@@ -75,6 +75,14 @@ public class LaunchActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        imageViewLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settingIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(settingIntent);
+            }
+        });
     }
 
     @Override

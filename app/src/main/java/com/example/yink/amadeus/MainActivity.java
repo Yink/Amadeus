@@ -6,12 +6,14 @@ package com.example.yink.amadeus;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -39,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
     Boolean isSpeaking = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     int shaman_girls = -1;
-    private SpeechRecognizer sr;
     Random randomgen = new Random();
+    SharedPreferences sharedPreferences;
+    private SpeechRecognizer sr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
         subtitles = (TextView) findViewById(R.id.textView_subtitles);
+        ImageView imageViewSubtitles = (ImageView) findViewById(R.id.imageView_subtitles);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (!sharedPreferences.getBoolean("show_subtitles", false)) {
+            imageViewSubtitles.setVisibility(View.INVISIBLE);
+        }
         handler = new Handler();
         setupLines();
         speak(voiceLines.get(0));
@@ -126,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+
     private void promptSpeechInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -140,7 +149,9 @@ public class MainActivity extends AppCompatActivity {
             MediaPlayer m = MediaPlayer.create(getApplicationContext(), line.getId());
 
             kurisu.setImageResource(line.getMood());
-            subtitles.setText(line.getSubtitle());
+            if (sharedPreferences.getBoolean("show_subtitles", false)) {
+                subtitles.setText(line.getSubtitle());
+            }
 
             animation = (AnimationDrawable) kurisu.getDrawable();
 
@@ -219,19 +230,19 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 switch (shaman_girls) {
                     case 5:
-                        speak(new VoiceLine(R.raw.leskinen_awesome, Mood.WINKING));
+                        speak(new VoiceLine(R.raw.leskinen_awesome, Mood.WINKING, R.string.line_Leskinen_awesome));
                         break;
                     case 6:
-                        speak(new VoiceLine(R.raw.leskinen_nice, Mood.WINKING));
+                        speak(new VoiceLine(R.raw.leskinen_nice, Mood.WINKING, R.string.line_Leskinen_nice));
                         break;
                     case 7:
-                        speak(new VoiceLine(R.raw.leskinen_oh_no, Mood.WINKING));
+                        speak(new VoiceLine(R.raw.leskinen_oh_no, Mood.WINKING, R.string.line_Leskinen_oh_no));
                         break;
                     case 8:
-                        speak(new VoiceLine(R.raw.leskinen_shaman, Mood.WINKING));
+                        speak(new VoiceLine(R.raw.leskinen_shaman, Mood.WINKING, R.string.line_Leskinen_shaman));
                         break;
                     case 9:
-                        speak(new VoiceLine(R.raw.leskinen_holy_cow, Mood.WINKING));
+                        speak(new VoiceLine(R.raw.leskinen_holy_cow, Mood.WINKING, R.string.line_Leskinen_holy_cow));
                         shaman_girls = 0;
                         break;
                 }
@@ -275,48 +286,48 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupLines() {
         voiceLines.add(new VoiceLine(R.raw.hello, Mood.HAPPY, R.string.line_hello));
-        voiceLines.add(new VoiceLine(R.raw.daga_kotowaru, Mood.ANNOYED));
-        voiceLines.add(new VoiceLine(R.raw.devilish_pervert, Mood.ANGRY));
-        voiceLines.add(new VoiceLine(R.raw.i_guess, Mood.INDIFFERENT));
-        voiceLines.add(new VoiceLine(R.raw.nice, Mood.WINKING));
-        voiceLines.add(new VoiceLine(R.raw.pervert_confirmed, Mood.PISSED)); //5
-        voiceLines.add(new VoiceLine(R.raw.sorry, Mood.SAD));
-        voiceLines.add(new VoiceLine(R.raw.sounds_tough, Mood.SIDE));
-        voiceLines.add(new VoiceLine(R.raw.this_guy_hopeless, Mood.DISAPPOINTED));
-        voiceLines.add(new VoiceLine(R.raw.gah, Mood.INDIFFERENT));
-        voiceLines.add(new VoiceLine(R.raw.dont_add_tina, Mood.ANGRY)); //10
-        voiceLines.add(new VoiceLine(R.raw.pervert_idot_wanttodie, Mood.ANGRY));
-        voiceLines.add(new VoiceLine(R.raw.pleased_to_meet_you, Mood.SIDED_PLEASANT));
-        voiceLines.add(new VoiceLine(R.raw.who_the_hell_christina, Mood.PISSED));
-        voiceLines.add(new VoiceLine(R.raw.why_christina, Mood.PISSED));
-        voiceLines.add(new VoiceLine(R.raw.christina, Mood.ANNOYED)); //15
-        voiceLines.add(new VoiceLine(R.raw.ask_me_whatever, Mood.HAPPY));
-        voiceLines.add(new VoiceLine(R.raw.could_i_help, Mood.HAPPY));
-        voiceLines.add(new VoiceLine(R.raw.ask_me_whatever, Mood.HAPPY));
-        voiceLines.add(new VoiceLine(R.raw.what_do_you_want, Mood.HAPPY));
-        voiceLines.add(new VoiceLine(R.raw.what_is_it, Mood.HAPPY)); //20
-        voiceLines.add(new VoiceLine(R.raw.heheh, Mood.WINKING));
-        voiceLines.add(new VoiceLine(R.raw.huh_why_say, Mood.SIDED_WORRIED));
-        voiceLines.add(new VoiceLine(R.raw.you_sure, Mood.SIDED_WORRIED));
-        voiceLines.add(new VoiceLine(R.raw.nice_to_meet_okabe, Mood.SIDED_PLEASANT));
-        voiceLines.add(new VoiceLine(R.raw.look_forward_to_working, Mood.HAPPY)); //25
-        voiceLines.add(new VoiceLine(R.raw.senpai_question, Mood.SIDE));
-        voiceLines.add(new VoiceLine(R.raw.senpai_questionmark, Mood.SIDE));
-        voiceLines.add(new VoiceLine(R.raw.senpai_what_we_talkin, Mood.SIDED_WORRIED));
-        voiceLines.add(new VoiceLine(R.raw.senpai_who_is_this, Mood.NORMAL));
-        voiceLines.add(new VoiceLine(R.raw.senpai_please_dont_tell, Mood.BLUSH)); //30
-        voiceLines.add(new VoiceLine(R.raw.still_not_happy, Mood.BLUSH));
-        voiceLines.add(new VoiceLine(R.raw.tm_nonsense, Mood.DISAPPOINTED));
-        voiceLines.add(new VoiceLine(R.raw.tm_not_possible, Mood.DISAPPOINTED));
-        voiceLines.add(new VoiceLine(R.raw.tm_scientist_no_evidence, Mood.NORMAL));
-        voiceLines.add(new VoiceLine(R.raw.tm_we_dont_know, Mood.NORMAL)); //35
-        voiceLines.add(new VoiceLine(R.raw.tm_you_said, Mood.SIDED_WORRIED));
-        voiceLines.add(new VoiceLine(R.raw.humans_software, Mood.NORMAL));
-        voiceLines.add(new VoiceLine(R.raw.memory_complex, Mood.INDIFFERENT));
-        voiceLines.add(new VoiceLine(R.raw.secret_diary, Mood.INDIFFERENT));
-        voiceLines.add(new VoiceLine(R.raw.modifying_memories_impossible, Mood.INDIFFERENT)); //40
-        voiceLines.add(new VoiceLine(R.raw.memories_christina, Mood.WINKING));
-        voiceLines.add(new VoiceLine(R.raw.gah_extended, Mood.BLUSH));
+        voiceLines.add(new VoiceLine(R.raw.daga_kotowaru, Mood.ANNOYED, R.string.line_but_i_refuse));
+        voiceLines.add(new VoiceLine(R.raw.devilish_pervert, Mood.ANGRY, R.string.line_devilish_pervert));
+        voiceLines.add(new VoiceLine(R.raw.i_guess, Mood.INDIFFERENT, R.string.line_i_guess));
+        voiceLines.add(new VoiceLine(R.raw.nice, Mood.WINKING, R.string.line_nice));
+        voiceLines.add(new VoiceLine(R.raw.pervert_confirmed, Mood.PISSED, R.string.line_pervert_confirmed)); //5
+        voiceLines.add(new VoiceLine(R.raw.sorry, Mood.SAD, R.string.line_sorry));
+        voiceLines.add(new VoiceLine(R.raw.sounds_tough, Mood.SIDE, R.string.line_sounds_tough));
+        voiceLines.add(new VoiceLine(R.raw.this_guy_hopeless, Mood.DISAPPOINTED, R.string.line_this_guy_hopeless));
+        voiceLines.add(new VoiceLine(R.raw.gah, Mood.INDIFFERENT, R.string.line_gah));
+        voiceLines.add(new VoiceLine(R.raw.dont_add_tina, Mood.ANGRY, R.string.line_dont_add_tina)); //10
+        voiceLines.add(new VoiceLine(R.raw.pervert_idot_wanttodie, Mood.ANGRY, R.string.line_pervert_idiot_wanttodie));
+        voiceLines.add(new VoiceLine(R.raw.pleased_to_meet_you, Mood.SIDED_PLEASANT, R.string.line_pleased_to_meet_you));
+        voiceLines.add(new VoiceLine(R.raw.who_the_hell_christina, Mood.PISSED, R.string.line_who_the_hell_christina));
+        voiceLines.add(new VoiceLine(R.raw.why_christina, Mood.PISSED, R.string.line_why_christina));
+        voiceLines.add(new VoiceLine(R.raw.christina, Mood.ANNOYED, R.string.line_christina)); //15
+        voiceLines.add(new VoiceLine(R.raw.ask_me_whatever, Mood.HAPPY, R.string.line_ask_me_whatever));
+        voiceLines.add(new VoiceLine(R.raw.could_i_help, Mood.HAPPY, R.string.line_could_i_help));
+        voiceLines.add(new VoiceLine(R.raw.ask_me_whatever, Mood.HAPPY, R.string.line_ask_me_whatever));
+        voiceLines.add(new VoiceLine(R.raw.what_do_you_want, Mood.HAPPY, R.string.line_what_do_you_want));
+        voiceLines.add(new VoiceLine(R.raw.what_is_it, Mood.HAPPY, R.string.line_what_is_it)); //20
+        voiceLines.add(new VoiceLine(R.raw.heheh, Mood.WINKING, R.string.line_heheh));
+        voiceLines.add(new VoiceLine(R.raw.huh_why_say, Mood.SIDED_WORRIED, R.string.line_huh_why_say));
+        voiceLines.add(new VoiceLine(R.raw.you_sure, Mood.SIDED_WORRIED, R.string.line_you_sure));
+        voiceLines.add(new VoiceLine(R.raw.nice_to_meet_okabe, Mood.SIDED_PLEASANT, R.string.line_nice_to_meet_okabe));
+        voiceLines.add(new VoiceLine(R.raw.look_forward_to_working, Mood.HAPPY, R.string.line_look_forward_to_working)); //25
+        voiceLines.add(new VoiceLine(R.raw.senpai_question, Mood.SIDE, R.string.line_senpai_question));
+        voiceLines.add(new VoiceLine(R.raw.senpai_questionmark, Mood.SIDE, R.string.line_senpai_question_mark));
+        voiceLines.add(new VoiceLine(R.raw.senpai_what_we_talkin, Mood.SIDED_WORRIED, R.string.line_senpai_what_we_talkin));
+        voiceLines.add(new VoiceLine(R.raw.senpai_who_is_this, Mood.NORMAL, R.string.line_senpai_who_is_this));
+        voiceLines.add(new VoiceLine(R.raw.senpai_please_dont_tell, Mood.BLUSH, R.string.line_senpai_please_dont_tell)); //30
+        voiceLines.add(new VoiceLine(R.raw.still_not_happy, Mood.BLUSH, R.string.line_still_not_happy));
+        voiceLines.add(new VoiceLine(R.raw.tm_nonsense, Mood.DISAPPOINTED, R.string.line_tm_nonsense));
+        voiceLines.add(new VoiceLine(R.raw.tm_not_possible, Mood.DISAPPOINTED, R.string.line_tm_not_possible));
+        voiceLines.add(new VoiceLine(R.raw.tm_scientist_no_evidence, Mood.NORMAL, R.string.line_tm_scientist_no_evidence));
+        voiceLines.add(new VoiceLine(R.raw.tm_we_dont_know, Mood.NORMAL, R.string.line_tm_we_dont_know)); //35
+        voiceLines.add(new VoiceLine(R.raw.tm_you_said, Mood.SIDED_WORRIED, R.string.line_tm_you_said));
+        voiceLines.add(new VoiceLine(R.raw.humans_software, Mood.NORMAL, R.string.line_humans_software));
+        voiceLines.add(new VoiceLine(R.raw.memory_complex, Mood.INDIFFERENT, R.string.line_memory_complex));
+        voiceLines.add(new VoiceLine(R.raw.secret_diary, Mood.INDIFFERENT, R.string.line_secret_diary));
+        voiceLines.add(new VoiceLine(R.raw.modifying_memories_impossible, Mood.INDIFFERENT, R.string.line_modifying_memories_impossible)); //40
+        voiceLines.add(new VoiceLine(R.raw.memories_christina, Mood.WINKING, R.string.line_memories_christina));
+        voiceLines.add(new VoiceLine(R.raw.gah_extended, Mood.BLUSH, R.string.line_gah_extended));
     }
 
     private class Mood {
