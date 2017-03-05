@@ -85,10 +85,12 @@ public class MainActivity extends AppCompatActivity {
                             speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                         }
                     }
+
                 } else if (!isLoop && !isSpeaking) {
                     promptSpeechInput();
                 }
             }});
+
 
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
