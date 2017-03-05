@@ -55,6 +55,8 @@
         android:textColor="#FFF"
         android:textSize="16.0sp"
         android:typeface="monospace"
+        android:gravity="start"
+        android:textAlignment="gravity"
         android:shadowColor="#000"
         android:shadowRadius="2"
         android:layout_marginStart="35dp"
