@@ -1,6 +1,6 @@
 package com.example.yink.amadeus;
 
-/**
+/*
  * Big thanks to https://github.com/RIP95 aka Emojikage
  */
 
@@ -29,18 +29,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
 public class MainActivity extends AppCompatActivity {
     final String TAG = "Amadeus";
     final int REQUEST_PERMISSION_RECORD_AUDIO = 1;
     ImageView kurisu;
     AnimationDrawable animation;
     Handler handler;
+    Handler speechHandler;
     Boolean isLoop = false;
     Boolean isSpeaking = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     private SpeechRecognizer sr;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
         handler = new Handler();
+        speechHandler = new Handler();
         setupLines();
         speak(voiceLines.get(0));
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     int permissionCheck = ContextCompat.checkSelfPermission(host,
                             Manifest.permission.RECORD_AUDIO);
 
-                /* Input while loop producing bugs and mixes with output */
+                    /* Input while loop producing bugs and mixes with output */
                     if (!isLoop && !isSpeaking) {
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                             promptSpeechInput();
@@ -85,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
                             speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                         }
                     }
-                } else {
+
+                } else if (!isLoop && !isSpeaking) {
                     promptSpeechInput();
                 }
-            }
-                                  }
-        );
+            }});
+
 
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -131,33 +131,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,"com.example.yink.amadeus");
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "com.example.yink.amadeus");
 
-        /* TODO: Make this damn thing work without dialog. */
-        //sr.startListening(intent);
-        try {
-            startActivityForResult(intent, 1);
-        } catch (ActivityNotFoundException a) {
-
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case 1: {
-                if (resultCode == RESULT_OK && null != data) {
-
-                    ArrayList<String> input = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    answerSpeech(input.get(0));
-                }
-                break;
-            }
-
-        }
+        sr.startListening(intent);
     }
 
     public void speak(VoiceLine line) {
@@ -351,6 +327,7 @@ public class MainActivity extends AppCompatActivity {
         }
         public void onError(int error) {
             Log.d(TAG,  "error " +  error);
+            sr.cancel();
         }
         public void onResults(Bundle results) {
             String input = "";
@@ -367,5 +344,4 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
 }
