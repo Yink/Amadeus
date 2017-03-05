@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     Boolean isSpeaking = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     private SpeechRecognizer sr;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         handler = new Handler();
         setupLines();
 
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT > 23) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
         }
 
@@ -79,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                     }
+
                 }
+
             }});
 
         kurisu.setOnLongClickListener(new View.OnLongClickListener() {
