@@ -8,8 +8,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
-import android.media.MediaPlayer;
+import android.graphics.drawable.Drawable;
+import android.media.*;
+import android.media.audiofx.Visualizer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -147,17 +150,19 @@ public class MainActivity extends AppCompatActivity {
     public void speak(VoiceLine line) {
         try {
             MediaPlayer m = MediaPlayer.create(getApplicationContext(), line.getId());
+            final Visualizer v = new Visualizer(m.getAudioSessionId());
 
-            kurisu.setImageResource(line.getMood());
             if (sharedPreferences.getBoolean("show_subtitles", false)) {
                 subtitles.setText(line.getSubtitle());
             }
 
-            animation = (AnimationDrawable) kurisu.getDrawable();
+            Resources res = getResources();
+            animation = (AnimationDrawable) Drawable.createFromXml(res, res.getXml(line.getMood()));
 
             if (m.isPlaying()) {
                 m.stop();
                 m.release();
+                v.setEnabled(false);
                 m = new MediaPlayer();
             }
 
@@ -166,13 +171,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onPrepared(MediaPlayer mp) {
                     isSpeaking = true;
                     mp.start();
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            animation.start();
-                        }
-                    });
+                    v.setEnabled(true);
                 }
             });
 
@@ -181,16 +180,45 @@ public class MainActivity extends AppCompatActivity {
                 public void onCompletion(MediaPlayer mp) {
                     isSpeaking = false;
                     mp.release();
+                    v.setEnabled(false);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            animation.stop();
-                            kurisu.setImageDrawable(animation.getFrame(0));
+                             kurisu.setImageDrawable(animation.getFrame(0));
                         }
                     });
                 }
             });
+
+
+            v.setEnabled(false);
+            v.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+            v.setDataCaptureListener(
+                    new Visualizer.OnDataCaptureListener() {
+                        public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
+                            int sum = 0;
+                            for (int i = 1; i < bytes.length; i++) {
+                                sum += bytes[i] + 128;
+                            }
+                            // The normalized volume
+                            final float normalized = sum / (float) bytes.length;
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (normalized > 50) {
+                                        // Todo: Maybe choose sprite based on previous choice and volume instead of random
+                                        kurisu.setImageDrawable(animation.getFrame((int) Math.ceil(Math.random() * 2)));
+                                    } else {
+                                        kurisu.setImageDrawable(animation.getFrame(0));
+                                    }
+                                }
+                            });
+                        }
+                        public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) { }
+                    }, Visualizer.getMaxCaptureRate() / 2, true, false);
+
 
         } catch (Exception e) {
             e.printStackTrace();
