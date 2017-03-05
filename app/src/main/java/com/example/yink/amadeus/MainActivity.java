@@ -29,7 +29,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-
 public class MainActivity extends AppCompatActivity {
     final String TAG = "Amadeus";
     final int REQUEST_PERMISSION_RECORD_AUDIO = 1;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     Handler speechHandler;
     Boolean isLoop = false;
     Boolean isSpeaking = false;
-    Boolean isRecognizing = false;
     ArrayList<VoiceLine> voiceLines = new ArrayList<>();
     private SpeechRecognizer sr;
 
@@ -82,14 +80,12 @@ public class MainActivity extends AppCompatActivity {
                     /* Input while loop producing bugs and mixes with output */
                     if (!isLoop && !isSpeaking) {
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                            isRecognizing = true;
                             promptSpeechInput();
                         } else {
                             speak(new VoiceLine(R.raw.daga_kotowaru, Mood.PISSED));
                         }
                     }
                 } else if (!isLoop && !isSpeaking) {
-                    isRecognizing = true;
                     promptSpeechInput();
                 }
             }});
