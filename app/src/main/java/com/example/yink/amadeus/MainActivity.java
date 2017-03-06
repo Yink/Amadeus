@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (input.contains("メモリー") || input.contains("アマデウス") || input.contains("サイエンス")) {
             speak(voiceLines.get(37 + randomGen.nextInt(5)));
         } else if (greeting.contains(input)) {
-            switch (randomGen.nextInt(3)) {
+            switch (randomGen.nextInt(4)) {
                 case 0:
                     speak(voiceLines.get(12));
                     break;
@@ -294,6 +294,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 2:
                     speak(voiceLines.get(25));
+                    break;
+                case 3:
+                    speak(voiceLines.get(43));
                     break;
             }
         } else if (input.contains("ナイスボディ") || input.contains("ほっと") || input.contains("セクシー") || input.contains("ボビーズ")) {
@@ -357,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.modifying_memories_impossible, Mood.INDIFFERENT, R.string.line_modifying_memories_impossible)); //40
         voiceLines.add(new VoiceLine(R.raw.memories_christina, Mood.WINKING, R.string.line_memories_christina));
         voiceLines.add(new VoiceLine(R.raw.gah_extended, Mood.BLUSH, R.string.line_gah_extended));
+        voiceLines.add(new VoiceLine(R.raw.should_christina, Mood.PISSED, R.string.line_should_christina));
     }
 
     private class Mood {
