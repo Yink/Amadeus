@@ -26,7 +26,8 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="Preferences" />
+            android:label="Preferences"
+            android:theme="@style/PreferenceTheme" />
     </application>
 
 </manifest>

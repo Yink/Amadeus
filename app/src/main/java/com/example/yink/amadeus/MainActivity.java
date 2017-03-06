@@ -11,7 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.*;
+import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
 import android.os.Build;
 import android.os.Bundle;
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
+        kurisu.setImageResource(R.drawable.kurisu9a);
         subtitles = (TextView) findViewById(R.id.textView_subtitles);
         ImageView imageViewSubtitles = (ImageView) findViewById(R.id.imageView_subtitles);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
