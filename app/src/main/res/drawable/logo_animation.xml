@@ -115,4 +115,7 @@
     <item
         android:drawable="@drawable/logo38"
         android:duration="@integer/duration" />
+    <item
+        android:drawable="@drawable/logo39"
+        android:duration="@integer/duration" />
 </animation-list>
