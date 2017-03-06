@@ -1,6 +1,8 @@
 package com.example.yink.amadeus;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -28,13 +30,17 @@ public class LaunchActivity extends AppCompatActivity {
         logo = (AnimationDrawable) imageViewLogo.getDrawable();
         logo.start();
 
+        if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
+            status.setText(R.string.google_app_error);
+        }
+
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
 
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isPressed) {
+                if (!isPressed && isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
                     try {
                         isPressed = true;
                         MediaPlayer m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
@@ -89,6 +95,8 @@ public class LaunchActivity extends AppCompatActivity {
     protected void onResume() {
         if (isPressed) {
             status.setText(R.string.disconnected);
+        } else if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
+            status.setText(R.string.google_app_error);
         } else {
             status.setText(R.string.call);
         }
@@ -96,5 +104,15 @@ public class LaunchActivity extends AppCompatActivity {
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
         super.onResume();
+    }
+
+    private static boolean isAppInstalled(Context context, String packageName) {
+        try {
+            context.getPackageManager().getApplicationInfo(packageName, 0);
+            return true;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 }
