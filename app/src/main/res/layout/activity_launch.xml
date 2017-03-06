@@ -26,12 +26,11 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageView_connect"
         android:layout_marginBottom="39dp"
-        android:fontFamily="Droid"
+        android:fontFamily="monospace"
         android:text="@string/call"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="#ffdec752"
-        android:textSize="22.0sp"
-        android:typeface="monospace" />
+        android:textSize="22.0sp" />
 
     <ImageView
         android:id="@+id/imageView_connect"
