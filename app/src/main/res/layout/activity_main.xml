@@ -54,7 +54,7 @@
         android:layout_marginLeft="35dp"
         android:layout_marginStart="35dp"
         android:layout_marginTop="11dp"
-        android:fontFamily="monospace"
+        android:fontFamily="Droid"
         android:gravity="start"
         android:shadowColor="#000"
         android:shadowRadius="2"

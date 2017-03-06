@@ -16,8 +16,8 @@
     <string name="line_this_guy_hopeless">This guy is hopeless, better do something quick.</string>
     <string name="line_gah">Gah.</string>
     <string name="line_dont_add_tina">Stop adding -tina!</string>
-    <string name="line_pervert_idiot_wanttodie">You pervert! Idiot! Want to die?!</string>
-    <string name="line_pleased_to_meet_you">I\'m Makise Kurisu, pleased to meet you</string>
+    <string name="line_pervert_idiot_wanttodie">You pervert! Are you an idiot!? Do you wanna die?!</string>
+    <string name="line_pleased_to_meet_you">I\'m Makise Kurisu, pleased to meet you.</string>
     <string name="line_who_the_hell_christina">Who the hell is Christina?</string>
     <string name="line_why_christina">I am worried about it. Why am I Christina?</string>
     <string name="line_christina">Christina?</string>
@@ -32,7 +32,7 @@
     <string name="line_look_forward_to_working">I look forward to working with you.</string>
     <string name="line_senpai_question">Anyway, can I ask a question?</string>
     <string name="line_senpai_question_mark">Um… Senpai? Excuse me.</string>
-    <string name="line_senpai_what_we_talkin">Hey senpai, about what we were just talking about…</string>
+    <string name="line_senpai_what_we_talkin">Hey Senpai, about what we were just talking about…</string>
     <string name="line_senpai_who_is_this">Uh, who is this?</string>
     <string name="line_senpai_please_dont_tell">Senpai, please, don\'t tell the others…</string>
     <string name="line_still_not_happy">I\'m still not happy about that.</string>
@@ -50,7 +50,7 @@
     <string name="line_Leskinen_awesome">Awesome, he\'s really something!</string>
     <string name="line_Leskinen_nice">Nice!</string>
     <string name="line_Leskinen_oh_no">Oh no!</string>
-    <string name="line_Leskinen_shaman">Where are the japanese shaman girls, Lintahlo?</string>
+    <string name="line_Leskinen_shaman">Where are the Japanese shaman girls, Lintahlo?</string>
     <string name="line_Leskinen_holy_cow">Holy Cow! So I said we should come soon.</string>
     <string name="line_should_christina">Or should I have introduced myself with, \"It\'s Christina\"?</string>
 </resources>

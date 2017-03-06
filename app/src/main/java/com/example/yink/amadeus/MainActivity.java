@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(43));
                     break;
             }
-        } else if (input.contains("ナイスボディ") || input.contains("ほっと") || input.contains("セクシー") || input.contains("ボビーズ")) {
+        } else if (input.contains("ナイスボディ") || input.contains("ほっと") || input.contains("セクシー") || input.contains("ボビーズ") || input.contains("おっぱい")) {
             switch (randomGen.nextInt(3)) {
                 case 0:
                     speak(voiceLines.get(2));
