@@ -2,14 +2,21 @@ package com.example.yink.amadeus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 public class LaunchActivity extends AppCompatActivity {
     ImageView connect, cancel;
@@ -17,6 +24,16 @@ public class LaunchActivity extends AppCompatActivity {
     AnimationDrawable logo;
     ImageView imageViewLogo;
     Boolean isPressed = false;
+    SharedPreferences sharedPreferences;
+
+    private static boolean isAppInstalled(Context context, String packageName) {
+        try {
+            context.getPackageManager().getApplicationInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +45,7 @@ public class LaunchActivity extends AppCompatActivity {
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
         logo = (AnimationDrawable) imageViewLogo.getDrawable();
         logo.start();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
@@ -58,6 +76,11 @@ public class LaunchActivity extends AppCompatActivity {
                             @Override
                             public void onCompletion(MediaPlayer mp) {
                                 mp.release();
+                                if (sharedPreferences.getBoolean("lang", true)) {
+                                    setLocale("ja");
+                                } else {
+                                    setLocale("en");
+                                }
                                 Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
                                 startActivity(intent);
                             }
@@ -105,13 +128,14 @@ public class LaunchActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private static boolean isAppInstalled(Context context, String packageName) {
-        try {
-            context.getPackageManager().getApplicationInfo(packageName, 0);
-            return true;
-        }
-        catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
+    private void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        if (lang.equals("en"))
+            myLocale = Locale.getDefault();
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 }
