@@ -29,8 +29,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 23) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
         }
-
         sr = SpeechRecognizer.createSpeechRecognizer(this);
         sr.setRecognitionListener(new listener());
 
@@ -143,7 +140,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
+        if (sharedPreferences.getBoolean("lang", true)) {
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
+        } else {
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-EN");
+        }
 
         sr.startListening(intent);
     }
@@ -228,8 +229,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void answerSpeech(String input) {
         Log.e(TAG, input);
+        input = input.toLowerCase();
         Random randomGen = new Random();
-        if (input.contains("クリスティーナ")) {
+        if (input.contains(getString(R.string.christina))) {
             switch (randomGen.nextInt(4)) {
                 case 0:
                     speak(voiceLines.get(10));
@@ -244,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(15));
                     break;
             }
-        } else if (input.contains("ぬるぽ")) {
+        } else if (input.contains(getString(R.string.nullpo))) {
             shaman_girls += 1;
             if (shaman_girls < 5) {
                 switch (randomGen.nextInt(2)) {
@@ -275,18 +277,18 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-        } else if (input.contains("the zombie") || input.contains("セレブセブンティーン")) {
+        } else if (input.contains(getString(R.string.the_zombie)) || input.contains(getString(R.string.celeb17))) {
             speak(voiceLines.get(32));
-        } else if (input.contains("アットチャンネル") || input.contains("栗ご飯") || input.contains("カメハメハ")) {
+        } else if (input.contains(getString(R.string.atchannel)) || input.contains(getString(R.string.kurigohan)) || input.contains(getString(R.string.kamehameha))) {
             speak(voiceLines.get(30 + randomGen.nextInt(2)));
-        } else if (input.contains("サリエリ") || input.contains("真帆") || input.contains("比屋定")) {
+        } else if (input.contains(getString(R.string.salieri)) || input.contains(getString(R.string.maho)) || input.contains(getString(R.string.hiyajo))) {
             speak(voiceLines.get(26 + randomGen.nextInt(4)));
-        } else if (input.contains("タイムマシーン") || input.contains("cern") || input.contains("タイムトラベル")) {
+        } else if (input.contains(getString(R.string.time_machine)) || input.contains(getString(R.string.cern)) || input.contains(getString(R.string.time_travel))) {
             speak(voiceLines.get(33 + randomGen.nextInt(5)));
-        } else if (input.contains("メモリー") || input.contains("アマデウス") || input.contains("サイエンス")) {
+        } else if (input.contains(getString(R.string.memory)) || input.contains(getString(R.string.amadeus)) || input.contains(getString(R.string.science))) {
             speak(voiceLines.get(38 + randomGen.nextInt(5)));
-        } else if (input.contains("ハロー" ) || input.contains("おはよう") || input.contains("こんにちは")
-                || input.contains("こんばんは")) {
+        } else if (input.contains(getString(R.string.hello)) || input.contains(getString(R.string.good_morning)) || input.contains(getString(R.string.konnichiwa))
+                || input.contains(getString(R.string.good_evening))) {
             switch (randomGen.nextInt(4)) {
                 case 0:
                     speak(voiceLines.get(12));
@@ -301,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(43));
                     break;
             }
-        } else if (input.contains("ナイスボディ") || input.contains("ほっと") || input.contains("セクシー") || input.contains("ボビーズ") || input.contains("おっぱい")) {
+        } else if (input.contains(getString(R.string.nice_body)) || input.contains(getString(R.string.hot)) || input.contains(getString(R.string.sexy)) || input.contains(getString(R.string.boobies)) || input.contains(getString(R.string.oppai))) {
             switch (randomGen.nextInt(3)) {
                 case 0:
                     speak(voiceLines.get(2));
@@ -422,4 +424,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 }
