@@ -227,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void answerSpeech(String input) {
-        List<String> greeting = Arrays.asList("ハロー", "おはよう", "こんにちは", "こんばんは");
         Log.e(TAG, input);
         Random randomGen = new Random();
         if (input.contains("クリスティーナ")) {
@@ -286,7 +285,8 @@ public class MainActivity extends AppCompatActivity {
             speak(voiceLines.get(33 + randomGen.nextInt(5)));
         } else if (input.contains("メモリー") || input.contains("アマデウス") || input.contains("サイエンス")) {
             speak(voiceLines.get(38 + randomGen.nextInt(5)));
-        } else if (greeting.contains(input)) {
+        } else if (input.contains("ハロー" ) || input.contains("おはよう") || input.contains("こんにちは")
+                || input.contains("こんばんは")) {
             switch (randomGen.nextInt(4)) {
                 case 0:
                     speak(voiceLines.get(12));
