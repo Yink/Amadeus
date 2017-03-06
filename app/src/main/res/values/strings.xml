@@ -6,6 +6,7 @@
     <integer name="duration">40</integer>
 
     <string name="line_hello">Hello.</string>
+    <string name="line_dont_call_me_like_that">Don\'t call me like that!</string>
     <string name="line_but_i_refuse">But I refuse.</string>
     <string name="line_devilish_pervert">I never thought you were such a devilish pervert. I guess I misjudged you.</string>
     <string name="line_i_guess">I guess.</string>

@@ -227,7 +227,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void answerSpeech(String input) {
-        List<String> greeting = Arrays.asList("ハロー", "おはよう", "こんにちは", "こんばんは");
         Log.e(TAG, input);
         Random randomGen = new Random();
         if (input.contains("クリスティーナ")) {
@@ -276,15 +275,18 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
+        } else if (input.contains("the zombie") || input.contains("セレブセブンティーン")) {
+            speak(voiceLines.get(32));
         } else if (input.contains("アットチャンネル") || input.contains("栗ご飯") || input.contains("カメハメハ")) {
             speak(voiceLines.get(30 + randomGen.nextInt(2)));
         } else if (input.contains("サリエリ") || input.contains("真帆") || input.contains("比屋定")) {
             speak(voiceLines.get(26 + randomGen.nextInt(4)));
         } else if (input.contains("タイムマシーン") || input.contains("cern") || input.contains("タイムトラベル")) {
-            speak(voiceLines.get(32 + randomGen.nextInt(5)));
+            speak(voiceLines.get(33 + randomGen.nextInt(5)));
         } else if (input.contains("メモリー") || input.contains("アマデウス") || input.contains("サイエンス")) {
-            speak(voiceLines.get(37 + randomGen.nextInt(5)));
-        } else if (greeting.contains(input)) {
+            speak(voiceLines.get(38 + randomGen.nextInt(5)));
+        } else if (input.contains("ハロー" ) || input.contains("おはよう") || input.contains("こんにちは")
+                || input.contains("こんばんは")) {
             switch (randomGen.nextInt(4)) {
                 case 0:
                     speak(voiceLines.get(12));
@@ -349,6 +351,7 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.senpai_who_is_this, Mood.NORMAL, R.string.line_senpai_who_is_this));
         voiceLines.add(new VoiceLine(R.raw.senpai_please_dont_tell, Mood.BLUSH, R.string.line_senpai_please_dont_tell)); //30
         voiceLines.add(new VoiceLine(R.raw.still_not_happy, Mood.BLUSH, R.string.line_still_not_happy));
+        voiceLines.add(new VoiceLine(R.raw.dont_call_me_like_that, Mood.ANGRY, R.string.line_dont_call_me_like_that));
         voiceLines.add(new VoiceLine(R.raw.tm_nonsense, Mood.DISAPPOINTED, R.string.line_tm_nonsense));
         voiceLines.add(new VoiceLine(R.raw.tm_not_possible, Mood.DISAPPOINTED, R.string.line_tm_not_possible));
         voiceLines.add(new VoiceLine(R.raw.tm_scientist_no_evidence, Mood.NORMAL, R.string.line_tm_scientist_no_evidence));
