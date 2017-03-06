@@ -26,7 +26,6 @@ public class LaunchActivity extends AppCompatActivity {
         cancel = (ImageView) findViewById(R.id.imageView_cancel);
         status = (TextView) findViewById(R.id.textView_call);
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
-        imageViewLogo.setImageResource(R.drawable.logo_animation);
         logo = (AnimationDrawable) imageViewLogo.getDrawable();
         logo.start();
 
