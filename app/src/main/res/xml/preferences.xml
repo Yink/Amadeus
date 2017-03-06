@@ -9,7 +9,7 @@
         <SwitchPreference
             android:defaultValue="true"
             android:key="lang"
-            android:summary="Use Japanese Voice Recognition"
+            android:summary="Use Japanese Voice Recognition (app restart required)"
             android:title="Weeb Mode" />
     </PreferenceCategory>
 </PreferenceScreen>
