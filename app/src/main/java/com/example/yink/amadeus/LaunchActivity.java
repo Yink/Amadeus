@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -76,11 +77,6 @@ public class LaunchActivity extends AppCompatActivity {
                             @Override
                             public void onCompletion(MediaPlayer mp) {
                                 mp.release();
-                                if (sharedPreferences.getBoolean("lang", true)) {
-                                    setLocale("ja");
-                                } else {
-                                    setLocale("en");
-                                }
                                 Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
                                 startActivity(intent);
                             }
@@ -114,6 +110,11 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LangContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onResume() {
         if (isPressed) {
             status.setText(R.string.disconnected);
@@ -128,14 +129,22 @@ public class LaunchActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    private void setLocale(String lang) {
+    @SuppressWarnings("deprecation")
+    private void setLocale(Context context, String lang) {
+        Configuration config = getBaseContext().getResources().getConfiguration();
         Locale myLocale = new Locale(lang);
-        if (lang.equals("en"))
-            myLocale = Locale.getDefault();
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            config.setLocale(myLocale);
+        } else {
+            config.locale = myLocale;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            context = context.createConfigurationContext(config);
+        } else {
+            context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        }
     }
+
 }

@@ -5,6 +5,7 @@ package com.example.yink.amadeus;
  */
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -117,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LangContextWrapper.wrap(newBase));
+    }
+
+    @Override
     protected void onDestroy() {
         if (sr != null)
             sr.destroy();
@@ -143,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         if (sharedPreferences.getBoolean("lang", true)) {
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
         } else {
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-EN");
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
         }
 
         sr.startListening(intent);
@@ -254,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                         speak(voiceLines.get(9));
                         break;
                     case 1:
-                        speak(voiceLines.get(42));
+                        speak(voiceLines.get(43));
                         break;
                 }
             } else {
@@ -277,17 +283,28 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-        } else if (input.contains(getString(R.string.the_zombie)) || input.contains(getString(R.string.celeb17))) {
+        } else if (input.contains(getString(R.string.the_zombie))
+                || input.contains(getString(R.string.celeb17))) {
             speak(voiceLines.get(32));
-        } else if (input.contains(getString(R.string.atchannel)) || input.contains(getString(R.string.kurigohan)) || input.contains(getString(R.string.kamehameha))) {
+        } else if (input.contains(getString(R.string.atchannel))
+                || input.contains(getString(R.string.kurigohan))
+                || input.contains(getString(R.string.kamehameha))) {
             speak(voiceLines.get(30 + randomGen.nextInt(2)));
-        } else if (input.contains(getString(R.string.salieri)) || input.contains(getString(R.string.maho)) || input.contains(getString(R.string.hiyajo))) {
+        } else if (input.contains(getString(R.string.salieri))
+                || input.contains(getString(R.string.maho))
+                || input.contains(getString(R.string.hiyajo))) {
             speak(voiceLines.get(26 + randomGen.nextInt(4)));
-        } else if (input.contains(getString(R.string.time_machine)) || input.contains(getString(R.string.cern)) || input.contains(getString(R.string.time_travel))) {
+        } else if (input.contains(getString(R.string.time_machine))
+                || input.contains(getString(R.string.cern))
+                || input.contains(getString(R.string.time_travel))) {
             speak(voiceLines.get(33 + randomGen.nextInt(5)));
-        } else if (input.contains(getString(R.string.memory)) || input.contains(getString(R.string.amadeus)) || input.contains(getString(R.string.science))) {
+        } else if (input.contains(getString(R.string.memory))
+                || input.contains(getString(R.string.amadeus))
+                || input.contains(getString(R.string.science))) {
             speak(voiceLines.get(38 + randomGen.nextInt(5)));
-        } else if (input.contains(getString(R.string.hello)) || input.contains(getString(R.string.good_morning)) || input.contains(getString(R.string.konnichiwa))
+        } else if (input.contains(getString(R.string.hello))
+                || input.contains(getString(R.string.good_morning))
+                || input.contains(getString(R.string.konnichiwa))
                 || input.contains(getString(R.string.good_evening))) {
             switch (randomGen.nextInt(4)) {
                 case 0:
@@ -300,10 +317,14 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(25));
                     break;
                 case 3:
-                    speak(voiceLines.get(43));
+                    speak(voiceLines.get(1));
                     break;
             }
-        } else if (input.contains(getString(R.string.nice_body)) || input.contains(getString(R.string.hot)) || input.contains(getString(R.string.sexy)) || input.contains(getString(R.string.boobies)) || input.contains(getString(R.string.oppai))) {
+        } else if (input.contains(getString(R.string.nice_body))
+                || input.contains(getString(R.string.hot))
+                || input.contains(getString(R.string.sexy))
+                || input.contains(getString(R.string.boobies))
+                || input.contains(getString(R.string.oppai))) {
             switch (randomGen.nextInt(3)) {
                 case 0:
                     speak(voiceLines.get(2));
