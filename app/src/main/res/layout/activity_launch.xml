@@ -47,11 +47,12 @@
 
     <ImageView
         android:id="@+id/imageView_logo"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
-        android:src="@drawable/logo_animation" />
+        android:src="@drawable/logo_animation"
+        android:layout_above="@+id/textView_call" />
 
 </RelativeLayout>
