@@ -5,6 +5,7 @@ package com.example.yink.amadeus;
  */
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Random randomgen = new Random();
     SharedPreferences sharedPreferences;
     private SpeechRecognizer sr;
+    MediaPlayer m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         if (sr != null)
             sr.destroy();
+        if (m != null)
+            m.release();
         super.onDestroy();
     }
 
@@ -152,12 +156,39 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
         }
 
-        sr.startListening(intent);
+        /* Temporary workaround for strange bug on 4.0.3-4.0.4 */
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            try {
+                startActivityForResult(intent, 1);
+            } catch (ActivityNotFoundException a) {
+                a.printStackTrace();
+            }
+        } else {
+            sr.startListening(intent);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case 1: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> input = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    answerSpeech(input.get(0));
+                }
+                break;
+            }
+
+        }
     }
 
     public void speak(VoiceLine line) {
         try {
-            MediaPlayer m = MediaPlayer.create(getApplicationContext(), line.getId());
+            m = MediaPlayer.create(getApplicationContext(), line.getId());
             final Visualizer v = new Visualizer(m.getAudioSessionId());
 
             if (sharedPreferences.getBoolean("show_subtitles", false)) {
