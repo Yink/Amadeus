@@ -26,6 +26,7 @@ public class LaunchActivity extends AppCompatActivity {
     ImageView imageViewLogo;
     Boolean isPressed = false;
     SharedPreferences sharedPreferences;
+    MediaPlayer m;
 
     private static boolean isAppInstalled(Context context, String packageName) {
         try {
@@ -61,7 +62,7 @@ public class LaunchActivity extends AppCompatActivity {
                 if (!isPressed && isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
                     try {
                         isPressed = true;
-                        MediaPlayer m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
+                        m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
 
                         connect.setImageResource(R.drawable.connect_select);
 
@@ -112,6 +113,13 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LangContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (m != null)
+            m.release();
+        super.onDestroy();
     }
 
     @Override

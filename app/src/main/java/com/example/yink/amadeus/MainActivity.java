@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Random randomgen = new Random();
     SharedPreferences sharedPreferences;
     private SpeechRecognizer sr;
+    MediaPlayer m;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         if (sr != null)
             sr.destroy();
+        if (m != null)
+            m.release();
         super.onDestroy();
     }
 
@@ -185,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void speak(VoiceLine line) {
         try {
-            MediaPlayer m = MediaPlayer.create(getApplicationContext(), line.getId());
+            m = MediaPlayer.create(getApplicationContext(), line.getId());
             final Visualizer v = new Visualizer(m.getAudioSessionId());
 
             if (sharedPreferences.getBoolean("show_subtitles", false)) {
