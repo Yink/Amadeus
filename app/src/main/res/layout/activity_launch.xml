@@ -25,7 +25,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageView_connect"
-        android:layout_marginBottom="39dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="41dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
         android:fontFamily="Droid"
         android:text="@string/call"
         android:textAppearance="@style/TextAppearance.AppCompat"
@@ -49,10 +53,10 @@
         android:id="@+id/imageView_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/textView_call"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
-        android:src="@drawable/logo_animation"
-        android:layout_above="@+id/textView_call" />
+        android:src="@drawable/logo_animation" />
 
 </RelativeLayout>

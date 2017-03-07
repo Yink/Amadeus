@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -135,6 +133,16 @@ public class LaunchActivity extends AppCompatActivity {
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        //to enable the to collect the animation frames
+        if (logo != null && logo.isRunning())
+            logo.stop();
+        imageViewLogo.setImageResource(R.drawable.logo39);
+        logo = null;
+        super.onPause();
     }
 
     @SuppressWarnings("deprecation")
