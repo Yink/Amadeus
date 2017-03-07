@@ -18,10 +18,9 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class LaunchActivity extends AppCompatActivity {
-    ImageView connect, cancel;
+    ImageView connect, cancel, imageViewLogo;
     TextView status;
     AnimationDrawable logo;
-    ImageView imageViewLogo;
     Boolean isPressed = false;
     SharedPreferences sharedPreferences;
     MediaPlayer m;
@@ -43,8 +42,12 @@ public class LaunchActivity extends AppCompatActivity {
         cancel = (ImageView) findViewById(R.id.imageView_cancel);
         status = (TextView) findViewById(R.id.textView_call);
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
-        logo = (AnimationDrawable) imageViewLogo.getDrawable();
-        logo.start();
+        /*
+         *  Reported OOM on 2K+ resolution devices.
+         *  Looks like better to change it to static image for now.
+         */
+        /*logo = (AnimationDrawable) imageViewLogo.getDrawable();
+        logo.start();*/
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
@@ -135,6 +138,8 @@ public class LaunchActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    /* Reported OOM on 2K+ resolution devices */
+    /*
     @Override
     protected void onPause() {
         //to enable the to collect the animation frames
@@ -143,7 +148,7 @@ public class LaunchActivity extends AppCompatActivity {
         imageViewLogo.setImageResource(R.drawable.logo39);
         logo = null;
         super.onPause();
-    }
+    }*/
 
     @SuppressWarnings("deprecation")
     private void setLocale(Context context, String lang) {

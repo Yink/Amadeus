@@ -57,6 +57,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="true"
-        android:src="@drawable/logo_animation" />
+        android:src="@drawable/logo39" />
 
 </RelativeLayout>
