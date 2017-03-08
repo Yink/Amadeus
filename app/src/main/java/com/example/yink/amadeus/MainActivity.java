@@ -168,15 +168,7 @@ public class MainActivity extends AppCompatActivity {
             sr.startListening(intent);
         }
     }
-
-    @Override
-    public void startActivityForResult(Intent intent, int requestCode) {
-        if (intent == null) {
-            intent = new Intent();
-        }
-        super.startActivityForResult(intent, requestCode);
-    }
-
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
