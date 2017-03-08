@@ -273,7 +273,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /* Maybe there is some other way to implement this */
     private void openApp(String[] input) {
         final PackageManager pm = getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -293,8 +292,8 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(45));
                     app.addCategory(Intent.CATEGORY_LAUNCHER);
                     ctx.startActivity(app);
+                    break;
                 }
-                break;
             }
         }
     }
@@ -506,6 +505,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 
             input += data.get(0);
+            /* TODO: Japanese doesn't split the words. Sigh. */
             String[] splitInput = input.split(" ");
 
             if (splitInput.length > 1 && splitInput[0].equalsIgnoreCase(getString(R.string.christina))) {
@@ -513,8 +513,12 @@ public class MainActivity extends AppCompatActivity {
                 String[] args = new String[splitInput.length - 2];
                 System.arraycopy(splitInput, 2, args, 0, splitInput.length - 2);
 
+                /* TODO: Must be reimplemented for multilanguage support */
                 switch (cmd) {
                     case "open":
+                        openApp(args);
+                        break;
+                    case "открой":
                         openApp(args);
                         break;
                 }
