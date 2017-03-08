@@ -296,8 +296,6 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(45));
                     Intent app = pm.getLaunchIntentForPackage(packageInfo.packageName);
                     startActivity(app);
-                } else {
-                    speak(voiceLines.get(16 + randomGen.nextInt(7)));
                 }
             }
         } else {
