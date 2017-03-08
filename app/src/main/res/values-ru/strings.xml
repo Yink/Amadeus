@@ -6,13 +6,11 @@
     <string name="google_app_error">Google App не найден.</string>
     <string name="lang_default_value">ru-RU</string>
 
+    <!-- Многие фразы были вырваны из контекста, поэтому прошу не пинать -->
     <string name="line_hello">Привет.</string>
     <string name="line_dont_call_me_like_that">Не называй меня так!</string>
     <string name="line_but_i_refuse">Я отказываюсь.</string>
     <string name="line_devilish_pervert">Никогда не думала, что ты чертов извращенец. Похоже я тебя недооценила.</string>
-    <string name="line_i_guess">I guess.</string>
-    <string name="line_nice">Nice.</string>
-    <string name="line_pervert_confirmed">PERVERT CONFIRMED.</string>
     <string name="line_sorry">Прости.</string>
     <string name="line_sounds_tough">Звучит круто.</string>
     <string name="line_this_guy_hopeless">Этот парень безнадежен, надо срочно с этим что-то делать.</string>
@@ -56,30 +54,37 @@
     <string name="line_Leskinen_holy_cow">О боже! Поэтому я сказал что мы скоро придем.</string>
     <string name="line_should_christina">Или я должна была представиться как, "Кристина"?</string>
 
-    <!-- Input strings -->
-    <string name="christina">クリスティーナ</string>
-    <string name="nullpo">ぬるぽ</string>
-    <string name="the_zombie">the zombie</string>
-    <string name="celeb17">セレブセブンティーン</string>
-    <string name="atchannel">アットチャンネル</string>
-    <string name="kurigohan">栗ご飯</string>
-    <string name="kamehameha">カメハメハ</string>
-    <string name="salieri">サリエリ</string>
-    <string name="maho">真帆</string>
-    <string name="hiyajo">比屋定</string>
-    <string name="time_machine">タイムマシーン</string>
-    <string name="cern">cern</string>
-    <string name="time_travel">タイムトラベル</string>
-    <string name="memory">メモリー</string>
-    <string name="amadeus">アマデウス</string>
-    <string name="science">サイエンス</string>
-    <string name="hello">ハロー</string>
-    <string name="good_morning">おはよう</string>
-    <string name="konnichiwa">こんにちは</string>
-    <string name="good_evening">こんばんは</string>
+    <!-- Пока не используются -->
+    <string name="line_i_guess">I guess.</string>
+    <string name="line_nice">Nice.</string>
+    <string name="line_pervert_confirmed">PERVERT CONFIRMED.</string>
+
+    <!-- Фразы для ввода -->
+    <string name="christina">кристина</string>
+    <string name="the_zombie">зомби</string>
+    <string name="celeb17">поп-дива</string>
+    <string name="kurigohan">кури гохан</string>
+    <string name="kamehameha">камехамеха</string>
+    <string name="salieri">сальери</string>
+    <string name="time_machine">машина времени</string>
+    <string name="cern">церн</string>
+    <string name="time_travel">путешествие во времени</string>
+    <string name="memory">воспоминания</string>
+    <string name="amadeus">amadeus</string>
+    <string name="science">наука</string>
+    <string name="hello">привет</string>
+    <string name="good_morning">доброе утро</string>
+    <string name="konnichiwa">добрый день</string>
+    <string name="good_evening">добрый вечер</string>
     <string name="nice_body">ナイスボディ</string>
     <string name="hot">ほっと</string>
-    <string name="sexy">セクシー</string>
+    <string name="sexy">секси</string>
     <string name="boobies">ボビーズ</string>
+
+    <!-- Не распознается -->
+    <string name="nullpo">ぬるぽ</string>
+    <string name="atchannel">アットチャンネル</string>
     <string name="oppai">おっぱい</string>
+    <string name="maho">真帆</string>
+    <string name="hiyajo">比屋定</string>
 </resources>

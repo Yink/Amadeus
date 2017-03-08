@@ -152,18 +152,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        /* TODO: To be removed. Probably. */
-        switch (lang) {
-            case "ja":
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
-                break;
-            case "en":
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
-                break;
-            case "ru":
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
-                break;
-        }
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getString(R.string.lang_default_value));
 
         /* Temporary workaround for strange bug on 4.0.3-4.0.4 */
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
@@ -486,8 +475,14 @@ public class MainActivity extends AppCompatActivity {
         }
         public void onResults(Bundle results) {
             String input = "";
+            String debug = "";
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            for (int i = 0; i < data.size(); i++) {
+                debug += data.get(i);
+                Log.d(TAG, debug);
+            }
+
             input += data.get(0);
             answerSpeech(input);
         }
