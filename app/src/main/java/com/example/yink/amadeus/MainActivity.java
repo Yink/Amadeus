@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
     Random randomgen = new Random();
     SharedPreferences sharedPreferences;
     String lang;
-    private SpeechRecognizer sr;
     MediaPlayer m;
+    private SpeechRecognizer sr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -404,6 +404,9 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(11));
                     break;
             }
+        } else if (input.contains(getString(R.string.robotics_notes))
+                || input.contains(getString(R.string.antimatter))) {
+            speak(voiceLines.get(21)); //Hehehe
         } else {
             speak(voiceLines.get(16 + randomGen.nextInt(7)));
         }
