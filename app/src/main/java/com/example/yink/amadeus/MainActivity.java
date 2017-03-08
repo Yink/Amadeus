@@ -9,7 +9,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -31,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -167,6 +170,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        if (intent == null) {
+            intent = new Intent();
+        }
+        super.startActivityForResult(intent, requestCode);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -262,19 +273,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*private int inputLangId;
+    /* Maybe there is some other way to implement this */
+    private void openApp(String input) {
+        final PackageManager pm = getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        Random randomGen = new Random();
 
-    private int commandId(String input) {
-        Resources res = getResources();
-
-        String[] variants;
-
-        variants = res.getStringArray(R.array.commandChristina);
-
-        if (input.contains(variants[inputLangId])) {
-            return R.array.commandChristina;
+        String[] inputSplit = input.split(" ");
+        Log.d(TAG, input);
+        for (String word: inputSplit) {
+            Log.d(TAG, word);
         }
-    }*/
+
+        for (ApplicationInfo packageInfo : packages) {
+            /*
+             *  TODO: Android 7.1.1 - opening phone app causes nullpo.
+             *  TODO: Needs to be adjusted probably.
+             */
+            if (packageInfo.packageName.contains(inputSplit[1].toLowerCase())
+                    && !packageInfo.packageName.contains("phone")) {
+                speak(voiceLines.get(45));
+                Intent app = pm.getLaunchIntentForPackage(packageInfo.packageName);
+                startActivity(app);
+            } else {
+                speak(voiceLines.get(16 + randomGen.nextInt(7)));
+            }
+        }
+    }
 
     private void answerSpeech(String input) {
         Log.e(TAG, input);
@@ -430,6 +455,7 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.memories_christina, Mood.WINKING, R.string.line_memories_christina));
         voiceLines.add(new VoiceLine(R.raw.gah_extended, Mood.BLUSH, R.string.line_gah_extended));
         voiceLines.add(new VoiceLine(R.raw.should_christina, Mood.PISSED, R.string.line_should_christina));
+        voiceLines.add(new VoiceLine(R.raw.ok, Mood.HAPPY, R.string.line_ok));
     }
 
     private class Mood {
@@ -475,16 +501,15 @@ public class MainActivity extends AppCompatActivity {
         }
         public void onResults(Bundle results) {
             String input = "";
-            String debug = "";
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            for (int i = 0; i < data.size(); i++) {
-                debug += data.get(i);
-                Log.d(TAG, debug);
-            }
 
             input += data.get(0);
-            answerSpeech(input);
+            if (input.contains("open")) {
+                openApp(input);
+            } else {
+                answerSpeech(input);
+            }
         }
         public void onPartialResults(Bundle partialResults) {
             Log.d(TAG, "onPartialResults");
