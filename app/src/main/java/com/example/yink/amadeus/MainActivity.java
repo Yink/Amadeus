@@ -285,19 +285,23 @@ public class MainActivity extends AppCompatActivity {
             Log.d(TAG, word);
         }
 
-        for (ApplicationInfo packageInfo : packages) {
+        if (inputSplit.length > 1) {
+            for (ApplicationInfo packageInfo : packages) {
             /*
              *  TODO: Android 7.1.1 - opening phone app causes nullpo.
              *  TODO: Needs to be adjusted probably.
              */
-            if (packageInfo.packageName.contains(inputSplit[1].toLowerCase())
-                    && !packageInfo.packageName.contains("phone")) {
-                speak(voiceLines.get(45));
-                Intent app = pm.getLaunchIntentForPackage(packageInfo.packageName);
-                startActivity(app);
-            } else {
-                speak(voiceLines.get(16 + randomGen.nextInt(7)));
+                if (packageInfo.packageName.contains(inputSplit[1].toLowerCase())
+                        && !packageInfo.packageName.contains("phone")) {
+                    speak(voiceLines.get(45));
+                    Intent app = pm.getLaunchIntentForPackage(packageInfo.packageName);
+                    startActivity(app);
+                } else {
+                    speak(voiceLines.get(16 + randomGen.nextInt(7)));
+                }
             }
+        } else {
+            speak(voiceLines.get(16 + randomGen.nextInt(7)));
         }
     }
 
