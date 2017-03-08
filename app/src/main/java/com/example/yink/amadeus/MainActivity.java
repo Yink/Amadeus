@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                             kurisu.setImageDrawable(animation.getFrame(0));
+                            kurisu.setImageDrawable(animation.getFrame(0));
                         }
                     });
                 }
@@ -274,32 +274,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Maybe there is some other way to implement this */
-    private void openApp(String input) {
+    private void openApp(String[] input) {
         final PackageManager pm = getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
-        Random randomGen = new Random();
+        Context ctx = getApplicationContext();
 
-        String[] inputSplit = input.split(" ");
-        Log.d(TAG, input);
-        for (String word: inputSplit) {
+        for (String word: input) {
             Log.d(TAG, word);
         }
 
-        if (inputSplit.length > 1) {
-            for (ApplicationInfo packageInfo : packages) {
+        for (ApplicationInfo packageInfo : packages) {
             /*
-             *  TODO: Android 7.1.1 - opening phone app causes nullpo.
              *  TODO: Needs to be adjusted probably.
              */
-                if (packageInfo.packageName.contains(inputSplit[1].toLowerCase())
-                        && !packageInfo.packageName.contains("phone")) {
+            if (packageInfo.packageName.contains(input[0].toLowerCase())) {
+                Intent app = ctx.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
+                if (app != null) {
                     speak(voiceLines.get(45));
-                    Intent app = pm.getLaunchIntentForPackage(packageInfo.packageName);
-                    startActivity(app);
+                    app.addCategory(Intent.CATEGORY_LAUNCHER);
+                    ctx.startActivity(app);
                 }
+                break;
             }
-        } else {
-            speak(voiceLines.get(16 + randomGen.nextInt(7)));
         }
     }
 
@@ -510,8 +506,18 @@ public class MainActivity extends AppCompatActivity {
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
 
             input += data.get(0);
-            if (input.contains("open")) {
-                openApp(input);
+            String[] splitInput = input.split(" ");
+
+            if (splitInput.length > 1 && splitInput[0].equalsIgnoreCase(getString(R.string.christina))) {
+                String cmd = splitInput[1].toLowerCase();
+                String[] args = new String[splitInput.length - 2];
+                System.arraycopy(splitInput, 2, args, 0, splitInput.length - 2);
+
+                switch (cmd) {
+                    case "open":
+                        openApp(args);
+                        break;
+                }
             } else {
                 answerSpeech(input);
             }
