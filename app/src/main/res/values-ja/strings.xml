@@ -4,7 +4,7 @@
     <string name="connecting">Connecting…</string>
     <string name="disconnected">Disconnected.</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
-    <integer name="duration">40</integer>
+    <string name="lang_default_value">ja-JP</string>
 
     <string name="line_hello">Hello.</string>
     <string name="line_dont_call_me_like_that">Don\'t call me like that!</string>
@@ -55,7 +55,8 @@
     <string name="line_Leskinen_shaman">Where are the Japanese shaman girls, Lintahlo?</string>
     <string name="line_Leskinen_holy_cow">Holy Cow! So I said we should come soon.</string>
     <string name="line_should_christina">Or should I have introduced myself with, \"It\'s Christina\"?</string>
-    <!-- Inputstrings -->
+
+    <!-- Input strings -->
     <string name="christina">クリスティーナ</string>
     <string name="nullpo">ぬるぽ</string>
     <string name="the_zombie">the zombie</string>

@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     int shaman_girls = -1;
     Random randomgen = new Random();
     SharedPreferences sharedPreferences;
+    String lang;
     private SpeechRecognizer sr;
     MediaPlayer m;
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         subtitles = (TextView) findViewById(R.id.textView_subtitles);
         ImageView imageViewSubtitles = (ImageView) findViewById(R.id.imageView_subtitles);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        lang = sharedPreferences.getString("lang", "ja");
         if (!sharedPreferences.getBoolean("show_subtitles", false)) {
             imageViewSubtitles.setVisibility(View.INVISIBLE);
         }
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         setupLines();
         speak(voiceLines.get(0));
 
-        if (Build.VERSION.SDK_INT >= 23) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
         }
         sr = SpeechRecognizer.createSpeechRecognizer(this);
@@ -83,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         kurisu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= 23) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     MainActivity host = (MainActivity) view.getContext();
 
                     int permissionCheck = ContextCompat.checkSelfPermission(host,
@@ -150,11 +152,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        if (sharedPreferences.getBoolean("lang", true)) {
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
-        } else {
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
-        }
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, getString(R.string.lang_default_value));
 
         /* Temporary workaround for strange bug on 4.0.3-4.0.4 */
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
@@ -263,6 +261,20 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    /*private int inputLangId;
+
+    private int commandId(String input) {
+        Resources res = getResources();
+
+        String[] variants;
+
+        variants = res.getStringArray(R.array.commandChristina);
+
+        if (input.contains(variants[inputLangId])) {
+            return R.array.commandChristina;
+        }
+    }*/
 
     private void answerSpeech(String input) {
         Log.e(TAG, input);
@@ -463,8 +475,14 @@ public class MainActivity extends AppCompatActivity {
         }
         public void onResults(Bundle results) {
             String input = "";
+            String debug = "";
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+            for (int i = 0; i < data.size(); i++) {
+                debug += data.get(i);
+                Log.d(TAG, debug);
+            }
+
             input += data.get(0);
             answerSpeech(input);
         }

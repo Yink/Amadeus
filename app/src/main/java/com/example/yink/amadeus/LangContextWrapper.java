@@ -23,13 +23,10 @@ public class LangContextWrapper extends ContextWrapper {
     public static ContextWrapper wrap(Context context) {
         SharedPreferences sharedPreferences;
         Configuration config = context.getResources().getConfiguration();
-        String lang = "en";
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
-        if (sharedPreferences.getBoolean("lang", true)) {
-            lang = "ja";
-        }
+        String lang = sharedPreferences.getString("lang", "ja");
 
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);

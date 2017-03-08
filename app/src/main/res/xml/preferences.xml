@@ -6,10 +6,12 @@
             android:key="show_subtitles"
             android:summary="Shows subtitles for Amadeus' answers"
             android:title="Show subtitles" />
-        <SwitchPreference
-            android:defaultValue="true"
+        <ListPreference
+            android:summary="Select app language (app restart required)"
+            android:title="Language"
             android:key="lang"
-            android:summary="Use Japanese Voice Recognition (app restart required)"
-            android:title="Weeb Mode" />
+            android:defaultValue="@string/lang_default_value"
+            android:entries="@array/languagesArray"
+            android:entryValues="@array/languagesValues" />
     </PreferenceCategory>
 </PreferenceScreen>
