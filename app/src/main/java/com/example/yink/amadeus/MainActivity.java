@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView subtitlesBackground = (ImageView) findViewById(R.id.imageView_subtitles);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         lang = sharedPreferences.getString("lang", "ja");
-        recogLang = sharedPreferences.getString("recognition_lang", "ja");
+        recogLang = sharedPreferences.getString("recognition_lang", "ja-JP");
         if (!sharedPreferences.getBoolean("show_subtitles", false)) {
             subtitlesBackground.setVisibility(View.INVISIBLE);
         }
@@ -153,17 +153,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        switch (recogLang) {
-            case "ja":
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
-                break;
-            case "en":
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
-                break;
-            case "ru":
-                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ru-RU");
-                break;
-        }
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, recogLang);
 
         /* Temporary workaround for strange bug on 4.0.3-4.0.4 */
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
@@ -300,8 +290,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void answerSpeech(String input) {
 
+        String[] contextLang = recogLang.split("-");
+
         /* Switch language within current context for voice recognition */
-        Context context = LangContext.load(getApplicationContext(), recogLang);
+        Context context = LangContext.load(getApplicationContext(), contextLang[0]);
 
         input = input.toLowerCase();
         Random randomGen = new Random();
