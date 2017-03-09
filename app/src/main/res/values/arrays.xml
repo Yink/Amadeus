@@ -16,11 +16,13 @@
 
     <string-array name="languagesRecogArray">
         <item>English</item>
+        <item>Русский</item>
         <item>日本語</item>
     </string-array>
 
     <string-array name="languagesRecogValues">
         <item>en</item>
+        <item>ru</item>
         <item>ja</item>
     </string-array>
 </resources>

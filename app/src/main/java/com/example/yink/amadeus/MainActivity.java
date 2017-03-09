@@ -164,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
             case "en":
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
                 break;
+            case "ru":
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ru-RU");
+                break;
         }
 
         /* Temporary workaround for strange bug on 4.0.3-4.0.4 */
@@ -400,7 +403,7 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(25));
                     break;
                 case 3:
-                    speak(voiceLines.get(1));
+                    speak(voiceLines.get(0));
                     break;
             }
         } else if (input.contains(context.getString(R.string.nice_body))
@@ -526,7 +529,6 @@ public class MainActivity extends AppCompatActivity {
             /* TODO: Japanese doesn't split the words. Sigh. */
             String[] splitInput = input.split(" ");
 
-            /* TODO: Works only with english right now (and best with english) */
             if (splitInput.length > 1 && splitInput[0].equalsIgnoreCase(getString(R.string.christina))) {
                 String cmd = splitInput[1].toLowerCase();
                 String[] args = new String[splitInput.length - 2];
@@ -535,6 +537,9 @@ public class MainActivity extends AppCompatActivity {
                 /* TODO: Must be reimplemented for multilanguage support */
                 switch (cmd) {
                     case "open":
+                        openApp(args);
+                        break;
+                    case "открой":
                         openApp(args);
                         break;
                 }
