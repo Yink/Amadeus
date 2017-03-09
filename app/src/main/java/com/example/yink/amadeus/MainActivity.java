@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                             promptSpeechInput();
                         } else {
-                            speak(new VoiceLine(R.raw.daga_kotowaru, VoiceLine.Mood.PISSED, R.string.line_but_i_refuse));
+                            speak(voiceLines[VoiceLine.Line.DAGA_KOTOWARU]);
                         }
                     }
 
