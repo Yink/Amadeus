@@ -4,7 +4,6 @@
     <string name="connecting">Connecting…</string>
     <string name="disconnected">Disconnected.</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
-    <string name="lang_default_value">en-US</string>
     <integer name="duration">40</integer>
 
     <string name="line_hello">Hello.</string>

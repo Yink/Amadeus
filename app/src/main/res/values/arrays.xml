@@ -12,9 +12,13 @@
         <item>ja</item>
     </string-array>
 
-    <string-array name="commandChristina">
-        <item>Christina</item>
-        <item>Кристина</item>
-        <item>クリスティーナ</item>
+    <string-array name="languagesRecogArray">
+        <item>English</item>
+        <item>日本語</item>
+    </string-array>
+
+    <string-array name="languagesRecogValues">
+        <item>en</item>
+        <item>ja</item>
     </string-array>
 </resources>

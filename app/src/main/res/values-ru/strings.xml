@@ -4,7 +4,6 @@
     <string name="connecting">Подключение…</string>
     <string name="disconnected">Отключено.</string>
     <string name="google_app_error">Google App не найден.</string>
-    <string name="lang_default_value">ru-RU</string>
 
     <!-- Многие фразы были вырваны из контекста, поэтому прошу не пинать -->
     <string name="line_hello">Привет.</string>
