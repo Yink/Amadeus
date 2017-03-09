@@ -7,6 +7,13 @@
             android:summary="Shows subtitles for Amadeus' answers"
             android:title="Show subtitles" />
         <ListPreference
+            android:key="recognition_lang"
+            android:title="Recognition language"
+            android:summary="Voice recognition language"
+            android:defaultValue="@string/lang_default_value"
+            android:entries="@array/languagesRecogArray"
+            android:entryValues="@array/languagesRecogValues" />
+        <ListPreference
             android:summary="Select app language (app restart required)"
             android:title="Language"
             android:key="lang"

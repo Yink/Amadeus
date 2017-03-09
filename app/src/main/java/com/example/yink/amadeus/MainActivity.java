@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     int shaman_girls = -1;
     Random randomgen = new Random();
     SharedPreferences sharedPreferences;
-    String lang;
+    String lang, recogLang;
     MediaPlayer m;
     private SpeechRecognizer sr;
 
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView imageViewSubtitles = (ImageView) findViewById(R.id.imageView_subtitles);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         lang = sharedPreferences.getString("lang", "ja");
+        recogLang = sharedPreferences.getString("recognition_lang", "ja");
         if (!sharedPreferences.getBoolean("show_subtitles", false)) {
             imageViewSubtitles.setVisibility(View.INVISIBLE);
         }
@@ -154,11 +157,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        String lang = "ja-JP";
-        if (!getString(R.string.lang_default_value).equals("ja-JP")) {
-            lang = "en-US";
+        switch (recogLang) {
+            case "ja":
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "ja-JP");
+                break;
+            case "en":
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
+                break;
         }
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, lang);
+
         /* Temporary workaround for strange bug on 4.0.3-4.0.4 */
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
             try {
@@ -170,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
             sr.startListening(intent);
         }
     }
-    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -293,10 +300,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void answerSpeech(String input) {
-        Log.e(TAG, input);
+        Context context = getApplicationContext();
+        Configuration config = context.getResources().getConfiguration();
+
+        Locale locale = new Locale(recogLang);
+        Locale.setDefault(locale);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            config.setLocale(locale);
+        } else {
+            config.locale = locale;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            context = context.createConfigurationContext(config);
+        } else {
+            context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        }
+
         input = input.toLowerCase();
         Random randomGen = new Random();
-        if (input.contains(getString(R.string.christina))) {
+        if (input.contains(context.getString(R.string.christina))) {
             switch (randomGen.nextInt(4)) {
                 case 0:
                     speak(voiceLines.get(10));
@@ -311,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(15));
                     break;
             }
-        } else if (input.contains(getString(R.string.nullpo))) {
+        } else if (input.contains(context.getString(R.string.nullpo))) {
             shaman_girls += 1;
             if (shaman_girls < 5) {
                 switch (randomGen.nextInt(2)) {
@@ -342,29 +366,29 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-        } else if (input.contains(getString(R.string.the_zombie))
-                || input.contains(getString(R.string.celeb17))) {
+        } else if (input.contains(context.getString(R.string.the_zombie))
+                || input.contains(context.getString(R.string.celeb17))) {
             speak(voiceLines.get(32));
-        } else if (input.contains(getString(R.string.atchannel))
-                || input.contains(getString(R.string.kurigohan))
-                || input.contains(getString(R.string.kamehameha))) {
+        } else if (input.contains(context.getString(R.string.atchannel))
+                || input.contains(context.getString(R.string.kurigohan))
+                || input.contains(context.getString(R.string.kamehameha))) {
             speak(voiceLines.get(30 + randomGen.nextInt(2)));
-        } else if (input.contains(getString(R.string.salieri))
-                || input.contains(getString(R.string.maho))
-                || input.contains(getString(R.string.hiyajo))) {
+        } else if (input.contains(context.getString(R.string.salieri))
+                || input.contains(context.getString(R.string.maho))
+                || input.contains(context.getString(R.string.hiyajo))) {
             speak(voiceLines.get(26 + randomGen.nextInt(4)));
-        } else if (input.contains(getString(R.string.time_machine))
-                || input.contains(getString(R.string.cern))
-                || input.contains(getString(R.string.time_travel))) {
+        } else if (input.contains(context.getString(R.string.time_machine))
+                || input.contains(context.getString(R.string.cern))
+                || input.contains(context.getString(R.string.time_travel))) {
             speak(voiceLines.get(33 + randomGen.nextInt(5)));
-        } else if (input.contains(getString(R.string.memory))
-                || input.contains(getString(R.string.amadeus))
-                || input.contains(getString(R.string.science))) {
+        } else if (input.contains(context.getString(R.string.memory))
+                || input.contains(context.getString(R.string.amadeus))
+                || input.contains(context.getString(R.string.science))) {
             speak(voiceLines.get(38 + randomGen.nextInt(5)));
-        } else if (input.contains(getString(R.string.hello))
-                || input.contains(getString(R.string.good_morning))
-                || input.contains(getString(R.string.konnichiwa))
-                || input.contains(getString(R.string.good_evening))) {
+        } else if (input.contains(context.getString(R.string.hello))
+                || input.contains(context.getString(R.string.good_morning))
+                || input.contains(context.getString(R.string.konnichiwa))
+                || input.contains(context.getString(R.string.good_evening))) {
             switch (randomGen.nextInt(4)) {
                 case 0:
                     speak(voiceLines.get(12));
@@ -379,11 +403,11 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(1));
                     break;
             }
-        } else if (input.contains(getString(R.string.nice_body))
-                || input.contains(getString(R.string.hot))
-                || input.contains(getString(R.string.sexy))
-                || input.contains(getString(R.string.boobies))
-                || input.contains(getString(R.string.oppai))) {
+        } else if (input.contains(context.getString(R.string.nice_body))
+                || input.contains(context.getString(R.string.hot))
+                || input.contains(context.getString(R.string.sexy))
+                || input.contains(context.getString(R.string.boobies))
+                || input.contains(context.getString(R.string.oppai))) {
             switch (randomGen.nextInt(3)) {
                 case 0:
                     speak(voiceLines.get(2));
@@ -395,8 +419,8 @@ public class MainActivity extends AppCompatActivity {
                     speak(voiceLines.get(11));
                     break;
             }
-        } else if (input.contains(getString(R.string.robotics_notes))
-                || input.contains(getString(R.string.antimatter))) {
+        } else if (input.contains(context.getString(R.string.robotics_notes))
+                || input.contains(context.getString(R.string.antimatter))) {
             speak(voiceLines.get(21)); //Hehehe
         } else {
             speak(voiceLines.get(16 + randomGen.nextInt(7)));
@@ -502,6 +526,7 @@ public class MainActivity extends AppCompatActivity {
             /* TODO: Japanese doesn't split the words. Sigh. */
             String[] splitInput = input.split(" ");
 
+            /* TODO: Works only with english right now (and best with english) */
             if (splitInput.length > 1 && splitInput[0].equalsIgnoreCase(getString(R.string.christina))) {
                 String cmd = splitInput[1].toLowerCase();
                 String[] args = new String[splitInput.length - 2];
@@ -510,9 +535,6 @@ public class MainActivity extends AppCompatActivity {
                 /* TODO: Must be reimplemented for multilanguage support */
                 switch (cmd) {
                     case "open":
-                        openApp(args);
-                        break;
-                    case "открой":
                         openApp(args);
                         break;
                 }
