@@ -30,5 +30,5 @@ Keep in mind that the voice recognition is Japanese in order to register the Jap
 <li><a href="https://twitter.com/DavixxaYT">Davixxa</a> for Assets</li>
 <li>But He's a Guy and Deadeye for finding the hidden animation in 0</li>
 <li>MARIORUI11 for Portuguese translation</li>
-<li>Gioghurt for Spanish translation</li>
+<li><a href="https://twitter.com/gioghurt">Gioghurt</a> for Spanish translation</li>
 </ul>
