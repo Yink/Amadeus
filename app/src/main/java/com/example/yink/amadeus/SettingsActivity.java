@@ -4,6 +4,7 @@ package com.example.yink.amadeus;
  * Created by Yink on 05.03.2017.
  */
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

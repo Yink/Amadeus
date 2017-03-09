@@ -5,7 +5,6 @@
     <string name="disconnected">Desconectado.</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
     <string name="lang_default_value">Pt-Pt</string>
-    <integer name="duration">40</integer>
 
     <string name="line_hello">Hola.</string>
     <string name="line_dont_call_me_like_that">No me llames así!</string>

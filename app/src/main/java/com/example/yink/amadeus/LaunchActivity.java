@@ -15,8 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 public class LaunchActivity extends AppCompatActivity {
     ImageView connect, cancel, imageViewLogo;
     TextView status;
@@ -167,23 +165,5 @@ public class LaunchActivity extends AppCompatActivity {
         logo = null;
         super.onPause();
     }*/
-
-    @SuppressWarnings("deprecation")
-    private void setLocale(Context context, String lang) {
-        Configuration config = getBaseContext().getResources().getConfiguration();
-        Locale myLocale = new Locale(lang);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            config.setLocale(myLocale);
-        } else {
-            config.locale = myLocale;
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            context = context.createConfigurationContext(config);
-        } else {
-            context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
-        }
-    }
 
 }
