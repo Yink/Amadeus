@@ -24,6 +24,15 @@ public class LaunchActivity extends AppCompatActivity {
     Boolean isPressed = false;
     SharedPreferences sharedPreferences;
     MediaPlayer m;
+    int i = 0;
+    int id;
+    int duration = 20;
+    Runnable aniRunnable = new Runnable() {
+        public void run() {
+            imageViewLogo.setImageDrawable((getResources().getDrawable(id)));
+            animate(imageViewLogo);
+        }
+    };
 
     private static boolean isAppInstalled(Context context, String packageName) {
         try {
@@ -31,6 +40,15 @@ public class LaunchActivity extends AppCompatActivity {
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;
+        }
+    }
+
+    protected void animate(ImageView view) {
+        if (i < 39) {
+            i += 1;
+            String imgName = "logo" + Integer.toString(i);
+            id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+            view.postDelayed(aniRunnable, duration);
         }
     }
 
@@ -49,7 +67,7 @@ public class LaunchActivity extends AppCompatActivity {
         /*logo = (AnimationDrawable) imageViewLogo.getDrawable();
         logo.start();*/
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
+        animate(imageViewLogo);
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
         }
