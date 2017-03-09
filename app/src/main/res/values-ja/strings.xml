@@ -3,6 +3,8 @@
     <string name="call">Connect to Kurisu?</string>
     <string name="connecting">Connecting…</string>
     <string name="disconnected">Disconnected.</string>
+    <string name="default_lang">ja</string>
+    <string name="default_recog_lang">ja</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
 
     <string name="line_hello">Hello.</string>

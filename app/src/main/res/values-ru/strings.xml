@@ -3,6 +3,8 @@
     <string name="call">Подключиться к Курису?</string>
     <string name="connecting">Подключение…</string>
     <string name="disconnected">Отключено.</string>
+    <string name="default_lang">ru</string>
+    <string name="default_recog_lang">ja</string>
     <string name="google_app_error">Google App не найден.</string>
 
     <!-- Многие фразы были вырваны из контекста, поэтому прошу не пинать -->
