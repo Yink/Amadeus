@@ -62,11 +62,11 @@
     <string name="line_Leskinen_shaman">Где японские шаманки, Линтало?</string>
     <string name="line_Leskinen_holy_cow">О боже! Поэтому я сказал что мы скоро придем.</string>
     <string name="line_should_christina">Или я должна была представиться как, "Кристина"?</string>
+    <string name="line_pervert_confirmed">PERVERT CONFIRMED.</string>
 
     <!-- Пока не используются -->
-    <string name="line_i_guess">I guess.</string>
+    <string name="line_i_guess">Думаю, да.</string>
     <string name="line_nice">Nice.</string>
-    <string name="line_pervert_confirmed">PERVERT CONFIRMED.</string>
 
     <!-- Фразы для ввода -->
     <string name="christina">кристина</string>
@@ -85,13 +85,15 @@
     <string name="good_morning">доброе утро</string>
     <string name="konnichiwa">добрый день</string>
     <string name="good_evening">добрый вечер</string>
-    <string name="nice_body">ナイスボディ</string>
-    <string name="hot">ほっと</string>
+    <!-- Контекст! -->
+    <string name="nice_body">симпатичная фигура</string>
+    <string name="hot">горячая</string>
     <string name="sexy">секси</string>
-    <string name="boobies">ボビーズ</string>
+    <string name="boobies">сисечки</string>
+    <!-- Да, так работает -->
+    <string name="nullpo">0 по</string>
 
     <!-- Не распознается -->
-    <string name="nullpo">ぬるぽ</string>
     <string name="atchannel">アットチャンネル</string>
     <string name="oppai">おっぱい</string>
     <string name="maho">真帆</string>
