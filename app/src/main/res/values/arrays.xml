@@ -3,6 +3,7 @@
     <string-array name="languagesArray">
         <item>English</item>
         <item>Русский</item>
+        <item>Português</item>
         <item>日本語</item>
     </string-array>
 
@@ -10,6 +11,7 @@
         <item>en</item>
         <item>ru</item>
         <item>ja</item>
+        <item>pt</item>
     </string-array>
 
     <string-array name="commandChristina">

@@ -20,7 +20,7 @@ import java.util.Locale;
 public class LaunchActivity extends AppCompatActivity {
     ImageView connect, cancel, imageViewLogo;
     TextView status;
-    //AnimationDrawable logo;
+    AnimationDrawable logo;
     Boolean isPressed = false;
     SharedPreferences sharedPreferences;
     MediaPlayer m;
