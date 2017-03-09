@@ -24,9 +24,11 @@ Keep in mind that the voice recognition is Japanese in order to register the Jap
 
 #Credits
 <ul>
-<li><a href="https://github.com/RIP95">Emojikage</a> for various improvements and advice</li>
+<li><a href="https://github.com/RIP95">Emojikage</a> for various improvements and advice, Russian translation</li>
 <li>8-Bit☆Asian for Zero and S;G Voice Lines and the Website</li>
 <li><a href="https://twitter.com/SG_EPK_X29">EPK</a> for Phenogram Voice Lines</li>
 <li><a href="https://twitter.com/DavixxaYT">Davixxa</a> for Assets</li>
 <li>But He's a Guy and Deadeye for finding the hidden animation in 0</li>
+<li>MARIORUI11 for Portuguese translation</li>
+<li>Gioghurt for Spanish translation</li>
 </ul>
