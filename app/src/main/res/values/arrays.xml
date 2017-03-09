@@ -3,12 +3,14 @@
     <string-array name="languagesArray">
         <item>English</item>
         <item>Русский</item>
+        <item>Português</item>
         <item>日本語</item>
     </string-array>
 
     <string-array name="languagesValues">
         <item>en</item>
         <item>ru</item>
+        <item>pt</item>
         <item>ja</item>
     </string-array>
 
