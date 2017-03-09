@@ -12,8 +12,8 @@ import android.preference.PreferenceManager;
 
 import java.util.Locale;
 
-public class LangContextWrapper extends ContextWrapper {
-    public LangContextWrapper(Context base) {
+public class LangContext extends ContextWrapper {
+    public LangContext(Context base) {
         super(base);
     }
 
@@ -39,7 +39,28 @@ public class LangContextWrapper extends ContextWrapper {
         } else {
             context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
         }
-        return new LangContextWrapper(context);
+        return new LangContext(context);
+    }
+
+    @SuppressWarnings("deprecation")
+    public static Context load(Context context, String lang) {
+        Configuration config = context.getResources().getConfiguration();
+
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            setSystemLocale(config, locale);
+        } else {
+            setSystemLocaleLegacy(config, locale);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            context = context.createConfigurationContext(config);
+        } else {
+            context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        }
+
+        return context;
     }
 
     @SuppressWarnings("deprecation")

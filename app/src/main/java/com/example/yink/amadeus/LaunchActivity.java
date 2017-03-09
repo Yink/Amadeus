@@ -129,7 +129,7 @@ public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LangContextWrapper.wrap(newBase));
+        super.attachBaseContext(LangContext.wrap(newBase));
     }
 
     @Override

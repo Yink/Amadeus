@@ -21,6 +21,6 @@ public class SettingsActivity extends FragmentActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LangContextWrapper.wrap(newBase));
+        super.attachBaseContext(LangContext.wrap(newBase));
     }
 }
