@@ -18,4 +18,9 @@ public class SettingsActivity extends FragmentActivity {
             getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
         }
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LangContextWrapper.wrap(newBase));
+    }
 }

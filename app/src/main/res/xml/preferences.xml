@@ -4,21 +4,21 @@
         <SwitchPreference
             android:defaultValue="false"
             android:key="show_subtitles"
-            android:summary="Shows subtitles for Amadeus' answers"
-            android:title="Show subtitles" />
+            android:summary="@string/pref_subtitles_desc"
+            android:title="@string/pref_subtitles" />
         <ListPreference
             android:defaultValue="@string/default_recog_lang"
             android:entries="@array/languagesRecogArray"
             android:entryValues="@array/languagesRecogValues"
             android:key="recognition_lang"
-            android:summary="Voice recognition language"
-            android:title="Recognition language" />
+            android:summary="@string/pref_recog_lang_desc"
+            android:title="@string/pref_recog_lang" />
         <ListPreference
             android:defaultValue="@string/default_lang"
             android:entries="@array/languagesArray"
             android:entryValues="@array/languagesValues"
             android:key="lang"
-            android:summary="Select app language (app restart required)"
-            android:title="Language" />
+            android:summary="@string/pref_lang_desc"
+            android:title="@string/pref_lang" />
     </PreferenceCategory>
 </PreferenceScreen>
