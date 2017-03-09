@@ -9,7 +9,9 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
@@ -31,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -165,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             sr.startListening(intent);
         }
     }
-
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -222,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                             kurisu.setImageDrawable(animation.getFrame(0));
+                            kurisu.setImageDrawable(animation.getFrame(0));
                         }
                     });
                 }
@@ -262,19 +265,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /*private int inputLangId;
+    private void openApp(String[] input) {
+        final PackageManager pm = getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        Context ctx = getApplicationContext();
 
-    private int commandId(String input) {
-        Resources res = getResources();
-
-        String[] variants;
-
-        variants = res.getStringArray(R.array.commandChristina);
-
-        if (input.contains(variants[inputLangId])) {
-            return R.array.commandChristina;
+        for (String word: input) {
+            Log.d(TAG, word);
         }
-    }*/
+
+        for (ApplicationInfo packageInfo : packages) {
+            /*
+             *  TODO: Needs to be adjusted probably.
+             */
+            if (packageInfo.packageName.contains(input[0].toLowerCase())) {
+                Intent app = ctx.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
+                if (app != null) {
+                    speak(voiceLines.get(45));
+                    app.addCategory(Intent.CATEGORY_LAUNCHER);
+                    ctx.startActivity(app);
+                    break;
+                }
+            }
+        }
+    }
 
     private void answerSpeech(String input) {
         Log.e(TAG, input);
@@ -433,6 +447,7 @@ public class MainActivity extends AppCompatActivity {
         voiceLines.add(new VoiceLine(R.raw.memories_christina, Mood.WINKING, R.string.line_memories_christina));
         voiceLines.add(new VoiceLine(R.raw.gah_extended, Mood.BLUSH, R.string.line_gah_extended));
         voiceLines.add(new VoiceLine(R.raw.should_christina, Mood.PISSED, R.string.line_should_christina));
+        voiceLines.add(new VoiceLine(R.raw.ok, Mood.HAPPY, R.string.line_ok));
     }
 
     private class Mood {
@@ -478,16 +493,30 @@ public class MainActivity extends AppCompatActivity {
         }
         public void onResults(Bundle results) {
             String input = "";
-            String debug = "";
             Log.d(TAG, "onResults " + results);
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-            for (int i = 0; i < data.size(); i++) {
-                debug += data.get(i);
-                Log.d(TAG, debug);
-            }
 
             input += data.get(0);
-            answerSpeech(input);
+            /* TODO: Japanese doesn't split the words. Sigh. */
+            String[] splitInput = input.split(" ");
+
+            if (splitInput.length > 1 && splitInput[0].equalsIgnoreCase(getString(R.string.christina))) {
+                String cmd = splitInput[1].toLowerCase();
+                String[] args = new String[splitInput.length - 2];
+                System.arraycopy(splitInput, 2, args, 0, splitInput.length - 2);
+
+                /* TODO: Must be reimplemented for multilanguage support */
+                switch (cmd) {
+                    case "open":
+                        openApp(args);
+                        break;
+                    case "открой":
+                        openApp(args);
+                        break;
+                }
+            } else {
+                answerSpeech(input);
+            }
         }
         public void onPartialResults(Bundle partialResults) {
             Log.d(TAG, "onPartialResults");
