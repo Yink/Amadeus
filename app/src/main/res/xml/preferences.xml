@@ -7,18 +7,18 @@
             android:summary="Shows subtitles for Amadeus' answers"
             android:title="Show subtitles" />
         <ListPreference
-            android:key="recognition_lang"
-            android:title="Recognition language"
-            android:summary="Voice recognition language"
-            android:defaultValue="@string/lang_default_value"
+            android:defaultValue="@string/default_recog_lang"
             android:entries="@array/languagesRecogArray"
-            android:entryValues="@array/languagesRecogValues" />
+            android:entryValues="@array/languagesRecogValues"
+            android:key="recognition_lang"
+            android:summary="Voice recognition language"
+            android:title="Recognition language" />
         <ListPreference
-            android:summary="Select app language (app restart required)"
-            android:title="Language"
-            android:key="lang"
-            android:defaultValue="@string/lang_default_value"
+            android:defaultValue="@string/default_lang"
             android:entries="@array/languagesArray"
-            android:entryValues="@array/languagesValues" />
+            android:entryValues="@array/languagesValues"
+            android:key="lang"
+            android:summary="Select app language (app restart required)"
+            android:title="Language" />
     </PreferenceCategory>
 </PreferenceScreen>
