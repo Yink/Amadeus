@@ -10,14 +10,14 @@
             android:key="recognition_lang"
             android:title="Recognition language"
             android:summary="Voice recognition language"
-            android:defaultValue="@string/lang_default_value"
+            android:defaultValue="@string/default_recog_lang"
             android:entries="@array/languagesRecogArray"
             android:entryValues="@array/languagesRecogValues" />
         <ListPreference
             android:summary="Select app language (app restart required)"
             android:title="Language"
             android:key="lang"
-            android:defaultValue="@string/lang_default_value"
+            android:defaultValue="@string/default_lang"
             android:entries="@array/languagesArray"
             android:entryValues="@array/languagesValues" />
     </PreferenceCategory>
