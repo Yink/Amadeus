@@ -7,6 +7,14 @@
     <string name="default_recog_lang">ja</string>
     <string name="google_app_error">Google App не найден.</string>
 
+    <!-- Настройки -->
+    <string name="pref_recog_lang">Язык распознавания</string>
+    <string name="pref_recog_lang_desc">Выберите язык распознавания голоса</string>
+    <string name="pref_lang">Язык</string>
+    <string name="pref_lang_desc">Выберите язык приложения (требуется перезапуск)</string>
+    <string name="pref_subtitles">Показывать субтитры</string>
+    <string name="pref_subtitles_desc">Показывает субтитры с ответами Амадеуса</string>
+
     <!-- Многие фразы были вырваны из контекста, поэтому прошу не пинать -->
     <string name="line_hello">Привет.</string>
     <string name="line_dont_call_me_like_that">Не называй меня так!</string>
