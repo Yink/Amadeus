@@ -10,8 +10,8 @@
     <string-array name="languagesValues">
         <item>en</item>
         <item>ru</item>
-        <item>ja</item>
         <item>pt</item>
+        <item>ja</item>
     </string-array>
 
     <string-array name="commandChristina">
