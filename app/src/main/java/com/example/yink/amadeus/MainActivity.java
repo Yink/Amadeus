@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     String lang, recogLang;
     MediaPlayer m;
     private SpeechRecognizer sr;
+    String[] contextLang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         lang = sharedPreferences.getString("lang", "ja");
         recogLang = sharedPreferences.getString("recognition_lang", "ja-JP");
+        contextLang = recogLang.split("-");
         if (!sharedPreferences.getBoolean("show_subtitles", false)) {
             subtitlesBackground.setVisibility(View.INVISIBLE);
         }
@@ -175,9 +177,12 @@ public class MainActivity extends AppCompatActivity {
             case 1: {
                 if (resultCode == RESULT_OK && null != data) {
 
+                    /* Switch language within current context for voice recognition */
+                    Context context = LangContext.load(getApplicationContext(), contextLang[0]);
+
                     ArrayList<String> input = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    answerSpeech(input.get(0));
+                    answerSpeech(input.get(0), context);
                 }
                 break;
             }
@@ -267,10 +272,6 @@ public class MainActivity extends AppCompatActivity {
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         Context ctx = getApplicationContext();
 
-        for (String word: input) {
-            Log.d(TAG, word);
-        }
-
         for (ApplicationInfo packageInfo : packages) {
             /*
              *  TODO: Needs to be adjusted probably.
@@ -287,13 +288,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void answerSpeech(String input) {
-
-        /* Split language string (en-US) */
-        String[] contextLang = recogLang.split("-");
-
-        /* Switch language within current context for voice recognition */
-        Context context = LangContext.load(getApplicationContext(), contextLang[0]);
+    private void answerSpeech(String input, Context context) {
 
         input = input.toLowerCase();
         if (input.contains(context.getString(R.string.christina))) {
@@ -417,19 +412,19 @@ public class MainActivity extends AppCompatActivity {
         final String TAG = "Amadeus.listener";
 
         public void onReadyForSpeech(Bundle params) {
-            Log.d(TAG, "onReadyForSpeech");
+            Log.d(TAG, "Speech recognition start");
         }
         public void onBeginningOfSpeech() {
-            Log.d(TAG, "onBeginningOfSpeech");
+            Log.d(TAG, "Listening speech");
         }
         public void onRmsChanged(float rmsdB) {
-            Log.d(TAG, "onRmsChanged");
+            //Log.d(TAG, "onRmsChanged");
         }
         public void onBufferReceived(byte[] buffer) {
             Log.d(TAG, "onBufferReceived");
         }
         public void onEndOfSpeech() {
-            Log.d(TAG, "onEndofSpeech");
+            Log.d(TAG, "Speech recognition end");
         }
         public void onError(int error) {
             Log.d(TAG,  "error " +  error);
@@ -438,14 +433,23 @@ public class MainActivity extends AppCompatActivity {
         }
         public void onResults(Bundle results) {
             String input = "";
-            Log.d(TAG, "onResults " + results);
+            String debug = "";
+            Log.d(TAG, "Received results");
             ArrayList data = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+            for (Object word: data) {
+                debug += word + "\n";
+            }
+            Log.d(TAG, debug);
 
             input += data.get(0);
             /* TODO: Japanese doesn't split the words. Sigh. */
             String[] splitInput = input.split(" ");
 
-            if (splitInput.length > 1 && splitInput[0].equalsIgnoreCase(getString(R.string.christina))) {
+            /* Switch language within current context for voice recognition */
+            Context context = LangContext.load(getApplicationContext(), contextLang[0]);
+
+            if (splitInput.length > 2 && splitInput[0].equalsIgnoreCase(context.getString(R.string.christina))) {
                 String cmd = splitInput[1].toLowerCase();
                 String[] args = new String[splitInput.length - 2];
                 System.arraycopy(splitInput, 2, args, 0, splitInput.length - 2);
@@ -460,7 +464,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             } else {
-                answerSpeech(input);
+                answerSpeech(input, context);
             }
         }
         public void onPartialResults(Bundle partialResults) {
