@@ -296,7 +296,6 @@ public class MainActivity extends AppCompatActivity {
         Context context = LangContext.load(getApplicationContext(), contextLang[0]);
 
         input = input.toLowerCase();
-        Random randomGen = new Random();
         if (input.contains(context.getString(R.string.christina))) {
             VoiceLine[] specificLines = {
                     voiceLines[VoiceLine.Line.CHRISTINA],
@@ -304,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
                     voiceLines[VoiceLine.Line.SHOULD_CHRISTINA],
                     voiceLines[VoiceLine.Line.NO_TINA]
             };
-            speak(specificLines[randomGen.nextInt(specificLines.length)]);
+            speak(specificLines[randomgen.nextInt(specificLines.length)]);
         } else if (input.contains(context.getString(R.string.nullpo))) {
             shaman_girls += 1;
             if (shaman_girls < 5) {
@@ -312,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
                         voiceLines[VoiceLine.Line.GAH],
                         voiceLines[VoiceLine.Line.GAH_EXTENDED]
                 };
-                speak(specificLines[randomGen.nextInt(specificLines.length)]);
+                speak(specificLines[randomgen.nextInt(specificLines.length)]);
             } else {
                 switch (shaman_girls) {
                     case 5:
@@ -343,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
                     voiceLines[VoiceLine.Line.SENPAI_DONT_TELL],
                     voiceLines[VoiceLine.Line.STILL_NOT_HAPPY]
             };
-            speak(specificLines[randomGen.nextInt(specificLines.length)]);
+            speak(specificLines[randomgen.nextInt(specificLines.length)]);
         } else if (input.contains(context.getString(R.string.salieri))
                 || input.contains(context.getString(R.string.maho))
                 || input.contains(context.getString(R.string.hiyajo))) {
@@ -353,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
                     voiceLines[VoiceLine.Line.SENPAI_QUESTIONMARK],
                     voiceLines[VoiceLine.Line.SENPAI_WHO_IS_THIS]
             };
-            speak(specificLines[randomGen.nextInt(specificLines.length)]);
+            speak(specificLines[randomgen.nextInt(specificLines.length)]);
         } else if (input.contains(context.getString(R.string.time_machine))
                 || input.contains(context.getString(R.string.cern))
                 || input.contains(context.getString(R.string.time_travel))) {
@@ -364,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
                     voiceLines[VoiceLine.Line.TM_DONT_KNOW],
                     voiceLines[VoiceLine.Line.TM_NOT_POSSIBLE]
             };
-            speak(specificLines[randomGen.nextInt(specificLines.length)]);
+            speak(specificLines[randomgen.nextInt(specificLines.length)]);
         } else if (input.contains(context.getString(R.string.memory))
                 || input.contains(context.getString(R.string.amadeus))
                 || input.contains(context.getString(R.string.science))) {
@@ -375,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
                     voiceLines[VoiceLine.Line.MODIFIYING_MEMORIES],
                     voiceLines[VoiceLine.Line.MEMORIES_CHRISTINA]
             };
-            speak(specificLines[randomGen.nextInt(specificLines.length)]);
+            speak(specificLines[randomgen.nextInt(specificLines.length)]);
         } else if (input.contains(context.getString(R.string.hello))
                 || input.contains(context.getString(R.string.good_morning))
                 || input.contains(context.getString(R.string.konnichiwa))
@@ -384,10 +383,9 @@ public class MainActivity extends AppCompatActivity {
                     voiceLines[VoiceLine.Line.HELLO],
                     voiceLines[VoiceLine.Line.NICE_TO_MEET_OKABE],
                     voiceLines[VoiceLine.Line.PLEASED_TO_MEET],
-                    voiceLines[VoiceLine.Line.MODIFIYING_MEMORIES],
                     voiceLines[VoiceLine.Line.LOOKING_FORWARD_TO_WORKING]
             };
-            speak(specificLines[randomGen.nextInt(specificLines.length)]);
+            speak(specificLines[randomgen.nextInt(specificLines.length)]);
         } else if (input.contains(context.getString(R.string.nice_body))
                 || input.contains(context.getString(R.string.hot))
                 || input.contains(context.getString(R.string.sexy))
@@ -398,7 +396,7 @@ public class MainActivity extends AppCompatActivity {
                     voiceLines[VoiceLine.Line.PERVERT_CONFIRMED],
                     voiceLines[VoiceLine.Line.PERVERT_IDIOT]
             };
-            speak(specificLines[randomGen.nextInt(specificLines.length)]);
+            speak(specificLines[randomgen.nextInt(specificLines.length)]);
         } else if (input.contains(context.getString(R.string.robotics_notes))
                 || input.contains(context.getString(R.string.antimatter))) {
             speak(voiceLines[VoiceLine.Line.HEHEHE]);
@@ -411,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
                     voiceLines[VoiceLine.Line.WHY_SAY_THAT],
                     voiceLines[VoiceLine.Line.YOU_SURE]
             };
-            speak(specificLines[randomGen.nextInt(specificLines.length)]);
+            speak(specificLines[randomgen.nextInt(specificLines.length)]);
         }
     }
 
