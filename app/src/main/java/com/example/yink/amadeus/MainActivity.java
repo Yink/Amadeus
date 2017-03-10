@@ -449,7 +449,7 @@ public class MainActivity extends AppCompatActivity {
             /* Switch language within current context for voice recognition */
             Context context = LangContext.load(getApplicationContext(), contextLang[0]);
 
-            if (splitInput.length > 2 && splitInput[0].equalsIgnoreCase(context.getString(R.string.christina))) {
+            if (splitInput.length > 2 && splitInput[0].equalsIgnoreCase(context.getString(R.string.assistant))) {
                 String cmd = splitInput[1].toLowerCase();
                 String[] args = new String[splitInput.length - 2];
                 System.arraycopy(splitInput, 2, args, 0, splitInput.length - 2);
