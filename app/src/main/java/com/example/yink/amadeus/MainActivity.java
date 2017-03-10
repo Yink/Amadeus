@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     final int REQUEST_PERMISSION_RECORD_AUDIO = 1;
     TextView subtitles;
     ImageView kurisu;
-    AnimationDrawable animation;
     Boolean isLoop = false;
     Boolean isSpeaking = false;
     VoiceLine[] voiceLines = VoiceLine.Line.getLines();
@@ -186,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void speak(VoiceLine line) {
+        AnimationDrawable animation;
         m = MediaPlayer.create(getApplicationContext(), line.getId());
         final Visualizer v = new Visualizer(m.getAudioSessionId());
 
