@@ -77,31 +77,27 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!isPressed && isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
-                    try {
-                        isPressed = true;
-                        m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
+                    isPressed = true;
+                    m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
 
-                        connect.setImageResource(R.drawable.connect_select);
+                    connect.setImageResource(R.drawable.connect_select);
 
-                        m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                            @Override
-                            public void onPrepared(MediaPlayer mp) {
-                                mp.start();
-                                status.setText(R.string.connecting);
-                            }
-                        });
+                    m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                            status.setText(R.string.connecting);
+                        }
+                    });
 
-                        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                mp.release();
-                                Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
+                            Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
         });

@@ -186,81 +186,80 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void speak(VoiceLine line) {
+        m = MediaPlayer.create(getApplicationContext(), line.getId());
+        final Visualizer v = new Visualizer(m.getAudioSessionId());
+
+        if (sharedPreferences.getBoolean("show_subtitles", false)) {
+            subtitles.setText(line.getSubtitle());
+        }
+
+        Resources res = getResources();
         try {
-            m = MediaPlayer.create(getApplicationContext(), line.getId());
-            final Visualizer v = new Visualizer(m.getAudioSessionId());
-
-            if (sharedPreferences.getBoolean("show_subtitles", false)) {
-                subtitles.setText(line.getSubtitle());
-            }
-
-            Resources res = getResources();
             animation = (AnimationDrawable) Drawable.createFromXml(res, res.getXml(line.getMood()));
-
-            if (m.isPlaying()) {
-                m.stop();
-                m.release();
-                v.setEnabled(false);
-                m = new MediaPlayer();
-            }
-
-            m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    isSpeaking = true;
-                    mp.start();
-                    v.setEnabled(true);
-                }
-            });
-
-            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    isSpeaking = false;
-                    mp.release();
-                    v.setEnabled(false);
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            kurisu.setImageDrawable(animation.getFrame(0));
-                        }
-                    });
-                }
-            });
-
-
-            v.setEnabled(false);
-            v.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
-            v.setDataCaptureListener(
-                    new Visualizer.OnDataCaptureListener() {
-                        public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
-                            int sum = 0;
-                            for (int i = 1; i < bytes.length; i++) {
-                                sum += bytes[i] + 128;
-                            }
-                            // The normalized volume
-                            final float normalized = sum / (float) bytes.length;
-
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (normalized > 50) {
-                                        // Todo: Maybe choose sprite based on previous choice and volume instead of random
-                                        kurisu.setImageDrawable(animation.getFrame((int) Math.ceil(Math.random() * 2)));
-                                    } else {
-                                        kurisu.setImageDrawable(animation.getFrame(0));
-                                    }
-                                }
-                            });
-                        }
-                        public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) { }
-                    }, Visualizer.getMaxCaptureRate() / 2, true, false);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        if (m.isPlaying()) {
+            m.stop();
+            m.release();
+            v.setEnabled(false);
+            m = new MediaPlayer();
+        }
+
+        m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                isSpeaking = true;
+                mp.start();
+                v.setEnabled(true);
+            }
+        });
+
+        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                isSpeaking = false;
+                mp.release();
+                v.setEnabled(false);
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        kurisu.setImageDrawable(animation.getFrame(0));
+                    }
+                });
+            }
+        });
+
+
+        v.setEnabled(false);
+        v.setCaptureSize(Visualizer.getCaptureSizeRange()[1]);
+        v.setDataCaptureListener(
+                new Visualizer.OnDataCaptureListener() {
+                    public void onWaveFormDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) {
+                        int sum = 0;
+                        for (int i = 1; i < bytes.length; i++) {
+                            sum += bytes[i] + 128;
+                        }
+                        // The normalized volume
+                        final float normalized = sum / (float) bytes.length;
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (normalized > 50) {
+                                    // Todo: Maybe choose sprite based on previous choice and volume instead of random
+                                    kurisu.setImageDrawable(animation.getFrame((int) Math.ceil(Math.random() * 2)));
+                                } else {
+                                    kurisu.setImageDrawable(animation.getFrame(0));
+                                }
+                            }
+                        });
+                    }
+                    public void onFftDataCapture(Visualizer visualizer, byte[] bytes, int samplingRate) { }
+                }, Visualizer.getMaxCaptureRate() / 2, true, false);
+
     }
 
     private void openApp(String[] input) {
