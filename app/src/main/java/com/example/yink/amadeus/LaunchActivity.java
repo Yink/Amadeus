@@ -1,15 +1,17 @@
 package com.example.yink.amadeus;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -72,6 +74,11 @@ public class LaunchActivity extends AppCompatActivity {
 
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
+
+        if (sharedPreferences.getBoolean("show_notification", false)) {
+            showNotification();
+        }
+
 
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +157,20 @@ public class LaunchActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    private void showNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.xp2)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText(getString(R.string.notification_text));
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(resultPendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
+    }
     /* Reported OOM on 2K+ resolution devices */
     /*
     @Override

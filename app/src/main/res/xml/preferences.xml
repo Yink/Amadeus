@@ -6,6 +6,11 @@
             android:key="show_subtitles"
             android:summary="@string/pref_subtitles_desc"
             android:title="@string/pref_subtitles" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="show_notification"
+            android:summary="@string/pref_notification_desc"
+            android:title="@string/pref_notification" />
         <ListPreference
             android:defaultValue="@string/default_recog_lang"
             android:entries="@array/languagesRecogArray"
