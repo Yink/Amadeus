@@ -6,9 +6,9 @@ android {
     defaultConfig {
         applicationId "com.example.yink.amadeus"
         minSdkVersion 9
-        targetSdkVersion 25
+        targetSdkVersion 20
         versionCode 1
-        versionName "0.8.4-beta.5"
+        versionName "0.8.9-beta.7"
     }
     buildTypes {
         release {

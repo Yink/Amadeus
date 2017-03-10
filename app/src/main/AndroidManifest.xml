@@ -12,7 +12,11 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:parentActivityName=".LaunchActivity"
             android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LaunchActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -29,7 +33,12 @@
         <activity
             android:name=".SettingsActivity"
             android:label="Preferences"
-            android:theme="@style/PreferenceTheme" />
+            android:parentActivityName=".LaunchActivity"
+            android:theme="@style/PreferenceTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LaunchActivity" />
+        </activity>
     </application>
 
 </manifest>
