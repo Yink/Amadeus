@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
     final int REQUEST_PERMISSION_RECORD_AUDIO = 1;
     TextView subtitles;
     ImageView kurisu;
-    AnimationDrawable animation;
     Boolean isLoop = false;
     Boolean isSpeaking = false;
     VoiceLine[] voiceLines = VoiceLine.Line.getLines();
+    AnimationDrawable animation;
     int shaman_girls = -1;
     Random randomgen = new Random();
     SharedPreferences sharedPreferences;
