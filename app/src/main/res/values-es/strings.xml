@@ -3,8 +3,9 @@
     <string name="call">Conectar a Kurisu?</string>
     <string name="connecting">Conectando…</string>
     <string name="disconnected">Desconectado.</string>
+    <string name="default_lang">es</string>
+    <string name="default_recog_lang">ja-JP</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
-    <string name="lang_default_value">Pt-Pt</string>
 
     <string name="line_hello">Hola.</string>
     <string name="line_dont_call_me_like_that">No me llames así!</string>
