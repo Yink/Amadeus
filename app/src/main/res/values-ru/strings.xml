@@ -4,10 +4,11 @@
     <string name="connecting">Подключение…</string>
     <string name="disconnected">Отключено.</string>
     <string name="default_lang">ru</string>
-    <string name="default_recog_lang">ja</string>
+    <string name="default_recog_lang">ja-JP</string>
     <string name="google_app_error">Google App не найден.</string>
 
     <!-- Настройки -->
+    <string name="pref_app_settings">Настройки приложения</string>
     <string name="pref_recog_lang">Язык распознавания</string>
     <string name="pref_recog_lang_desc">Выберите язык распознавания голоса</string>
     <string name="pref_lang">Язык</string>

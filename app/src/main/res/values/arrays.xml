@@ -23,8 +23,8 @@
     </string-array>
 
     <string-array name="languagesRecogValues">
-        <item>en</item>
-        <item>ru</item>
-        <item>ja</item>
+        <item>en-US</item>
+        <item>ru-RU</item>
+        <item>ja-JP</item>
     </string-array>
 </resources>
