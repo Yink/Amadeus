@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String lang, recogLang;
     MediaPlayer m;
-    private SpeechRecognizer sr;
     String[] contextLang;
+    private SpeechRecognizer sr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +147,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         isLoop = false;
+        if (animation != null && animation.isRunning())
+            animation.stop();
+        kurisu.setImageResource(R.drawable.kurisu2a);
+        animation = null;
         super.onPause();
     }
 
