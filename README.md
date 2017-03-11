@@ -6,8 +6,10 @@ Hit me up on the Steins;Gate Discord.
 
 To start speech recognition simply touch her once. If you long-click her, she will go on a loop and say random sentences in random intervals. Long-Click again to stop.
 
-<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Callscreeen.png?raw=true">Screenshot 1</a>
-<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Kurisuscreen.png?raw=true">Screenshot 2</a>
+<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Callscreen.png?raw=true">Launch View</a>
+<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Kurisuscreen.png?raw=true">Main View</a>
+<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Settingscreen.png?raw=true">Preference Menu</a>
+<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Subscreen.png?raw=true">Main View with English subtitles</a>
 
 #Recognized commands
 Keep in mind that the voice recognition is Japanese in order to register the Japanese names. Thus you may have to alter your pronouncation a bit.
@@ -20,6 +22,7 @@ Keep in mind that the voice recognition is Japanese in order to register the Jap
 <li>Time machine, SERN, Time travel</li>
 <li>Memory, Amadeus, Science</li>
 <li>Nice body, Hot, Sexy, Boobies</li>
+<li>Robitics;Notes, antimatter</li>
 </ul>
 
 #Credits
