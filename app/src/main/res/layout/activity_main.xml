@@ -20,8 +20,8 @@
         android:id="@+id/imageView_kurisu"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/kurisu9a"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/kurisu9a" />
 
     <ImageView
         android:id="@+id/imageView_logo_small"
@@ -44,7 +44,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/subtitle_frame" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/subtitle_frame_big" />
+    <!--<ImageView
+        android:id="@+id/imageView_subtitles"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/subtitle_frame" />-->
 
     <TextView
         android:id="@+id/textView_subtitles"
