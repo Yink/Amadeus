@@ -98,4 +98,6 @@
     <string name="oppai">oppai</string>
     <string name="robotics_notes">Robotics Notes</string>
     <string name="antimatter">antimatter</string>
+    <string name="assistant">assistant</string>
+    <string name="open">open</string>
 </resources>
