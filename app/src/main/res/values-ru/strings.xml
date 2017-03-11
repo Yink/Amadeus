@@ -86,6 +86,8 @@
     <string name="good_morning">доброе утро</string>
     <string name="konnichiwa">добрый день</string>
     <string name="good_evening">добрый вечер</string>
+    <string name="assistant">ассистент</string>
+    <string name="open">открой</string>
     <!-- Контекст! -->
     <string name="nice_body">симпатичная фигура</string>
     <string name="hot">горячая</string>

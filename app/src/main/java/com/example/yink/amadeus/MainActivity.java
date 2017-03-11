@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -272,11 +273,37 @@ public class MainActivity extends AppCompatActivity {
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
         Context ctx = getApplicationContext();
 
+        HashMap<String, Integer> dictionary = new HashMap<>();
+        String corrected;
+        Boolean found;
+        dictionary.put("хром", 0);
+        dictionary.put("календарь", 1);
+        dictionary.put("часы", 2);
+        dictionary.put("будильник", 2);
+        dictionary.put("камеру", 3);
+
+        String[] words = {
+            "chrome", "calendar", "clock", "camera"
+        };
+
         for (ApplicationInfo packageInfo : packages) {
             /*
              *  TODO: Needs to be adjusted probably.
              */
-            if (packageInfo.packageName.contains(input[0].toLowerCase())) {
+            found = true;
+            for (String word: input) {
+                if (dictionary.get(word) != null) {
+                    corrected = words[dictionary.get(word)].toLowerCase();
+                } else {
+                    corrected = word.toLowerCase();
+                }
+                Log.d(TAG, corrected);
+                if (!packageInfo.packageName.contains(corrected)) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
                 Intent app = ctx.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
                 if (app != null) {
                     speak(voiceLines[VoiceLine.Line.OK]);
@@ -445,6 +472,14 @@ public class MainActivity extends AppCompatActivity {
             input += data.get(0);
             /* TODO: Japanese doesn't split the words. Sigh. */
             String[] splitInput = input.split(" ");
+            /* Really, google? */
+            if (splitInput[0].equalsIgnoreCase("Асистент")) {
+                String temp = "";
+                String[] replace;
+                temp += data.get(1);
+                replace = temp.split(" ");
+                splitInput[0] = replace[0];
+            }
 
             /* Switch language within current context for voice recognition */
             Context context = LangContext.load(getApplicationContext(), contextLang[0]);
@@ -454,15 +489,10 @@ public class MainActivity extends AppCompatActivity {
                 String[] args = new String[splitInput.length - 2];
                 System.arraycopy(splitInput, 2, args, 0, splitInput.length - 2);
 
-                /* TODO: Must be reimplemented for multilanguage support */
-                switch (cmd) {
-                    case "open":
-                        openApp(args);
-                        break;
-                    case "открой":
-                        openApp(args);
-                        break;
+                if (cmd.contains(context.getString(R.string.open))) {
+                    openApp(args);
                 }
+
             } else {
                 answerSpeech(input, context);
             }
