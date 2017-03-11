@@ -6,10 +6,13 @@ Hit me up on the Steins;Gate Discord.
 
 To start speech recognition simply touch her once. If you long-click her, she will go on a loop and say random sentences in random intervals. Long-Click again to stop.
 
-<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Callscreen.png?raw=true">Launch View</a>
-<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Kurisuscreen.png?raw=true">Main View</a>
-<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Settingscreen.png?raw=true">Preference Menu</a>
-<a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Subscreen.png?raw=true">Main View with English subtitles</a>
+#Screenshots
+<ul>
+<li><a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Callscreen.png?raw=true">Launch View</a></li>
+<li><a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Kurisuscreen.png?raw=true">Main View</a></li>
+<li><a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Settingscreen.png?raw=true">Preference Menu</a></li>
+<li><a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Subscreen.png?raw=true">Main View with English subtitles</a></li>
+</ul>
 
 #Recognized commands
 Keep in mind that the voice recognition is Japanese in order to register the Japanese names. Thus you may have to alter your pronouncation a bit.
