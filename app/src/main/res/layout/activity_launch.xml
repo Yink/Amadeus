@@ -3,11 +3,7 @@
     android:id="@+id/activity_launch"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/gradient_background"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:background="@drawable/gradient_background" >
 
     <ImageView
         android:id="@+id/imageView_cancel"
@@ -17,7 +13,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="51dp"
         android:adjustViewBounds="false"
-        android:cropToPadding="false"
         android:src="@drawable/cancel_unselect" />
 
     <TextView
@@ -46,7 +41,6 @@
         android:layout_alignStart="@+id/imageView_cancel"
         android:layout_marginBottom="136dp"
         android:adjustViewBounds="false"
-        android:cropToPadding="false"
         android:src="@drawable/connect_unselect" />
 
     <ImageView
