@@ -6,31 +6,31 @@
     android:background="@drawable/gradient_background" >
 
     <ImageView
-        android:id="@+id/imageView_cancel"
-        android:layout_width="180.0dip"
-        android:layout_height="40.0dip"
-        android:layout_below="@+id/textView_call"
+        android:id="@+id/imageView_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/textView_call"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:adjustViewBounds="false"
-        android:src="@drawable/cancel_unselect" />
+        android:adjustViewBounds="true"
+        android:src="@drawable/logo39" />
 
     <TextView
         android:id="@+id/textView_call"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView_connect"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="41dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginStart="14dp"
+        android:layout_marginBottom="39dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
         android:fontFamily="Droid"
         android:text="@string/call"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="#ffdec752"
         android:textSize="22.0sp"
-        android:typeface="monospace" />
+        android:typeface="monospace"
+        android:layout_above="@+id/imageView_connect"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/imageView_connect"
@@ -44,13 +44,13 @@
         android:src="@drawable/connect_unselect" />
 
     <ImageView
-        android:id="@+id/imageView_logo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/textView_call"
-        android:layout_alignParentTop="true"
+        android:id="@+id/imageView_cancel"
+        android:layout_width="180.0dip"
+        android:layout_height="40.0dip"
+        android:layout_below="@+id/textView_call"
         android:layout_centerHorizontal="true"
-        android:adjustViewBounds="true"
-        android:src="@drawable/logo39" />
+        android:layout_marginTop="51dp"
+        android:adjustViewBounds="false"
+        android:src="@drawable/cancel_unselect" />
 
 </RelativeLayout>
