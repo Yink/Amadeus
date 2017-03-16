@@ -39,7 +39,7 @@ class VoiceLine {
         static final int NORMAL = R.drawable.kurisu_normal;
         static final int SLEEPY = R.drawable.kurisu_eyes_closed;
         static final int WINKING = R.drawable.kurisu_winking;
-        static final int DISAPPOINTED = R.drawable.kurisu_dissappointed;
+        static final int DISAPPOINTED = R.drawable.kurisu_disappointed;
         static final int INDIFFERENT = R.drawable.kurisu_indifferent;
         static final int SIDED_PLEASANT = R.drawable.kurisu_sided_pleasant;
         static final int SIDED_WORRIED = R.drawable.kurisu_sided_worried;
