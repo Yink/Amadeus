@@ -28,21 +28,21 @@ class VoiceLine {
     }
 
     static class Mood {
-        static final int HAPPY = R.drawable.kurisu_9;
-        static final int PISSED = R.drawable.kurisu_6;
-        static final int ANNOYED = R.drawable.kurisu_7;
-        static final int ANGRY = R.drawable.kurisu_10;
-        static final int BLUSH = R.drawable.kurisu_11;
+        static final int HAPPY = R.drawable.kurisu_happy;
+        static final int PISSED = R.drawable.kurisu_pissed;
+        static final int ANNOYED = R.drawable.kurisu_annoyed;
+        static final int ANGRY = R.drawable.kurisu_angry;
+        static final int BLUSH = R.drawable.kurisu_blush;
         /* TODO: How should we name this mood?.. */
-        static final int SIDE = R.drawable.kurisu_12;
-        static final int SAD = R.drawable.kurisu_3;
-        static final int NORMAL = R.drawable.kurisu_2;
-        static final int SLEEPY = R.drawable.kurisu_1;
-        static final int WINKING = R.drawable.kurisu_5;
-        static final int DISAPPOINTED = R.drawable.kurisu_8;
-        static final int INDIFFERENT = R.drawable.kurisu_4;
-        static final int SIDED_PLEASANT = R.drawable.kurisu_15;
-        static final int SIDED_WORRIED = R.drawable.kurisu_17;
+        static final int SIDE = R.drawable.kurisu_side;
+        static final int SAD = R.drawable.kurisu_sad;
+        static final int NORMAL = R.drawable.kurisu_normal;
+        static final int SLEEPY = R.drawable.kurisu_eyes_closed;
+        static final int WINKING = R.drawable.kurisu_winking;
+        static final int DISAPPOINTED = R.drawable.kurisu_disappointed;
+        static final int INDIFFERENT = R.drawable.kurisu_indifferent;
+        static final int SIDED_PLEASANT = R.drawable.kurisu_sided_pleasant;
+        static final int SIDED_WORRIED = R.drawable.kurisu_sided_worried;
     }
 
     static class Line {
