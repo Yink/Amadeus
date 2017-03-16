@@ -15,8 +15,7 @@
         android:id="@+id/imageView_kurisu"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/kurisu9a" />
+        android:src="@drawable/kurisu_happy1" />
 
     <ImageView
         android:id="@+id/imageView_logo_small"

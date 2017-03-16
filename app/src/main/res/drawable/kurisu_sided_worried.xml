@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/kurisu_sided_worried1"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/kurisu_sided_worried2"
+        android:duration="150" />
+    <item
+        android:drawable="@drawable/kurisu_sided_worried3"
+        android:duration="150" />
+</animation-list>
