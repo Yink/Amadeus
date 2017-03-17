@@ -283,22 +283,20 @@ public class MainActivity extends AppCompatActivity {
         dictionary.put("будильник", 2);
         dictionary.put("камеру", 3);
 
-        String[] words = {
+        String[] apps = {
             "chrome", "calendar", "clock", "camera"
         };
 
         for (ApplicationInfo packageInfo : packages) {
-            /*
-             *  TODO: Needs to be adjusted probably.
-             */
+            /* TODO: Needs to be adjusted probably. */
             found = true;
+            /* Look up words in dictionary and correct the input since we can't open some apps in other langs */
             for (String word: input) {
                 if (dictionary.get(word) != null) {
-                    corrected = words[dictionary.get(word)].toLowerCase();
+                    corrected = apps[dictionary.get(word)].toLowerCase();
                 } else {
                     corrected = word.toLowerCase();
                 }
-                Log.d(TAG, corrected);
                 if (!packageInfo.packageName.contains(corrected)) {
                     found = false;
                     break;
@@ -316,11 +314,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case "com.android.chrome": {
                         app = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+                        /* Default browser might be different */
+                        app.setPackage(packageInfo.packageName);
                         ctx.startActivity(app);
                         break;
                     }
                     default: {
                         app = ctx.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
+                        /* Check if intent is not null to avoid crash */
                         if (app != null) {
                             app.addCategory(Intent.CATEGORY_LAUNCHER);
                             ctx.startActivity(app);
@@ -328,6 +329,8 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
+                /* Don't need to search for other ones, so break this loop */
+                break;
             }
         }
     }
