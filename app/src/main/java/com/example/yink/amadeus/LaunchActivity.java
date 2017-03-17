@@ -6,9 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -20,17 +20,23 @@ import android.widget.TextView;
 public class LaunchActivity extends AppCompatActivity {
     ImageView connect, cancel, imageViewLogo;
     TextView status;
-    //AnimationDrawable logo;
     Boolean isPressed = false;
     SharedPreferences sharedPreferences;
     MediaPlayer m;
+    Handler aniHandle = new Handler();
+
     int i = 0;
     int id;
     int duration = 20;
     Runnable aniRunnable = new Runnable() {
         public void run() {
-            imageViewLogo.setImageDrawable((getResources().getDrawable(id)));
-            animate(imageViewLogo);
+            if (i < 39) {
+                i += 1;
+                String imgName = "logo" + Integer.toString(i);
+                id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+                imageViewLogo.setImageDrawable((getResources().getDrawable(id)));
+                aniHandle.postDelayed(this, duration);
+            }
         }
     };
 
@@ -43,15 +49,6 @@ public class LaunchActivity extends AppCompatActivity {
         }
     }
 
-    protected void animate(ImageView view) {
-        if (i < 39) {
-            i += 1;
-            String imgName = "logo" + Integer.toString(i);
-            id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-            view.postDelayed(aniRunnable, duration);
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,14 +57,8 @@ public class LaunchActivity extends AppCompatActivity {
         cancel = (ImageView) findViewById(R.id.imageView_cancel);
         status = (TextView) findViewById(R.id.textView_call);
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
-        /*
-         *  Reported OOM on 2K+ resolution devices.
-         *  Looks like better to change it to static image for now.
-         */
-        /*logo = (AnimationDrawable) imageViewLogo.getDrawable();
-        logo.start();*/
+        aniHandle.post(aniRunnable);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        animate(imageViewLogo);
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
         }
@@ -137,9 +128,10 @@ public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (m != null)
             m.release();
-        super.onDestroy();
+        aniHandle.removeCallbacks(aniRunnable);
     }
 
     @Override
@@ -171,16 +163,4 @@ public class LaunchActivity extends AppCompatActivity {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
     }
-    /* Reported OOM on 2K+ resolution devices */
-    /*
-    @Override
-    protected void onPause() {
-        //to enable the to collect the animation frames
-        if (logo != null && logo.isRunning())
-            logo.stop();
-        imageViewLogo.setImageResource(R.drawable.logo39);
-        logo = null;
-        super.onPause();
-    }*/
-
 }

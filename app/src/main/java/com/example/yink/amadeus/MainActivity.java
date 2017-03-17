@@ -132,23 +132,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (sr != null)
             sr.destroy();
         if (m != null)
             m.release();
-        super.onDestroy();
     }
 
     @Override
     protected void onStop() {
-        isLoop = false;
         super.onStop();
+        isLoop = false;
     }
 
     @Override
     protected void onPause() {
-        isLoop = false;
         super.onPause();
+        isLoop = false;
     }
 
 
@@ -472,13 +472,10 @@ public class MainActivity extends AppCompatActivity {
             input += data.get(0);
             /* TODO: Japanese doesn't split the words. Sigh. */
             String[] splitInput = input.split(" ");
+
             /* Really, google? */
             if (splitInput[0].equalsIgnoreCase("Асистент")) {
-                String temp = "";
-                String[] replace;
-                temp += data.get(1);
-                replace = temp.split(" ");
-                splitInput[0] = replace[0];
+                splitInput[0] = "Ассистент";
             }
 
             /* Switch language within current context for voice recognition */
