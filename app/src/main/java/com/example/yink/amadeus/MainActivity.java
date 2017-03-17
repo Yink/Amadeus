@@ -16,6 +16,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -304,12 +305,28 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             if (found) {
-                Intent app = ctx.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
-                if (app != null) {
-                    speak(voiceLines[VoiceLine.Line.OK]);
-                    app.addCategory(Intent.CATEGORY_LAUNCHER);
-                    ctx.startActivity(app);
-                    break;
+                Intent app;
+                speak(voiceLines[VoiceLine.Line.OK]);
+                switch (packageInfo.packageName) {
+                    /* Exceptional cases */
+                    case "com.android.phone": {
+                        app = new Intent(Intent.ACTION_DIAL, null);
+                        ctx.startActivity(app);
+                        break;
+                    }
+                    case "com.android.chrome": {
+                        app = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+                        ctx.startActivity(app);
+                        break;
+                    }
+                    default: {
+                        app = ctx.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
+                        if (app != null) {
+                            app.addCategory(Intent.CATEGORY_LAUNCHER);
+                            ctx.startActivity(app);
+                        }
+                        break;
+                    }
                 }
             }
         }
