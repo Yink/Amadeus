@@ -1,5 +1,7 @@
 package com.example.yink.amadeus;
 
+import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -7,12 +9,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,9 +27,13 @@ public class LaunchActivity extends AppCompatActivity {
     ImageView connect, cancel, imageViewLogo;
     TextView status;
     Boolean isPressed = false;
-    SharedPreferences sharedPreferences;
+    SharedPreferences settings;
     MediaPlayer m;
     Handler aniHandle = new Handler();
+    AlarmManager alarmManager;
+    PendingIntent pendingIntent;
+    public static final int alarmCode = 104856;
+    NotificationManager notificationManager;
 
     int i = 0;
     int id;
@@ -58,18 +68,24 @@ public class LaunchActivity extends AppCompatActivity {
         status = (TextView) findViewById(R.id.textView_call);
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
         aniHandle.post(aniRunnable);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(this, alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
+        }
+        if (AlarmReceiver.isPlaying()) {
+            status.setText("Call from Kurisu.");
         }
 
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
 
-        if (sharedPreferences.getBoolean("show_notification", false)) {
+        if (settings.getBoolean("show_notification", false)) {
             showNotification();
         }
-
 
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,22 +96,32 @@ public class LaunchActivity extends AppCompatActivity {
 
                     connect.setImageResource(R.drawable.connect_select);
 
-                    m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mp.start();
-                            status.setText(R.string.connecting);
-                        }
-                    });
+                    if (!AlarmReceiver.isPlaying()) {
+                        m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mp) {
+                                mp.start();
+                                status.setText(R.string.connecting);
+                            }
+                        });
 
-                    m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mp.release();
-                            Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
-                            startActivity(intent);
+                        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                mp.release();
+                                Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    } else {
+                        if (pendingIntent != null) {
+                            AlarmReceiver.stopRingtone();
+                            notificationManager.cancel(1);
+                            alarmManager.cancel(pendingIntent);
                         }
-                    });
+                        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -104,6 +130,11 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cancel.setImageResource(R.drawable.cancel_select);
+                if (pendingIntent != null) {
+                    AlarmReceiver.stopRingtone();
+                    notificationManager.cancel(1);
+                    alarmManager.cancel(pendingIntent);
+                }
 
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
@@ -131,6 +162,7 @@ public class LaunchActivity extends AppCompatActivity {
         super.onDestroy();
         if (m != null)
             m.release();
+        notificationManager.cancel(1);
         aniHandle.removeCallbacks(aniRunnable);
     }
 
@@ -140,6 +172,8 @@ public class LaunchActivity extends AppCompatActivity {
             status.setText(R.string.disconnected);
         } else if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
+        } else if (AlarmReceiver.isPlaying()) {
+            status.setText("Call from Kurisu.");
         } else {
             status.setText(R.string.call);
         }

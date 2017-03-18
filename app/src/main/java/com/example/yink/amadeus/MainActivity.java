@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     AnimationDrawable animation;
     int shaman_girls = -1;
     Random randomgen = new Random();
-    SharedPreferences sharedPreferences;
+    SharedPreferences settings;
     String lang, recogLang;
     MediaPlayer m;
     String[] contextLang;
@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
         subtitles = (TextView) findViewById(R.id.textView_subtitles);
         ImageView subtitlesBackground = (ImageView) findViewById(R.id.imageView_subtitles);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        lang = sharedPreferences.getString("lang", "ja");
-        recogLang = sharedPreferences.getString("recognition_lang", "ja-JP");
+        settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        lang = settings.getString("lang", "ja");
+        recogLang = settings.getString("recognition_lang", "ja-JP");
         contextLang = recogLang.split("-");
-        if (!sharedPreferences.getBoolean("show_subtitles", false)) {
+        if (!settings.getBoolean("show_subtitles", false)) {
             subtitlesBackground.setVisibility(View.INVISIBLE);
         }
         speak(voiceLines[VoiceLine.Line.HELLO]);
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             m = MediaPlayer.create(getApplicationContext(), line.getId());
             final Visualizer v = new Visualizer(m.getAudioSessionId());
 
-            if (sharedPreferences.getBoolean("show_subtitles", false)) {
+            if (settings.getBoolean("show_subtitles", false)) {
                 subtitles.setText(line.getSubtitle());
             }
 
