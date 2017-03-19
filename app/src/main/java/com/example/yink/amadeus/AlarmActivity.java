@@ -74,7 +74,7 @@ public class AlarmActivity extends Activity {
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             Log.d(TAG, "Alarm On");
         } else {
-            AlarmReceiver.stopRingtone();
+            AlarmReceiver.stopRingtone(this);
             editor.putBoolean("alarm_toggle", false);
             alarmManager.cancel(pendingIntent);
             Log.d(TAG, "Alarm Off");

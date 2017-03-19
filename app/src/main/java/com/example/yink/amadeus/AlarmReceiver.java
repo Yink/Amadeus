@@ -6,16 +6,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
-import android.util.Log;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     static MediaPlayer m;
+    static boolean isPlaying = false;
+    static SharedPreferences settings;
+    static SharedPreferences.Editor editor;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -26,13 +25,17 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                 R.raw.ringtone_over_the_sky
         };
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+        settings = PreferenceManager.getDefaultSharedPreferences(context);
         int index = Integer.parseInt(settings.getString("ringtone", "0"));
 
         m = MediaPlayer.create(context, ringtones[index]);
 
         m.setLooping(true);
         m.start();
+
+        if (m.isPlaying()) {
+            isPlaying = true;
+        }
 
         //this will send a notification message
         ComponentName comp = new ComponentName(context.getPackageName(),
@@ -41,18 +44,17 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         setResultCode(Activity.RESULT_OK);
     }
 
-    public static void stopRingtone() {
-        if (m != null) {
-            if (m.isPlaying()) {
-                m.stop();
-            }
+    public static void stopRingtone(Context context) {
+        settings = PreferenceManager.getDefaultSharedPreferences(context);
+        if (isPlaying) {
+            editor = settings.edit();
+            editor.putBoolean("alarm_toggle", false);
+            editor.apply();
+            m.release();
         }
     }
 
     public static boolean isPlaying() {
-        if (m != null) {
-            return m.isPlaying();
-        }
-        return false;
+        return isPlaying;
     }
 }

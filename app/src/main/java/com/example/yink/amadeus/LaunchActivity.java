@@ -114,7 +114,7 @@ public class LaunchActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        AlarmReceiver.stopRingtone();
+                        AlarmReceiver.stopRingtone(getApplicationContext());
                         notificationManager.cancel(1);
                         alarmManager.cancel(pendingIntent);
 
@@ -129,7 +129,7 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cancel.setImageResource(R.drawable.cancel_select);
-                AlarmReceiver.stopRingtone();
+                AlarmReceiver.stopRingtone(getApplicationContext());
                 notificationManager.cancel(1);
                 alarmManager.cancel(pendingIntent);
 
@@ -159,6 +159,7 @@ public class LaunchActivity extends AppCompatActivity {
         super.onDestroy();
         if (m != null)
             m.release();
+        AlarmReceiver.stopRingtone(this);
         notificationManager.cancel(1);
         aniHandle.removeCallbacks(aniRunnable);
     }
