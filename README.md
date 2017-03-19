@@ -5,6 +5,7 @@ I'm creating this mainly for cosplay purposes, thus the design takes priority ov
 Hit me up on the Steins;Gate Discord.
 
 To start speech recognition simply touch her once. If you long-click her, she will go on a loop and say random sentences in random intervals. Long-Click again to stop.
+To enter Amadeus settings tap on Amadeus logo.
 
 # Screenshots
 <ul>
@@ -15,7 +16,8 @@ To start speech recognition simply touch her once. If you long-click her, she wi
 </ul>
 
 # Recognized commands
-Keep in mind that the voice recognition is Japanese in order to register the Japanese names. Thus you may have to alter your pronouncation a bit.
+Recognition language can be switched between different languages (English, Russian and Japanese are supported right now), but keep in mind that pronouncation may differ and some phrases can't be registered in other languages.
+Best experience can be achieved using Japanese.
 <ul>
 <li>Hello, Ohayou, Konnichiwa, Konbanwa</li>
 <li>Christina</li>
@@ -28,10 +30,20 @@ Keep in mind that the voice recognition is Japanese in order to register the Jap
 <li>Robotics;Notes, antimatter</li>
 </ul>
 
+# Settings
+Here is a short list of available options:
+<ul>
+<li>Show subtitles - Shows subtitles according to selected app language.</li>
+<li>Show XP-Icon - Show XP-Icon in notification bar (see in-game or app screenshots, app restart required)</li>
+<li>Recognition language - Switches recognition language. Currently available languages: English, Japanese, Russian</li>
+<li>Application language - Switches application language. Doesn't affect recognition language. Currently available languages: English, Russian, Spanish, Portuguese.</li>
+<li>Alarm setup - Work in progress. Opens dialog window with alarm feature. Triggers Amadeus call on alarm.</li>
+</ul>
+
 # Credits
 <ul>
 <li><a href="https://github.com/RIP95">Emojikage</a> for various improvements and advice, Russian translation</li>
-<li>8-Bit☆Asian for Zero and S;G Voice Lines and the Website</li>
+<li><a href="https://github.com/8BitAsian/">8-Bit☆Asian</a> for Zero and S;G Voice Lines and the Website</li>
 <li><a href="https://twitter.com/SG_EPK_X29">EPK</a> for Phenogram Voice Lines</li>
 <li><a href="https://twitter.com/DavixxaYT">Davixxa</a> for Assets</li>
 <li>But He's a Guy and Deadeye for finding the hidden animation in 0</li>
