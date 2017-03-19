@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.Calendar;
@@ -58,18 +59,18 @@ public class AlarmActivity extends Activity {
         editor = settings.edit();
         if (alarmToggle.isChecked()) {
             editor.putBoolean("alarm_toggle", true);
-            Log.d(TAG, "Alarm On");
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            Toast.makeText(this, "Alarm has been set for " + alarmTimePicker.getCurrentHour() + " hour(s) " + alarmTimePicker.getCurrentMinute() + " minute(s)", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Alarm On");
         } else {
-            if (pendingIntent != null) {
-                editor.putBoolean("alarm_toggle", false);
-                AlarmReceiver.stopRingtone();
-                alarmManager.cancel(pendingIntent);
-                Log.d(TAG, "Alarm Off");
-            }
+            AlarmReceiver.stopRingtone();
+            editor.putBoolean("alarm_toggle", false);
+            alarmManager.cancel(pendingIntent);
+            Toast.makeText(this, "Alarm has been removed", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Alarm Off");
         }
         editor.apply();
     }

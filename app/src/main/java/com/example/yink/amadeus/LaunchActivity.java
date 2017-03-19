@@ -32,7 +32,6 @@ public class LaunchActivity extends AppCompatActivity {
     Handler aniHandle = new Handler();
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
-    public static final int alarmCode = 104856;
     NotificationManager notificationManager;
 
     int i = 0;
@@ -70,7 +69,7 @@ public class LaunchActivity extends AppCompatActivity {
         aniHandle.post(aniRunnable);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getBroadcast(this, AlarmActivity.alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
         settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
@@ -92,11 +91,12 @@ public class LaunchActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!isPressed && isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
                     isPressed = true;
-                    m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
 
                     connect.setImageResource(R.drawable.connect_select);
 
                     if (!AlarmReceiver.isPlaying()) {
+                        m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
+
                         m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                             @Override
                             public void onPrepared(MediaPlayer mp) {
@@ -114,11 +114,10 @@ public class LaunchActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        if (pendingIntent != null) {
-                            AlarmReceiver.stopRingtone();
-                            notificationManager.cancel(1);
-                            alarmManager.cancel(pendingIntent);
-                        }
+                        AlarmReceiver.stopRingtone();
+                        notificationManager.cancel(1);
+                        alarmManager.cancel(pendingIntent);
+
                         Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
@@ -130,11 +129,9 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cancel.setImageResource(R.drawable.cancel_select);
-                if (pendingIntent != null) {
-                    AlarmReceiver.stopRingtone();
-                    notificationManager.cancel(1);
-                    alarmManager.cancel(pendingIntent);
-                }
+                AlarmReceiver.stopRingtone();
+                notificationManager.cancel(1);
+                alarmManager.cancel(pendingIntent);
 
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
