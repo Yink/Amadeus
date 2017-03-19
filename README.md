@@ -5,6 +5,7 @@ I'm creating this mainly for cosplay purposes, thus the design takes priority ov
 Hit me up on the Steins;Gate Discord.
 
 To start speech recognition simply touch her once. If you long-click her, she will go on a loop and say random sentences in random intervals. Long-Click again to stop.
+
 To enter Amadeus settings tap on Amadeus logo.
 
 # Screenshots
