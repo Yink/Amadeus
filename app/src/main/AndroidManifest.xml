@@ -42,7 +42,9 @@
         </activity>
         <activity
             android:name=".AlarmActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AlarmDialog"
+            android:excludeFromRecents="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -50,7 +52,11 @@
         <service
             android:name=".AlarmService"
             android:enabled="true" />
-        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

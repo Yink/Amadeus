@@ -1,5 +1,6 @@
 package com.example.yink.amadeus;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -30,7 +31,6 @@ public class AlarmActivity extends Activity {
     public static final int alarmCode = 104856;
     SharedPreferences settings;
     SharedPreferences.Editor editor;
-    Intent alarmIntent;
 
     @Override
     public void onStart() {
@@ -45,7 +45,7 @@ public class AlarmActivity extends Activity {
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
         alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmIntent = new Intent(this, AlarmReceiver.class);
+        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(this, alarmCode, alarmIntent, PendingIntent.FLAG_NO_CREATE);
 
         if (settings.getBoolean("alarm_toggle", false)) {
@@ -60,18 +60,45 @@ public class AlarmActivity extends Activity {
         if (alarmToggle.isChecked()) {
             editor.putBoolean("alarm_toggle", true);
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
-            calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Log.d(TAG, "Current API functions have been executed");
+                calendar.set(Calendar.HOUR_OF_DAY, getCurrentHour(alarmTimePicker));
+                calendar.set(Calendar.MINUTE, getCurrentMinute(alarmTimePicker));
+                Toast.makeText(this, "Alarm has been set for " + getCurrentHour(alarmTimePicker) + " hour(s) " + getCurrentMinute(alarmTimePicker) + " minute(s)", Toast.LENGTH_SHORT).show();
+            } else {
+                Log.d(TAG, "Legacy API functions have been executed");
+                calendar.set(Calendar.HOUR_OF_DAY, getCurrentHourLegacy(alarmTimePicker));
+                calendar.set(Calendar.MINUTE, getCurrentMinuteLegacy(alarmTimePicker));
+                Toast.makeText(this, "Alarm has been set for " + getCurrentHourLegacy(alarmTimePicker) + " hour(s) " + getCurrentMinuteLegacy(alarmTimePicker) + " minute(s)", Toast.LENGTH_SHORT).show();
+            }
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            Toast.makeText(this, "Alarm has been set for " + alarmTimePicker.getCurrentHour() + " hour(s) " + alarmTimePicker.getCurrentMinute() + " minute(s)", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Alarm On");
         } else {
             AlarmReceiver.stopRingtone();
             editor.putBoolean("alarm_toggle", false);
             alarmManager.cancel(pendingIntent);
-            Toast.makeText(this, "Alarm has been removed", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "Alarm Off");
         }
         editor.apply();
+    }
+
+    @SuppressWarnings("deprecation")
+    public int getCurrentHourLegacy(TimePicker tp) {
+        return tp.getCurrentHour();
+    }
+
+    @SuppressWarnings("deprecation")
+    public int getCurrentMinuteLegacy(TimePicker tp) {
+        return tp.getCurrentMinute();
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public int getCurrentHour(TimePicker tp) {
+        return tp.getHour();
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public int getCurrentMinute(TimePicker tp) {
+        return tp.getMinute();
     }
 }
