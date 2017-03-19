@@ -27,4 +27,24 @@
         <item>ru-RU</item>
         <item>ja-JP</item>
     </string-array>
+
+    <string-array name="ringtonesArray">
+        <item>Gate Of Steiner</item>
+        <item>Village</item>
+        <item>Beginning Of Fight</item>
+        <item>Easygoingness</item>
+        <item>Reunion</item>
+        <item>Precaution</item>
+        <item>Over The Sky</item>
+    </string-array>
+
+    <string-array name="ringtonesValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 </resources>

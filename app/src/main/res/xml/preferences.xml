@@ -33,5 +33,11 @@
                 android:targetPackage="com.example.yink.amadeus"
                 android:targetClass="com.example.yink.amadeus.AlarmActivity" />
         </Preference>
+        <ListPreference
+            android:entries="@array/ringtonesArray"
+            android:entryValues="@array/ringtonesValues"
+            android:key="ringtone"
+            android:summary="@string/pref_alarm_ringtone_desc"
+            android:title="@string/pref_alarm_ringtone" />
     </PreferenceCategory>
 </PreferenceScreen>
