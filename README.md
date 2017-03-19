@@ -21,11 +21,11 @@ Keep in mind that the voice recognition is Japanese in order to register the Jap
 <li>Christina</li>
 <li>Nullpo</li>
 <li>@channel, Kurigohan, Kamehameha</li>
-<li>Salieri,Maho,Hiyao</li>
+<li>Salieri, Maho, Hiyajo</li>
 <li>Time machine, SERN, Time travel</li>
 <li>Memory, Amadeus, Science</li>
 <li>Nice body, Hot, Sexy, Boobies</li>
-<li>Robitics;Notes, antimatter</li>
+<li>Robotics;Notes, antimatter</li>
 </ul>
 
 #Credits
