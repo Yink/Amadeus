@@ -6,7 +6,7 @@ Hit me up on the Steins;Gate Discord.
 
 To start speech recognition simply touch her once. If you long-click her, she will go on a loop and say random sentences in random intervals. Long-Click again to stop.
 
-#Screenshots
+# Screenshots
 <ul>
 <li><a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Callscreen.png?raw=true">Launch View</a></li>
 <li><a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Kurisuscreen.png?raw=true">Main View</a></li>
@@ -14,7 +14,7 @@ To start speech recognition simply touch her once. If you long-click her, she wi
 <li><a href="https://github.com/Yink/Amadeus/blob/master/Screenshots/Subscreen.png?raw=true">Main View with English subtitles</a></li>
 </ul>
 
-#Recognized commands
+# Recognized commands
 Keep in mind that the voice recognition is Japanese in order to register the Japanese names. Thus you may have to alter your pronouncation a bit.
 <ul>
 <li>Hello, Ohayou, Konnichiwa, Konbanwa</li>
@@ -28,7 +28,7 @@ Keep in mind that the voice recognition is Japanese in order to register the Jap
 <li>Robotics;Notes, antimatter</li>
 </ul>
 
-#Credits
+# Credits
 <ul>
 <li><a href="https://github.com/RIP95">Emojikage</a> for various improvements and advice, Russian translation</li>
 <li>8-Bit☆Asian for Zero and S;G Voice Lines and the Website</li>
