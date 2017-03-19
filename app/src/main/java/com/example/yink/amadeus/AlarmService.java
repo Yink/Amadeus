@@ -18,7 +18,7 @@ public class AlarmService extends IntentService {
 
     @Override
     public void onHandleIntent(Intent intent) {
-        sendNotification("Incoming call from Amadeus");
+        sendNotification(getString(R.string.incoming_call));
         Intent launch = new Intent(this, LaunchActivity.class);
         startActivity(launch);
     }
@@ -31,7 +31,7 @@ public class AlarmService extends IntentService {
                 new Intent(this, LaunchActivity.class), 0);
 
         NotificationCompat.Builder alarmNotificationBuilder = new NotificationCompat.Builder(
-                this).setContentTitle("Alarm").setSmallIcon(R.drawable.incoming_call)
+                this).setContentTitle(getString(R.string.app_name)).setSmallIcon(R.drawable.incoming_call)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg);
 

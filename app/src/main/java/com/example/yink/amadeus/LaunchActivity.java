@@ -76,7 +76,7 @@ public class LaunchActivity extends AppCompatActivity {
             status.setText(R.string.google_app_error);
         }
         if (AlarmReceiver.isPlaying()) {
-            status.setText("Call from Kurisu.");
+            status.setText(R.string.incoming_call);
         }
 
         connect.setImageResource(R.drawable.connect_unselect);
@@ -170,7 +170,7 @@ public class LaunchActivity extends AppCompatActivity {
         } else if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
         } else if (AlarmReceiver.isPlaying()) {
-            status.setText("Call from Kurisu.");
+            status.setText(R.string.incoming_call);
         } else {
             status.setText(R.string.call);
         }
