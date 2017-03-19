@@ -26,8 +26,8 @@
             android:summary="@string/pref_lang_desc"
             android:title="@string/pref_lang" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="Alarm settings">
-        <Preference android:title="Alarm setup">
+    <PreferenceCategory android:title="@string/pref_alarm_settings">
+        <Preference android:title="@string/pref_alarm_setup">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="com.example.yink.amadeus"
