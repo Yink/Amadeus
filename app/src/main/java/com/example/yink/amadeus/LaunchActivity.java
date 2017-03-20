@@ -16,6 +16,8 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,11 +70,14 @@ public class LaunchActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getBroadcast(LaunchActivity.this, AlarmActivity.alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
         settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final Window win = getWindow();
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
         }
         if (AlarmReceiver.isPlaying()) {
             status.setText(R.string.incoming_call);
+            win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
 
         connect.setImageResource(R.drawable.connect_unselect);
@@ -113,6 +118,8 @@ public class LaunchActivity extends AppCompatActivity {
                         AlarmReceiver.stopRingtone(LaunchActivity.this);
                         notificationManager.cancel(1);
                         alarmManager.cancel(pendingIntent);
+                        win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+                        win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
                         Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
                         startActivity(intent);
@@ -128,6 +135,8 @@ public class LaunchActivity extends AppCompatActivity {
                 AlarmReceiver.stopRingtone(getApplicationContext());
                 notificationManager.cancel(1);
                 alarmManager.cancel(pendingIntent);
+                win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+                win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
@@ -153,10 +162,14 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        final Window win = getWindow();
+
         if (m != null)
             m.release();
         AlarmReceiver.stopRingtone(LaunchActivity.this);
         notificationManager.cancel(1);
+        win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         aniHandle.removeCallbacks(aniRunnable);
     }
 

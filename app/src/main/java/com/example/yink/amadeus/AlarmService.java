@@ -19,6 +19,7 @@ public class AlarmService extends IntentService {
         sendNotification(getString(R.string.incoming_call));
         Intent launch = new Intent(this, LaunchActivity.class);
         startActivity(launch);
+        AlarmReceiver.completeWakefulIntent(intent);
     }
 
     private void sendNotification(String msg) {

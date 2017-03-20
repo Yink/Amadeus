@@ -63,7 +63,6 @@ public class AlarmActivity extends Activity {
                 Log.d(TAG, "Legacy API functions have been executed");
                 setTimeLegacy(calendar);
             }
-            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             Log.d(TAG, "Alarm On");
         } else {
             AlarmReceiver.stopRingtone(this);
@@ -78,6 +77,7 @@ public class AlarmActivity extends Activity {
     public void setTimeLegacy(Calendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
         calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentHour());
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(this, "Alarm has been set for " + alarmTimePicker.getCurrentHour() + " hour(s) " + alarmTimePicker.getCurrentHour() + " minute(s)", Toast.LENGTH_SHORT).show();
     }
 
@@ -85,6 +85,7 @@ public class AlarmActivity extends Activity {
     public void setTime(Calendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
         calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+        alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Toast.makeText(this, "Alarm has been set for " + alarmTimePicker.getHour() + " hour(s) " + alarmTimePicker.getMinute() + " minute(s)", Toast.LENGTH_SHORT).show();
     }
 }
