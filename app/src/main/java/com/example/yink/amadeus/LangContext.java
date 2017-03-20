@@ -19,12 +19,11 @@ public class LangContext extends ContextWrapper {
 
     @SuppressWarnings("deprecation")
     public static ContextWrapper wrap(Context context) {
-        SharedPreferences sharedPreferences;
         Configuration config = context.getResources().getConfiguration();
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
-        String lang = sharedPreferences.getString("lang", "ja");
+        String lang = settings.getString("lang", "en");
 
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);

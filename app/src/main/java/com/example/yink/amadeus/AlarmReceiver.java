@@ -11,10 +11,9 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
-    static MediaPlayer m;
-    static boolean isPlaying = false;
-    static SharedPreferences settings;
-    static SharedPreferences.Editor editor;
+    private static MediaPlayer m;
+    private static boolean isPlaying = false;
+    private static SharedPreferences settings;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -46,7 +45,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     public static void stopRingtone(Context context) {
         settings = PreferenceManager.getDefaultSharedPreferences(context);
         if (isPlaying) {
-            editor = settings.edit();
+            SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("alarm_toggle", false);
             editor.apply();
             m.release();

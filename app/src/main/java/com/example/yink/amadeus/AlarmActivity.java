@@ -19,19 +19,14 @@ import java.util.Calendar;
 
 public class AlarmActivity extends Activity {
 
-    final String TAG = "Amadeus.Alarm";
-    AlarmManager alarmManager;
-    PendingIntent pendingIntent;
-    TimePicker alarmTimePicker;
-    ToggleButton alarmToggle;
-    public static final int alarmCode = 104856;
-    SharedPreferences settings;
-    SharedPreferences.Editor editor;
+    private final String TAG = "Amadeus.Alarm";
+    public static final int ALARM_ID = 104859;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
+    private AlarmManager alarmManager;
+    private PendingIntent pendingIntent;
+    private TimePicker alarmTimePicker;
+    private ToggleButton alarmToggle;
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +37,7 @@ public class AlarmActivity extends Activity {
         alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, alarmCode, alarmIntent, PendingIntent.FLAG_NO_CREATE);
+        pendingIntent = PendingIntent.getBroadcast(this, ALARM_ID, alarmIntent, PendingIntent.FLAG_NO_CREATE);
 
         if (settings.getBoolean("alarm_toggle", false)) {
             alarmToggle.setChecked(true);
@@ -52,7 +47,7 @@ public class AlarmActivity extends Activity {
     }
 
     public void onToggleClicked(View view) {
-        editor = settings.edit();
+        SharedPreferences.Editor editor = settings.edit();
         if (alarmToggle.isChecked()) {
             editor.putBoolean("alarm_toggle", true);
             Calendar calendar = Calendar.getInstance();

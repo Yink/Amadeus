@@ -38,20 +38,21 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    final String TAG = "Amadeus";
-    final int REQUEST_PERMISSION_RECORD_AUDIO = 1;
-    TextView subtitles;
-    ImageView kurisu;
-    Boolean isLoop = false;
-    Boolean isSpeaking = false;
-    VoiceLine[] voiceLines = VoiceLine.Line.getLines();
-    AnimationDrawable animation;
-    int shaman_girls = -1;
-    Random randomgen = new Random();
-    SharedPreferences settings;
-    String lang, recogLang;
-    MediaPlayer m;
-    String[] contextLang;
+
+    private final String TAG = "Amadeus";
+
+    private TextView subtitles;
+    private ImageView kurisu;
+    private Boolean isLoop = false;
+    private Boolean isSpeaking = false;
+    private VoiceLine[] voiceLines = VoiceLine.Line.getLines();
+    private AnimationDrawable animation;
+    private int shaman_girls = -1;
+    private Random randomgen = new Random();
+    private SharedPreferences settings;
+    private String recogLang;
+    private MediaPlayer m;
+    private String[] contextLang;
     private SpeechRecognizer sr;
 
     @Override
@@ -62,21 +63,22 @@ public class MainActivity extends AppCompatActivity {
         subtitles = (TextView) findViewById(R.id.textView_subtitles);
         ImageView subtitlesBackground = (ImageView) findViewById(R.id.imageView_subtitles);
         settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        lang = settings.getString("lang", "ja");
         recogLang = settings.getString("recognition_lang", "ja-JP");
         contextLang = recogLang.split("-");
+        sr = SpeechRecognizer.createSpeechRecognizer(this);
+        sr.setRecognitionListener(new listener());
+        final Handler handler = new Handler();
+        final int REQUEST_PERMISSION_RECORD_AUDIO = 11302;
+
         if (!settings.getBoolean("show_subtitles", false)) {
             subtitlesBackground.setVisibility(View.INVISIBLE);
         }
-        speak(voiceLines[VoiceLine.Line.HELLO]);
 
-        final Handler handler = new Handler();
+        speak(voiceLines[VoiceLine.Line.HELLO]);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
         }
-        sr = SpeechRecognizer.createSpeechRecognizer(this);
-        sr.setRecognitionListener(new listener());
 
         final Runnable loop = new Runnable() {
             @Override
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
         kurisu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -456,7 +459,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class listener implements RecognitionListener {
-        final String TAG = "Amadeus.listener";
+
+        private final String TAG = "Amadeus.listener";
 
         public void onReadyForSpeech(Bundle params) {
             Log.d(TAG, "Speech recognition start");

@@ -4,7 +4,7 @@ package com.example.yink.amadeus;
  * Created by Yink on 28.02.2017.
  */
 
-class VoiceLine {
+public class VoiceLine {
     final private int id;
     final private int mood;
     final private int subtitle;
