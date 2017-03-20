@@ -48,7 +48,7 @@ public class LaunchActivity extends AppCompatActivity {
         }
     };
 
-    private static boolean isAppInstalled(Context context, String packageName) {
+    private boolean isAppInstalled(Context context, String packageName) {
         try {
             context.getPackageManager().getApplicationInfo(packageName, 0);
             return true;

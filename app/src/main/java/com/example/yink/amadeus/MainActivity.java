@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void speak(VoiceLine line) {
+    private void speak(VoiceLine line) {
         try {
             m = MediaPlayer.create(getApplicationContext(), line.getId());
             final Visualizer v = new Visualizer(m.getAudioSessionId());

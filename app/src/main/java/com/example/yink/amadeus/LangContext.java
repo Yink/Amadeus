@@ -63,12 +63,12 @@ public class LangContext extends ContextWrapper {
     }
 
     @SuppressWarnings("deprecation")
-    public static void setSystemLocaleLegacy(Configuration config, Locale locale){
+    private static void setSystemLocaleLegacy(Configuration config, Locale locale){
         config.locale = locale;
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public static void setSystemLocale(Configuration config, Locale locale){
+    private static void setSystemLocale(Configuration config, Locale locale){
         config.setLocale(locale);
     }
 }

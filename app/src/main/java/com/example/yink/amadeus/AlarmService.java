@@ -16,7 +16,7 @@ public class AlarmService extends IntentService {
     }
 
     @Override
-    public void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(Intent intent) {
         sendNotification(getString(R.string.incoming_call));
         Intent launch = new Intent(this, LaunchActivity.class);
         startActivity(launch);

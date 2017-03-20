@@ -69,7 +69,7 @@ public class AlarmActivity extends Activity {
     }
 
     @SuppressWarnings("deprecation")
-    public void setTimeLegacy(Calendar calendar) {
+    private void setTimeLegacy(Calendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
         calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentHour());
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
@@ -77,7 +77,7 @@ public class AlarmActivity extends Activity {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void setTime(Calendar calendar) {
+    private void setTime(Calendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
         calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
         alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
