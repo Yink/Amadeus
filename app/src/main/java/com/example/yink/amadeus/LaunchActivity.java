@@ -39,7 +39,7 @@ public class LaunchActivity extends AppCompatActivity {
                 i += 1;
                 String imgName = "logo" + Integer.toString(i);
                 id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                imageViewLogo.setImageDrawable((ContextCompat.getDrawable(getApplicationContext(), id)));
+                imageViewLogo.setImageDrawable((ContextCompat.getDrawable(LaunchActivity.this, id)));
                 aniHandle.postDelayed(this, duration);
             }
         }
@@ -64,8 +64,8 @@ public class LaunchActivity extends AppCompatActivity {
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
         aniHandle.post(aniRunnable);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, AlarmActivity.alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent alarmIntent = new Intent(LaunchActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(LaunchActivity.this, AlarmActivity.alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
         settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
@@ -91,7 +91,7 @@ public class LaunchActivity extends AppCompatActivity {
                     connect.setImageResource(R.drawable.connect_select);
 
                     if (!AlarmReceiver.isPlaying()) {
-                        m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
+                        m = MediaPlayer.create(LaunchActivity.this, R.raw.tone);
 
                         m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                             @Override
@@ -110,7 +110,7 @@ public class LaunchActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        AlarmReceiver.stopRingtone(getApplicationContext());
+                        AlarmReceiver.stopRingtone(LaunchActivity.this);
                         notificationManager.cancel(1);
                         alarmManager.cancel(pendingIntent);
 
@@ -139,7 +139,7 @@ public class LaunchActivity extends AppCompatActivity {
         imageViewLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+                Intent settingIntent = new Intent(LaunchActivity.this, SettingsActivity.class);
                 startActivity(settingIntent);
             }
         });
@@ -155,7 +155,7 @@ public class LaunchActivity extends AppCompatActivity {
         super.onDestroy();
         if (m != null)
             m.release();
-        AlarmReceiver.stopRingtone(this);
+        AlarmReceiver.stopRingtone(LaunchActivity.this);
         notificationManager.cancel(1);
         aniHandle.removeCallbacks(aniRunnable);
     }
@@ -178,12 +178,12 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private void showNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(LaunchActivity.this)
                 .setSmallIcon(R.drawable.xp2)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.notification_text));
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        Intent resultIntent = new Intent(LaunchActivity.this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(LaunchActivity.this);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);

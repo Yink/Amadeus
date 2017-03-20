@@ -50,6 +50,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             editor.putBoolean("alarm_toggle", false);
             editor.apply();
             m.release();
+            isPlaying = false;
         }
     }
 
