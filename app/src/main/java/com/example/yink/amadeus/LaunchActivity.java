@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -31,6 +32,7 @@ public class LaunchActivity extends AppCompatActivity {
     AlarmManager alarmManager;
     PendingIntent pendingIntent;
     NotificationManager notificationManager;
+    Vibrator v;
 
     int i = 0;
     int id;
@@ -66,6 +68,7 @@ public class LaunchActivity extends AppCompatActivity {
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
         aniHandle.post(aniRunnable);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         Intent alarmIntent = new Intent(LaunchActivity.this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(LaunchActivity.this, AlarmActivity.alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -76,6 +79,10 @@ public class LaunchActivity extends AppCompatActivity {
         }
         if (AlarmReceiver.isPlaying()) {
             status.setText(R.string.incoming_call);
+            if (settings.getBoolean("vibrate", false)) {
+                long[] pattern = {500, 2000};
+                v.vibrate(pattern, 0);
+            }
             win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
             win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
@@ -118,6 +125,7 @@ public class LaunchActivity extends AppCompatActivity {
                         AlarmReceiver.stopRingtone(LaunchActivity.this);
                         notificationManager.cancel(1);
                         alarmManager.cancel(pendingIntent);
+                        v.cancel();
                         win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
                         win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
@@ -135,6 +143,7 @@ public class LaunchActivity extends AppCompatActivity {
                 AlarmReceiver.stopRingtone(getApplicationContext());
                 notificationManager.cancel(1);
                 alarmManager.cancel(pendingIntent);
+                v.cancel();
                 win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
                 win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
@@ -168,6 +177,7 @@ public class LaunchActivity extends AppCompatActivity {
             m.release();
         AlarmReceiver.stopRingtone(LaunchActivity.this);
         notificationManager.cancel(1);
+        v.cancel();
         win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         aniHandle.removeCallbacks(aniRunnable);

@@ -22,8 +22,9 @@
     <string name="pref_notification_desc">Shows Icon in the notification bar (app restart required)</string>
     <string name="pref_alarm_settings">Alarm settings</string>
     <string name="pref_alarm_setup">Alarm setup</string>
-    <string name="pref_alarm_ringtone">Select ringtone for alarm</string>
-    <string name="pref_alarm_ringtone_desc">Alarm ringtone</string>
+    <string name="pref_alarm_ringtone">Alarm ringtone</string>
+    <string name="pref_alarm_ringtone_desc">Select ringtone for alarm</string>
+    <string name="pref_alarm_vibrate">Vibrate on alarm</string>
 
     <!-- Subtitles -->
     <string name="line_hello">Hello.</string>
