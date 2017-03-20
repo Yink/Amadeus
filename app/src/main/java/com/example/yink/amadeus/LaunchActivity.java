@@ -1,36 +1,51 @@
 package com.example.yink.amadeus;
 
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class LaunchActivity extends AppCompatActivity {
     ImageView connect, cancel, imageViewLogo;
     TextView status;
-    //AnimationDrawable logo;
     Boolean isPressed = false;
-    SharedPreferences sharedPreferences;
+    SharedPreferences settings;
     MediaPlayer m;
+    Handler aniHandle = new Handler();
+    AlarmManager alarmManager;
+    PendingIntent pendingIntent;
+    NotificationManager notificationManager;
+    Vibrator v;
+
     int i = 0;
     int id;
     int duration = 20;
     Runnable aniRunnable = new Runnable() {
         public void run() {
-            imageViewLogo.setImageDrawable((getResources().getDrawable(id)));
-            animate(imageViewLogo);
+            if (i < 39) {
+                i += 1;
+                String imgName = "logo" + Integer.toString(i);
+                id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+                imageViewLogo.setImageDrawable((ContextCompat.getDrawable(LaunchActivity.this, id)));
+                aniHandle.postDelayed(this, duration);
+            }
         }
     };
 
@@ -43,15 +58,6 @@ public class LaunchActivity extends AppCompatActivity {
         }
     }
 
-    protected void animate(ImageView view) {
-        if (i < 39) {
-            i += 1;
-            String imgName = "logo" + Integer.toString(i);
-            id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-            view.postDelayed(aniRunnable, duration);
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,51 +66,72 @@ public class LaunchActivity extends AppCompatActivity {
         cancel = (ImageView) findViewById(R.id.imageView_cancel);
         status = (TextView) findViewById(R.id.textView_call);
         imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
-        /*
-         *  Reported OOM on 2K+ resolution devices.
-         *  Looks like better to change it to static image for now.
-         */
-        /*logo = (AnimationDrawable) imageViewLogo.getDrawable();
-        logo.start();*/
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        animate(imageViewLogo);
+        aniHandle.post(aniRunnable);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        Intent alarmIntent = new Intent(LaunchActivity.this, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(LaunchActivity.this, AlarmActivity.alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
+        settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final Window win = getWindow();
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
+        }
+        if (AlarmReceiver.isPlaying()) {
+            status.setText(R.string.incoming_call);
+            if (settings.getBoolean("vibrate", false)) {
+                long[] pattern = {500, 2000};
+                v.vibrate(pattern, 0);
+            }
+            win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
 
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
 
-        if (sharedPreferences.getBoolean("show_notification", false)) {
+        if (settings.getBoolean("show_notification", false)) {
             showNotification();
         }
-
 
         connect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!isPressed && isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
                     isPressed = true;
-                    m = MediaPlayer.create(getApplicationContext(), R.raw.tone);
 
                     connect.setImageResource(R.drawable.connect_select);
 
-                    m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mp.start();
-                            status.setText(R.string.connecting);
-                        }
-                    });
+                    if (!AlarmReceiver.isPlaying()) {
+                        m = MediaPlayer.create(LaunchActivity.this, R.raw.tone);
 
-                    m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mp.release();
-                            Intent intent = new Intent(LaunchActivity.this,MainActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+                        m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mp) {
+                                mp.start();
+                                status.setText(R.string.connecting);
+                            }
+                        });
+
+                        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                mp.release();
+                                Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                    } else {
+                        AlarmReceiver.stopRingtone(LaunchActivity.this);
+                        notificationManager.cancel(1);
+                        alarmManager.cancel(pendingIntent);
+                        v.cancel();
+                        win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+                        win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
+                        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         });
@@ -113,6 +140,12 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cancel.setImageResource(R.drawable.cancel_select);
+                AlarmReceiver.stopRingtone(getApplicationContext());
+                notificationManager.cancel(1);
+                alarmManager.cancel(pendingIntent);
+                v.cancel();
+                win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+                win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
@@ -124,7 +157,7 @@ public class LaunchActivity extends AppCompatActivity {
         imageViewLogo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+                Intent settingIntent = new Intent(LaunchActivity.this, SettingsActivity.class);
                 startActivity(settingIntent);
             }
         });
@@ -137,9 +170,17 @@ public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
+        final Window win = getWindow();
+
         if (m != null)
             m.release();
-        super.onDestroy();
+        AlarmReceiver.stopRingtone(LaunchActivity.this);
+        notificationManager.cancel(1);
+        v.cancel();
+        win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        aniHandle.removeCallbacks(aniRunnable);
     }
 
     @Override
@@ -148,6 +189,8 @@ public class LaunchActivity extends AppCompatActivity {
             status.setText(R.string.disconnected);
         } else if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
+        } else if (AlarmReceiver.isPlaying()) {
+            status.setText(R.string.incoming_call);
         } else {
             status.setText(R.string.call);
         }
@@ -158,12 +201,12 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private void showNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(LaunchActivity.this)
                 .setSmallIcon(R.drawable.xp2)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.notification_text));
-        Intent resultIntent = new Intent(this, MainActivity.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        Intent resultIntent = new Intent(LaunchActivity.this, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(LaunchActivity.this);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -171,16 +214,4 @@ public class LaunchActivity extends AppCompatActivity {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
     }
-    /* Reported OOM on 2K+ resolution devices */
-    /*
-    @Override
-    protected void onPause() {
-        //to enable the to collect the animation frames
-        if (logo != null && logo.isRunning())
-            logo.stop();
-        imageViewLogo.setImageResource(R.drawable.logo39);
-        logo = null;
-        super.onPause();
-    }*/
-
 }

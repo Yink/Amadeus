@@ -16,6 +16,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     AnimationDrawable animation;
     int shaman_girls = -1;
     Random randomgen = new Random();
-    SharedPreferences sharedPreferences;
+    SharedPreferences settings;
     String lang, recogLang;
     MediaPlayer m;
     String[] contextLang;
@@ -60,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
         kurisu = (ImageView) findViewById(R.id.imageView_kurisu);
         subtitles = (TextView) findViewById(R.id.textView_subtitles);
         ImageView subtitlesBackground = (ImageView) findViewById(R.id.imageView_subtitles);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        lang = sharedPreferences.getString("lang", "ja");
-        recogLang = sharedPreferences.getString("recognition_lang", "ja-JP");
+        settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        lang = settings.getString("lang", "ja");
+        recogLang = settings.getString("recognition_lang", "ja-JP");
         contextLang = recogLang.split("-");
-        if (!sharedPreferences.getBoolean("show_subtitles", false)) {
+        if (!settings.getBoolean("show_subtitles", false)) {
             subtitlesBackground.setVisibility(View.INVISIBLE);
         }
         speak(voiceLines[VoiceLine.Line.HELLO]);
@@ -132,23 +133,23 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         if (sr != null)
             sr.destroy();
         if (m != null)
             m.release();
-        super.onDestroy();
     }
 
     @Override
     protected void onStop() {
-        isLoop = false;
         super.onStop();
+        isLoop = false;
     }
 
     @Override
     protected void onPause() {
-        isLoop = false;
         super.onPause();
+        isLoop = false;
     }
 
 
@@ -196,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             m = MediaPlayer.create(getApplicationContext(), line.getId());
             final Visualizer v = new Visualizer(m.getAudioSessionId());
 
-            if (sharedPreferences.getBoolean("show_subtitles", false)) {
+            if (settings.getBoolean("show_subtitles", false)) {
                 subtitles.setText(line.getSubtitle());
             }
 
@@ -282,35 +283,54 @@ public class MainActivity extends AppCompatActivity {
         dictionary.put("будильник", 2);
         dictionary.put("камеру", 3);
 
-        String[] words = {
+        String[] apps = {
             "chrome", "calendar", "clock", "camera"
         };
 
         for (ApplicationInfo packageInfo : packages) {
-            /*
-             *  TODO: Needs to be adjusted probably.
-             */
+            /* TODO: Needs to be adjusted probably. */
             found = true;
+            /* Look up words in dictionary and correct the input since we can't open some apps in other langs */
             for (String word: input) {
                 if (dictionary.get(word) != null) {
-                    corrected = words[dictionary.get(word)].toLowerCase();
+                    corrected = apps[dictionary.get(word)].toLowerCase();
                 } else {
                     corrected = word.toLowerCase();
                 }
-                Log.d(TAG, corrected);
                 if (!packageInfo.packageName.contains(corrected)) {
                     found = false;
                     break;
                 }
             }
             if (found) {
-                Intent app = ctx.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
-                if (app != null) {
-                    speak(voiceLines[VoiceLine.Line.OK]);
-                    app.addCategory(Intent.CATEGORY_LAUNCHER);
-                    ctx.startActivity(app);
-                    break;
+                Intent app;
+                speak(voiceLines[VoiceLine.Line.OK]);
+                switch (packageInfo.packageName) {
+                    /* Exceptional cases */
+                    case "com.android.phone": {
+                        app = new Intent(Intent.ACTION_DIAL, null);
+                        ctx.startActivity(app);
+                        break;
+                    }
+                    case "com.android.chrome": {
+                        app = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com"));
+                        /* Default browser might be different */
+                        app.setPackage(packageInfo.packageName);
+                        ctx.startActivity(app);
+                        break;
+                    }
+                    default: {
+                        app = ctx.getPackageManager().getLaunchIntentForPackage(packageInfo.packageName);
+                        /* Check if intent is not null to avoid crash */
+                        if (app != null) {
+                            app.addCategory(Intent.CATEGORY_LAUNCHER);
+                            ctx.startActivity(app);
+                        }
+                        break;
+                    }
                 }
+                /* Don't need to search for other ones, so break this loop */
+                break;
             }
         }
     }
@@ -472,13 +492,10 @@ public class MainActivity extends AppCompatActivity {
             input += data.get(0);
             /* TODO: Japanese doesn't split the words. Sigh. */
             String[] splitInput = input.split(" ");
+
             /* Really, google? */
             if (splitInput[0].equalsIgnoreCase("Асистент")) {
-                String temp = "";
-                String[] replace;
-                temp += data.get(1);
-                replace = temp.split(" ");
-                splitInput[0] = replace[0];
+                splitInput[0] = "Ассистент";
             }
 
             /* Switch language within current context for voice recognition */

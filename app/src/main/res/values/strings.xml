@@ -1,4 +1,5 @@
 <resources>
+    <!-- LaunchActivity -->
     <string name="app_name">Amadeus</string>
     <string name="call">Connect to Kurisu?</string>
     <string name="connecting">Connecting…</string>
@@ -6,6 +7,7 @@
     <string name="default_lang">en</string>
     <string name="default_recog_lang">en-US</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
+    <string name="incoming_call">Call from Kurisu.</string>
     <string name="notification_text">Your waifu misses you.</string>
 
     <!-- Settings -->
@@ -18,7 +20,13 @@
     <string name="pref_subtitles_desc">Shows subtitles for Amadeus\' answers</string>
     <string name="pref_notification">Show &quot;XP&quot;-Icon</string>
     <string name="pref_notification_desc">Shows Icon in the notification bar (app restart required)</string>
+    <string name="pref_alarm_settings">Alarm settings</string>
+    <string name="pref_alarm_setup">Alarm setup</string>
+    <string name="pref_alarm_ringtone">Alarm ringtone</string>
+    <string name="pref_alarm_ringtone_desc">Select ringtone for alarm</string>
+    <string name="pref_alarm_vibrate">Vibrate on alarm</string>
 
+    <!-- Subtitles -->
     <string name="line_hello">Hello.</string>
     <string name="line_dont_call_me_like_that">Don\'t call me like that!</string>
     <string name="line_but_i_refuse">But I refuse.</string>

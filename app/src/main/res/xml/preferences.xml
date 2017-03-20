@@ -26,4 +26,22 @@
             android:summary="@string/pref_lang_desc"
             android:title="@string/pref_lang" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_alarm_settings">
+        <Preference android:title="@string/pref_alarm_setup">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.example.yink.amadeus"
+                android:targetClass="com.example.yink.amadeus.AlarmActivity" />
+        </Preference>
+        <ListPreference
+            android:entries="@array/ringtonesArray"
+            android:entryValues="@array/ringtonesValues"
+            android:key="ringtone"
+            android:summary="@string/pref_alarm_ringtone_desc"
+            android:title="@string/pref_alarm_ringtone" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="vibrate"
+            android:title="@string/pref_alarm_vibrate" />
+    </PreferenceCategory>
 </PreferenceScreen>

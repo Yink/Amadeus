@@ -4,8 +4,10 @@
     <string name="connecting">Подключение…</string>
     <string name="disconnected">Отключено.</string>
     <string name="default_lang">ru</string>
-    <string name="default_recog_lang">ja-JP</string>
+    <string name="default_recog_lang">ru-RU</string>
     <string name="google_app_error">Google App не найден.</string>
+    <string name="incoming_call">Звонок от Курису.</string>
+    <string name="notification_text">Твоя вайфу скучает по тебе.</string>
 
     <!-- Настройки -->
     <string name="pref_app_settings">Настройки приложения</string>
@@ -15,6 +17,13 @@
     <string name="pref_lang_desc">Выберите язык приложения (требуется перезапуск)</string>
     <string name="pref_subtitles">Показывать субтитры</string>
     <string name="pref_subtitles_desc">Показывает субтитры с ответами Амадеуса</string>
+    <string name="pref_notification">Показывать иконку &quot;XP&quot;</string>
+    <string name="pref_notification_desc">Показывает иконку в статус-баре (требуется перезапуск)</string>
+    <string name="pref_alarm_settings">Настройки будильника</string>
+    <string name="pref_alarm_setup">Настройка будильника</string>
+    <string name="pref_alarm_ringtone">Выберите рингтон для будильника</string>
+    <string name="pref_alarm_ringtone_desc">Рингтон будильника</string>
+    <string name="pref_alarm_vibrate">Вибрация будильника</string>
 
     <!-- Многие фразы были вырваны из контекста, поэтому прошу не пинать -->
     <string name="line_hello">Привет.</string>
@@ -93,12 +102,12 @@
     <string name="hot">горячая</string>
     <string name="sexy">секси</string>
     <string name="boobies">сисечки</string>
-    <!-- Да, так работает -->
+    <!-- Да, так работает, все вопросы к гуглораспознаванию -->
     <string name="nullpo">0 по</string>
+    <string name="maho">маха</string>
 
     <!-- Не распознается -->
     <string name="atchannel">アットチャンネル</string>
     <string name="oppai">おっぱい</string>
-    <string name="maho">真帆</string>
     <string name="hiyajo">比屋定</string>
 </resources>
