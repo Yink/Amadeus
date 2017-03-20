@@ -58,14 +58,10 @@ public class AlarmActivity extends Activity {
             Calendar calendar = Calendar.getInstance();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Log.d(TAG, "Current API functions have been executed");
-                calendar.set(Calendar.HOUR_OF_DAY, getCurrentHour(alarmTimePicker));
-                calendar.set(Calendar.MINUTE, getCurrentMinute(alarmTimePicker));
-                Toast.makeText(this, "Alarm has been set for " + getCurrentHour(alarmTimePicker) + " hour(s) " + getCurrentMinute(alarmTimePicker) + " minute(s)", Toast.LENGTH_SHORT).show();
+                setTime(calendar);
             } else {
                 Log.d(TAG, "Legacy API functions have been executed");
-                calendar.set(Calendar.HOUR_OF_DAY, getCurrentHourLegacy(alarmTimePicker));
-                calendar.set(Calendar.MINUTE, getCurrentMinuteLegacy(alarmTimePicker));
-                Toast.makeText(this, "Alarm has been set for " + getCurrentHourLegacy(alarmTimePicker) + " hour(s) " + getCurrentMinuteLegacy(alarmTimePicker) + " minute(s)", Toast.LENGTH_SHORT).show();
+                setTimeLegacy(calendar);
             }
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             Log.d(TAG, "Alarm On");
@@ -79,22 +75,16 @@ public class AlarmActivity extends Activity {
     }
 
     @SuppressWarnings("deprecation")
-    public int getCurrentHourLegacy(TimePicker tp) {
-        return tp.getCurrentHour();
-    }
-
-    @SuppressWarnings("deprecation")
-    public int getCurrentMinuteLegacy(TimePicker tp) {
-        return tp.getCurrentMinute();
+    public void setTimeLegacy(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+        calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentHour());
+        Toast.makeText(this, "Alarm has been set for " + alarmTimePicker.getCurrentHour() + " hour(s) " + alarmTimePicker.getCurrentHour() + " minute(s)", Toast.LENGTH_SHORT).show();
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public int getCurrentHour(TimePicker tp) {
-        return tp.getHour();
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    public int getCurrentMinute(TimePicker tp) {
-        return tp.getMinute();
+    public void setTime(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
+        calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
+        Toast.makeText(this, "Alarm has been set for " + alarmTimePicker.getHour() + " hour(s) " + alarmTimePicker.getMinute() + " minute(s)", Toast.LENGTH_SHORT).show();
     }
 }
