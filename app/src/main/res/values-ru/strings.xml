@@ -23,6 +23,7 @@
     <string name="pref_alarm_setup">Настройка будильника</string>
     <string name="pref_alarm_ringtone">Выберите рингтон для будильника</string>
     <string name="pref_alarm_ringtone_desc">Рингтон будильника</string>
+    <string name="pref_alarm_vibrate">Вибрация будильника</string>
 
     <!-- Многие фразы были вырваны из контекста, поэтому прошу не пинать -->
     <string name="line_hello">Привет.</string>
