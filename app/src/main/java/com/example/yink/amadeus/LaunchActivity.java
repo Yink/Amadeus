@@ -1,6 +1,5 @@
 package com.example.yink.amadeus;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,16 +8,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,7 +39,7 @@ public class LaunchActivity extends AppCompatActivity {
                 i += 1;
                 String imgName = "logo" + Integer.toString(i);
                 id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                imageViewLogo.setImageDrawable((getResources().getDrawable(id)));
+                imageViewLogo.setImageDrawable((ContextCompat.getDrawable(getApplicationContext(), id)));
                 aniHandle.postDelayed(this, duration);
             }
         }
