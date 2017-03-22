@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -30,7 +29,6 @@ public class AlarmActivity extends Activity {
     private TimePicker alarmTimePicker;
     private ToggleButton alarmToggle;
     private SharedPreferences settings;
-    private Vibrator v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
