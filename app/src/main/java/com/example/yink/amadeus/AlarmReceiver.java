@@ -5,18 +5,14 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 
 public class AlarmReceiver extends WakefulBroadcastReceiver {
 
-    private static MediaPlayer m;
-    private static boolean isPlaying = false;
-    private static SharedPreferences settings;
-
     @Override
     public void onReceive(Context context, Intent intent) {
+
         int[] ringtones = {
                 R.raw.ringtone_gate_of_steiner, R.raw.ringtone_village,
                 R.raw.ringtone_beginning_of_fight, R.raw.ringtone_easygoingness,
@@ -24,17 +20,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                 R.raw.ringtone_over_the_sky
         };
 
-        settings = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
         int index = Integer.parseInt(settings.getString("ringtone", "0"));
 
-        m = MediaPlayer.create(context, ringtones[index]);
-
-        m.setLooping(true);
-        m.start();
-
-        if (m.isPlaying()) {
-            isPlaying = true;
-        }
+        Alarm.start(context, ringtones[index]);
 
         ComponentName comp = new ComponentName(context.getPackageName(),
                 AlarmService.class.getName());
@@ -42,20 +31,4 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         setResultCode(Activity.RESULT_OK);
     }
 
-    public static void stopRingtone(Context context) {
-        settings = PreferenceManager.getDefaultSharedPreferences(context);
-
-        if (isPlaying) {
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("alarm_toggle", false);
-            editor.apply();
-            m.release();
-            isPlaying = false;
-        }
-
-    }
-
-    public static boolean isPlaying() {
-        return isPlaying;
-    }
 }

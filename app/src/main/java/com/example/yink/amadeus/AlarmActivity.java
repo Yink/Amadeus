@@ -1,16 +1,14 @@
 package com.example.yink.amadeus;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TimePicker;
@@ -19,10 +17,9 @@ import android.widget.ToggleButton;
 
 import java.util.Calendar;
 
-public class AlarmActivity extends Activity {
+public class AlarmActivity extends AppCompatActivity {
 
     private final String TAG = "Amadeus.Alarm";
-    public static final int ALARM_ID = 104859;
 
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
@@ -39,7 +36,7 @@ public class AlarmActivity extends Activity {
         alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, ALARM_ID, alarmIntent, PendingIntent.FLAG_NO_CREATE);
+        pendingIntent = PendingIntent.getBroadcast(this, Alarm.ALARM_ID, alarmIntent, PendingIntent.FLAG_NO_CREATE);
 
         alarmTimePicker.setIs24HourView(settings.getBoolean("24-hour_format", true));
 
@@ -67,13 +64,9 @@ public class AlarmActivity extends Activity {
 
             Log.d(TAG, "Alarm On");
         } else {
-            AlarmReceiver.stopRingtone(this);
-
-            NotificationManager notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.cancel(AlarmService.ALARM_NOTIFICATION_ID);
+            Alarm.cancel(this);
 
             editor.putBoolean("alarm_toggle", false);
-            alarmManager.cancel(pendingIntent);
             Log.d(TAG, "Alarm Off");
         }
         editor.apply();
@@ -84,7 +77,7 @@ public class AlarmActivity extends Activity {
         calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
         calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
 
-        if(calendar.before(Calendar.getInstance())) {
+        if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1);
         }
 
@@ -97,7 +90,7 @@ public class AlarmActivity extends Activity {
         calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
         calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
 
-        if(calendar.before(Calendar.getInstance())) {
+        if (calendar.before(Calendar.getInstance())) {
             calendar.add(Calendar.DATE, 1);
         }
 

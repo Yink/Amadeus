@@ -9,8 +9,6 @@ import android.support.v4.app.NotificationCompat;
 
 public class AlarmService extends IntentService {
 
-    public static final int ALARM_NOTIFICATION_ID = 102434;
-
     public AlarmService() {
         super("AlarmService");
     }
@@ -36,6 +34,6 @@ public class AlarmService extends IntentService {
                 .setContentText(msg);
 
         alarmNotificationBuilder.setContentIntent(contentIntent);
-        alarmNotificationManager.notify(ALARM_NOTIFICATION_ID, alarmNotificationBuilder.build());
+        alarmNotificationManager.notify(Alarm.ALARM_NOTIFICATION_ID, alarmNotificationBuilder.build());
     }
 }

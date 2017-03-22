@@ -1,6 +1,5 @@
 package com.example.yink.amadeus;
 
-import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -29,9 +27,6 @@ public class LaunchActivity extends AppCompatActivity {
     private Boolean isPressed = false;
     private MediaPlayer m;
     private Handler aniHandle = new Handler();
-    private AlarmManager alarmManager;
-    private NotificationManager notificationManager;
-    private Vibrator v;
 
     private int i = 0;
 
@@ -65,11 +60,6 @@ public class LaunchActivity extends AppCompatActivity {
         cancel = (ImageView) findViewById(R.id.imageView_cancel);
         status = (TextView) findViewById(R.id.textView_call);
         logo = (ImageView) findViewById(R.id.imageView_logo);
-        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        Intent alarmIntent = new Intent(LaunchActivity.this, AlarmReceiver.class);
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(LaunchActivity.this, AlarmActivity.ALARM_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final Window win = getWindow();
 
@@ -79,12 +69,8 @@ public class LaunchActivity extends AppCompatActivity {
             status.setText(R.string.google_app_error);
         }
 
-        if (AlarmReceiver.isPlaying()) {
+        if (Alarm.isPlaying()) {
             status.setText(R.string.incoming_call);
-            if (settings.getBoolean("vibrate", false)) {
-                long[] pattern = {500, 2000};
-                v.vibrate(pattern, 0);
-            }
             win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
             win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
@@ -101,7 +87,7 @@ public class LaunchActivity extends AppCompatActivity {
 
                     connect.setImageResource(R.drawable.connect_select);
 
-                    if (!AlarmReceiver.isPlaying()) {
+                    if (!Alarm.isPlaying()) {
                         m = MediaPlayer.create(LaunchActivity.this, R.raw.tone);
 
                         m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -121,10 +107,7 @@ public class LaunchActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        AlarmReceiver.stopRingtone(LaunchActivity.this);
-                        notificationManager.cancel(AlarmService.ALARM_NOTIFICATION_ID);
-                        alarmManager.cancel(pendingIntent);
-                        v.cancel();
+                        Alarm.cancel(LaunchActivity.this);
                         win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
                         win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
@@ -139,10 +122,7 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cancel.setImageResource(R.drawable.cancel_select);
-                AlarmReceiver.stopRingtone(getApplicationContext());
-                notificationManager.cancel(AlarmService.ALARM_NOTIFICATION_ID);
-                alarmManager.cancel(pendingIntent);
-                v.cancel();
+                Alarm.cancel(getApplicationContext());
                 win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
                 win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
@@ -170,13 +150,14 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         final Window win = getWindow();
 
-        if (m != null)
+        if (m != null) {
             m.release();
-        AlarmReceiver.stopRingtone(LaunchActivity.this);
-        notificationManager.cancel(AlarmService.ALARM_NOTIFICATION_ID);
-        v.cancel();
+        }
+
+        Alarm.cancel(LaunchActivity.this);
         win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         aniHandle.removeCallbacks(aniRunnable);
@@ -190,7 +171,7 @@ public class LaunchActivity extends AppCompatActivity {
             status.setText(R.string.disconnected);
         } else if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
-        } else if (AlarmReceiver.isPlaying()) {
+        } else if (Alarm.isPlaying()) {
             status.setText(R.string.incoming_call);
         } else {
             status.setText(R.string.call);
@@ -212,7 +193,7 @@ public class LaunchActivity extends AppCompatActivity {
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(resultPendingIntent);
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
     }
 }

@@ -74,11 +74,11 @@ public class MainActivity extends AppCompatActivity {
             subtitlesBackground.setVisibility(View.INVISIBLE);
         }
 
-        speak(voiceLines[VoiceLine.Line.HELLO]);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_PERMISSION_RECORD_AUDIO);
         }
+
+        speak(voiceLines[VoiceLine.Line.HELLO]);
 
         final Runnable loop = new Runnable() {
             @Override
