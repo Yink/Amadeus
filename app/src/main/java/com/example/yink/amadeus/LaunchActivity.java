@@ -185,6 +185,7 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         if (isPressed) {
             status.setText(R.string.disconnected);
         } else if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
@@ -194,6 +195,7 @@ public class LaunchActivity extends AppCompatActivity {
         } else {
             status.setText(R.string.call);
         }
+
         isPressed = false;
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);

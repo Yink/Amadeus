@@ -44,6 +44,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
     public static void stopRingtone(Context context) {
         settings = PreferenceManager.getDefaultSharedPreferences(context);
+
         if (isPlaying) {
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("alarm_toggle", false);
@@ -51,6 +52,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
             m.release();
             isPlaying = false;
         }
+
     }
 
     public static boolean isPlaying() {
