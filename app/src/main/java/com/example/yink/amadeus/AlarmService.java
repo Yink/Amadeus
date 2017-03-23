@@ -17,6 +17,7 @@ public class AlarmService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         sendNotification(getString(R.string.incoming_call));
         Intent launch = new Intent(this, LaunchActivity.class);
+        launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(launch);
         AlarmReceiver.completeWakefulIntent(intent);
     }

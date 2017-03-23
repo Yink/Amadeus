@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 public class AlarmActivity extends AppCompatActivity {
 
-    private final String TAG = "Amadeus.Alarm";
+    private final String TAG = "Amadeus.AlarmActivity";
 
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
@@ -35,8 +35,7 @@ public class AlarmActivity extends AppCompatActivity {
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
         alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, Alarm.ALARM_ID, alarmIntent, PendingIntent.FLAG_NO_CREATE);
+        pendingIntent = PendingIntent.getBroadcast(this, Alarm.ALARM_ID, new Intent(this, AlarmReceiver.class), 0);
 
         alarmTimePicker.setIs24HourView(settings.getBoolean("24-hour_format", true));
 

@@ -46,7 +46,6 @@ class Alarm {
 
         settings = PreferenceManager.getDefaultSharedPreferences(context);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        //v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         Intent alarmIntent = new Intent(context, AlarmReceiver.class);
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -61,7 +60,6 @@ class Alarm {
 
         notificationManager.cancel(ALARM_NOTIFICATION_ID);
         alarmManager.cancel(pendingIntent);
-        //if (settings.getBoolean("vibrate", false)) {
         if (v != null) {
             v.cancel();
         }
