@@ -55,10 +55,10 @@ public class AlarmActivity extends AppCompatActivity {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Log.d(TAG, "Current API functions have been executed");
-                setTime(calendar);
+                setTime(calendar, editor);
             } else {
                 Log.d(TAG, "Legacy API functions have been executed");
-                setTimeLegacy(calendar);
+                setTimeLegacy(calendar, editor);
             }
 
             Log.d(TAG, "Alarm On");
@@ -72,7 +72,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings("deprecation")
-    private void setTimeLegacy(Calendar calendar) {
+    private void setTimeLegacy(Calendar calendar, SharedPreferences.Editor editor) {
         calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
         calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
 
@@ -81,11 +81,12 @@ public class AlarmActivity extends AppCompatActivity {
         }
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        editor.putLong("alarm_time", calendar.getTimeInMillis());
         Toast.makeText(this, "Alarm has been set for " + alarmTimePicker.getCurrentHour() + " hour(s) " + alarmTimePicker.getCurrentMinute() + " minute(s)", Toast.LENGTH_SHORT).show();
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    private void setTime(Calendar calendar) {
+    private void setTime(Calendar calendar, SharedPreferences.Editor editor) {
         calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getHour());
         calendar.set(Calendar.MINUTE, alarmTimePicker.getMinute());
 
@@ -94,6 +95,7 @@ public class AlarmActivity extends AppCompatActivity {
         }
 
         alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+        editor.putLong("alarm_time", calendar.getTimeInMillis());
         Toast.makeText(this, "Alarm has been set for " + alarmTimePicker.getHour() + " hour(s) " + alarmTimePicker.getMinute() + " minute(s)", Toast.LENGTH_SHORT).show();
     }
 }
