@@ -1,6 +1,7 @@
 package com.example.yink.amadeus;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 
-public class AlarmReceiver extends WakefulBroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver {
 
     private final String TAG = "AlarmReceiver";
 
@@ -32,9 +33,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
         Alarm.start(context, ringtones[index]);
 
-        ComponentName comp = new ComponentName(context.getPackageName(),
-                AlarmService.class.getName());
-        startWakefulService(context, (intent.setComponent(comp)));
+        Intent service = new Intent(context, AlarmService.class);
+        context.startService(service);
         setResultCode(Activity.RESULT_OK);
     }
 
