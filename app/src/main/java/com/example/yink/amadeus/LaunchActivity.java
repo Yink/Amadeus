@@ -34,7 +34,7 @@ public class LaunchActivity extends AppCompatActivity {
         public void run() {
             final int DURATION = 20;
             if (i < 39) {
-                i += 1;
+                i++;
                 String imgName = "logo" + Integer.toString(i);
                 int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
                 logo.setImageDrawable((ContextCompat.getDrawable(LaunchActivity.this, id)));

@@ -39,7 +39,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = "Amadeus";
+    private final String TAG = "MainActivity";
 
     private TextView subtitles;
     private ImageView kurisu;
@@ -460,7 +460,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class listener implements RecognitionListener {
 
-        private final String TAG = "Amadeus.listener";
+        private final String TAG = "VoiceListener";
 
         public void onReadyForSpeech(Bundle params) {
             Log.d(TAG, "Speech recognition start");

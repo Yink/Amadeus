@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 class Alarm {
 
@@ -19,6 +20,7 @@ class Alarm {
     static final int ALARM_ID = 104859;
     static final int ALARM_NOTIFICATION_ID = 102434;
 
+    private static final String TAG = "Alarm";
     private static boolean isPlaying = false;
 
     static void start(Context context, int ringtone) {
@@ -40,6 +42,8 @@ class Alarm {
             isPlaying = true;
         }
 
+        Log.d(TAG, "Start");
+
     }
 
     static void cancel(Context context) {
@@ -55,14 +59,16 @@ class Alarm {
             editor.putBoolean("alarm_toggle", false);
             editor.apply();
             m.release();
+            notificationManager.cancel(ALARM_NOTIFICATION_ID);
+            alarmManager.cancel(pendingIntent);
             isPlaying = false;
         }
 
-        notificationManager.cancel(ALARM_NOTIFICATION_ID);
-        alarmManager.cancel(pendingIntent);
         if (v != null) {
             v.cancel();
         }
+
+        Log.d(TAG, "Cancel");
 
     }
 
