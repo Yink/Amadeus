@@ -8,22 +8,21 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 
 public class AlarmService extends IntentService {
-    NotificationManager alarmNotificationManager;
 
     public AlarmService() {
         super("AlarmService");
     }
 
     @Override
-    public void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(Intent intent) {
         sendNotification(getString(R.string.incoming_call));
         Intent launch = new Intent(this, LaunchActivity.class);
+        launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(launch);
-        AlarmReceiver.completeWakefulIntent(intent);
     }
 
     private void sendNotification(String msg) {
-        alarmNotificationManager = (NotificationManager) this
+        NotificationManager alarmNotificationManager = (NotificationManager) this
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
@@ -35,6 +34,6 @@ public class AlarmService extends IntentService {
                 .setContentText(msg);
 
         alarmNotificationBuilder.setContentIntent(contentIntent);
-        alarmNotificationManager.notify(1, alarmNotificationBuilder.build());
+        alarmNotificationManager.notify(Alarm.ALARM_NOTIFICATION_ID, alarmNotificationBuilder.build());
     }
 }

@@ -1,6 +1,5 @@
 package com.example.yink.amadeus;
 
-import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -23,33 +21,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class LaunchActivity extends AppCompatActivity {
-    ImageView connect, cancel, imageViewLogo;
-    TextView status;
-    Boolean isPressed = false;
-    SharedPreferences settings;
-    MediaPlayer m;
-    Handler aniHandle = new Handler();
-    AlarmManager alarmManager;
-    PendingIntent pendingIntent;
-    NotificationManager notificationManager;
-    Vibrator v;
 
-    int i = 0;
-    int id;
-    int duration = 20;
+    private ImageView connect, cancel, logo;
+    private TextView status;
+    private Boolean isPressed = false;
+    private MediaPlayer m;
+    private Handler aniHandle = new Handler();
+
+    private int i = 0;
+
     Runnable aniRunnable = new Runnable() {
         public void run() {
+            final int DURATION = 20;
             if (i < 39) {
-                i += 1;
+                i++;
                 String imgName = "logo" + Integer.toString(i);
-                id = getResources().getIdentifier(imgName, "drawable", getPackageName());
-                imageViewLogo.setImageDrawable((ContextCompat.getDrawable(LaunchActivity.this, id)));
-                aniHandle.postDelayed(this, duration);
+                int id = getResources().getIdentifier(imgName, "drawable", getPackageName());
+                logo.setImageDrawable((ContextCompat.getDrawable(LaunchActivity.this, id)));
+                aniHandle.postDelayed(this, DURATION);
             }
         }
     };
 
-    private static boolean isAppInstalled(Context context, String packageName) {
+    private boolean isAppInstalled(Context context, String packageName) {
         try {
             context.getPackageManager().getApplicationInfo(packageName, 0);
             return true;
@@ -65,30 +59,21 @@ public class LaunchActivity extends AppCompatActivity {
         connect = (ImageView) findViewById(R.id.imageView_connect);
         cancel = (ImageView) findViewById(R.id.imageView_cancel);
         status = (TextView) findViewById(R.id.textView_call);
-        imageViewLogo = (ImageView) findViewById(R.id.imageView_logo);
-        aniHandle.post(aniRunnable);
-        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        Intent alarmIntent = new Intent(LaunchActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(LaunchActivity.this, AlarmActivity.alarmCode, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationManager = (NotificationManager) getBaseContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        logo = (ImageView) findViewById(R.id.imageView_logo);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final Window win = getWindow();
+
+        aniHandle.post(aniRunnable);
+
         if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
         }
-        if (AlarmReceiver.isPlaying()) {
+
+        if (Alarm.isPlaying()) {
             status.setText(R.string.incoming_call);
-            if (settings.getBoolean("vibrate", false)) {
-                long[] pattern = {500, 2000};
-                v.vibrate(pattern, 0);
-            }
             win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
             win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
-
-        connect.setImageResource(R.drawable.connect_unselect);
-        cancel.setImageResource(R.drawable.cancel_unselect);
 
         if (settings.getBoolean("show_notification", false)) {
             showNotification();
@@ -102,7 +87,7 @@ public class LaunchActivity extends AppCompatActivity {
 
                     connect.setImageResource(R.drawable.connect_select);
 
-                    if (!AlarmReceiver.isPlaying()) {
+                    if (!Alarm.isPlaying()) {
                         m = MediaPlayer.create(LaunchActivity.this, R.raw.tone);
 
                         m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -122,10 +107,7 @@ public class LaunchActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        AlarmReceiver.stopRingtone(LaunchActivity.this);
-                        notificationManager.cancel(1);
-                        alarmManager.cancel(pendingIntent);
-                        v.cancel();
+                        Alarm.cancel(LaunchActivity.this);
                         win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
                         win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
@@ -140,10 +122,7 @@ public class LaunchActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cancel.setImageResource(R.drawable.cancel_select);
-                AlarmReceiver.stopRingtone(getApplicationContext());
-                notificationManager.cancel(1);
-                alarmManager.cancel(pendingIntent);
-                v.cancel();
+                Alarm.cancel(getApplicationContext());
                 win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
                 win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
@@ -154,7 +133,7 @@ public class LaunchActivity extends AppCompatActivity {
             }
         });
 
-        imageViewLogo.setOnClickListener(new View.OnClickListener() {
+        logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent settingIntent = new Intent(LaunchActivity.this, SettingsActivity.class);
@@ -171,13 +150,14 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         final Window win = getWindow();
 
-        if (m != null)
+        if (m != null) {
             m.release();
-        AlarmReceiver.stopRingtone(LaunchActivity.this);
-        notificationManager.cancel(1);
-        v.cancel();
+        }
+
+        Alarm.cancel(LaunchActivity.this);
         win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         aniHandle.removeCallbacks(aniRunnable);
@@ -185,19 +165,21 @@ public class LaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        super.onResume();
+
         if (isPressed) {
             status.setText(R.string.disconnected);
         } else if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
             status.setText(R.string.google_app_error);
-        } else if (AlarmReceiver.isPlaying()) {
+        } else if (Alarm.isPlaying()) {
             status.setText(R.string.incoming_call);
         } else {
             status.setText(R.string.call);
         }
+
         isPressed = false;
         connect.setImageResource(R.drawable.connect_unselect);
         cancel.setImageResource(R.drawable.cancel_unselect);
-        super.onResume();
     }
 
     private void showNotification() {

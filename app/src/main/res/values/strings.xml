@@ -25,6 +25,7 @@
     <string name="pref_alarm_ringtone">Alarm ringtone</string>
     <string name="pref_alarm_ringtone_desc">Select ringtone for alarm</string>
     <string name="pref_alarm_vibrate">Vibrate on alarm</string>
+    <string name="pref_alarm_24hour_format">24-hour format</string>
 
     <!-- Subtitles -->
     <string name="line_hello">Hello.</string>

@@ -19,12 +19,11 @@ public class LangContext extends ContextWrapper {
 
     @SuppressWarnings("deprecation")
     public static ContextWrapper wrap(Context context) {
-        SharedPreferences sharedPreferences;
         Configuration config = context.getResources().getConfiguration();
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
-        String lang = sharedPreferences.getString("lang", "ja");
+        String lang = settings.getString("lang", "en");
 
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
@@ -34,6 +33,7 @@ public class LangContext extends ContextWrapper {
         } else {
             setSystemLocaleLegacy(config, locale);
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             context = context.createConfigurationContext(config);
         } else {
@@ -54,6 +54,7 @@ public class LangContext extends ContextWrapper {
         } else {
             setSystemLocaleLegacy(config, locale);
         }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             context = context.createConfigurationContext(config);
         } else {
@@ -64,12 +65,12 @@ public class LangContext extends ContextWrapper {
     }
 
     @SuppressWarnings("deprecation")
-    public static void setSystemLocaleLegacy(Configuration config, Locale locale){
+    private static void setSystemLocaleLegacy(Configuration config, Locale locale){
         config.locale = locale;
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public static void setSystemLocale(Configuration config, Locale locale){
+    private static void setSystemLocale(Configuration config, Locale locale){
         config.setLocale(locale);
     }
 }
