@@ -52,13 +52,13 @@ class Alarm {
 
     static void cancel(Context context) {
 
-        settings = PreferenceManager.getDefaultSharedPreferences(context);
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-        final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
         if (isPlaying) {
+            settings = PreferenceManager.getDefaultSharedPreferences(context);
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+            final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("alarm_toggle", false);
             editor.apply();
@@ -70,9 +70,8 @@ class Alarm {
             if (v != null) {
                 v.cancel();
             }
+            Log.d(TAG, "Cancel");
         }
-
-        Log.d(TAG, "Cancel");
 
     }
 
