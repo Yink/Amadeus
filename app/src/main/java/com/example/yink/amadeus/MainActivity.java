@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
                     ArrayList<String> input = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Amadeus.response(input.get(0), context, MainActivity.this);
+                    Amadeus.responseToInput(input.get(0), context, MainActivity.this);
                 }
                 break;
             }
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             } else {
-                Amadeus.response(input, context, MainActivity.this);
+                Amadeus.responseToInput(input, context, MainActivity.this);
             }
         }
         public void onPartialResults(Bundle partialResults) {

@@ -114,7 +114,7 @@ public class Amadeus extends AppCompatActivity {
         }
     }
 
-    public static void response(String input, Context context, Activity activity) {
+    public static void responseToInput(String input, Context context, Activity activity) {
         Random randomgen = new Random();
 
         input = input.toLowerCase();
