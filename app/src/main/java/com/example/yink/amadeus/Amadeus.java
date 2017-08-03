@@ -13,7 +13,6 @@ import android.media.MediaPlayer;
 import android.media.audiofx.Visualizer;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,18 +21,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class Amadeus extends AppCompatActivity {
+class Amadeus {
 
     private static String TAG = "Amadeus";
 
     private static int shaman_girls = -1;
     private static VoiceLine[] voiceLines = VoiceLine.Line.getLines();
 
-    public static Boolean isSpeaking = false;
-    public static Boolean isLoop = false;
-    public static MediaPlayer m;
+    static Boolean isSpeaking = false;
+    static Boolean isLoop = false;
+    static MediaPlayer m;
 
-    public static void speak(VoiceLine line, final Activity activity) {
+    static void speak(VoiceLine line, final Activity activity) {
         final AnimationDrawable animation;
         final TextView subtitles = (TextView) activity.findViewById(R.id.textView_subtitles);
         final ImageView kurisu = (ImageView) activity.findViewById(R.id.imageView_kurisu);
@@ -114,7 +113,7 @@ public class Amadeus extends AppCompatActivity {
         }
     }
 
-    public static void responseToInput(String input, Context context, Activity activity) {
+    static void responseToInput(String input, Context context, Activity activity) {
         Random randomgen = new Random();
 
         input = input.toLowerCase();
@@ -236,7 +235,7 @@ public class Amadeus extends AppCompatActivity {
         }
     }
 
-    public static void openApp(String[] input, Activity activity) {
+    static void openApp(String[] input, Activity activity) {
         final PackageManager pm = activity.getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 

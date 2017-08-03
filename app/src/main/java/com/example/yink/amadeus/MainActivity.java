@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     int permissionCheck = ContextCompat.checkSelfPermission(host,
                             Manifest.permission.RECORD_AUDIO);
 
-                    /* Input while loop producing bugs and mixes with output */
+                    /* Input during loop produces bugs and mixes with output */
                     if (!Amadeus.isLoop && !Amadeus.isSpeaking) {
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                             promptSpeechInput();
