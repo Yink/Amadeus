@@ -24,10 +24,20 @@ public class LangContext extends ContextWrapper {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         String lang = settings.getString("lang", "en");
-
-        Locale locale = new Locale(lang);
+        String[] langArr = lang.split("-");
+        Locale locale;
+        switch(langArr.length){
+            case 3:
+                locale = new Locale(langArr[0],langArr[1], langArr[2]);
+                break;
+            case 2:
+                locale = new Locale(langArr[0],langArr[1]);
+                break;
+            default:
+                locale = new Locale(langArr[0]);
+                break;
+        }
         Locale.setDefault(locale);
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             setSystemLocale(config, locale);
         } else {
