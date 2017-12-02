@@ -114,116 +114,92 @@ class Amadeus {
     }
 
     static void responseToInput(String input, Context context, Activity activity) {
-        Random randomgen = new Random();
-
+        VoiceLine[] specificLines;
         input = input.toLowerCase();
-
-        if (input.contains(context.getString(R.string.christina))) {
-            VoiceLine[] specificLines = {
+        if (containInput(input,context.getString(R.string.christina))) {
+            specificLines = new VoiceLine[]{
                     voiceLines[VoiceLine.Line.CHRISTINA],
                     voiceLines[VoiceLine.Line.WHY_CHRISTINA],
                     voiceLines[VoiceLine.Line.SHOULD_CHRISTINA],
                     voiceLines[VoiceLine.Line.NO_TINA]
             };
-            Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
-        } else if (input.contains(context.getString(R.string.nullpo))) {
+        } else if (containInput(input,context.getString(R.string.nullpo))) {
             shaman_girls++;
-            if (shaman_girls < 5) {
-                VoiceLine[] specificLines = {
+            if(shaman_girls<5){
+                specificLines = new VoiceLine[]{
                         voiceLines[VoiceLine.Line.GAH],
                         voiceLines[VoiceLine.Line.GAH_EXTENDED]
                 };
-                Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
-            } else {
+            }else {
+                VoiceLine singleLine;
                 switch (shaman_girls) {
                     case 5:
-                        Amadeus.speak(new VoiceLine(R.raw.leskinen_awesome, VoiceLine.Mood.WINKING, R.string.line_Leskinen_awesome), activity);
+                        singleLine = new VoiceLine(R.raw.leskinen_awesome, VoiceLine.Mood.WINKING, R.string.line_Leskinen_awesome);
                         break;
                     case 6:
-                        Amadeus.speak(new VoiceLine(R.raw.leskinen_nice, VoiceLine.Mood.WINKING, R.string.line_Leskinen_nice), activity);
+                        singleLine = new VoiceLine(R.raw.leskinen_nice, VoiceLine.Mood.WINKING, R.string.line_Leskinen_nice);
                         break;
                     case 7:
-                        Amadeus.speak(new VoiceLine(R.raw.leskinen_oh_no, VoiceLine.Mood.WINKING, R.string.line_Leskinen_oh_no), activity);
+                        singleLine = new VoiceLine(R.raw.leskinen_oh_no, VoiceLine.Mood.WINKING, R.string.line_Leskinen_oh_no);
                         break;
                     case 8:
-                        Amadeus.speak(new VoiceLine(R.raw.leskinen_shaman, VoiceLine.Mood.WINKING, R.string.line_Leskinen_shaman), activity);
+                        singleLine = new VoiceLine(R.raw.leskinen_shaman, VoiceLine.Mood.WINKING, R.string.line_Leskinen_shaman);
                         break;
                     case 9:
-                        Amadeus.speak(new VoiceLine(R.raw.leskinen_holy_cow, VoiceLine.Mood.WINKING, R.string.line_Leskinen_holy_cow), activity);
+                    default:
+                        singleLine = new VoiceLine(R.raw.leskinen_holy_cow, VoiceLine.Mood.WINKING, R.string.line_Leskinen_holy_cow);
                         shaman_girls = 0;
                         break;
                 }
+                specificLines = new VoiceLine[]{singleLine};
             }
-        } else if (input.contains(context.getString(R.string.the_zombie))
-                || input.contains(context.getString(R.string.celeb17))) {
-            Amadeus.speak(voiceLines[VoiceLine.Line.DONT_CALL_ME_LIKE_THAT], activity);
-        } else if (input.contains(context.getString(R.string.atchannel))
-                || input.contains(context.getString(R.string.kurigohan))
-                || input.contains(context.getString(R.string.kamehameha))) {
-            VoiceLine[] specificLines = {
+        } else if (containInput(input,context.getString(R.string.the_zombie),context.getString(R.string.celeb17))) {
+            specificLines = new VoiceLine[]{voiceLines[VoiceLine.Line.DONT_CALL_ME_LIKE_THAT]};
+        } else if (containInput(input,context.getString(R.string.atchannel),context.getString(R.string.kurigohan),context.getString(R.string.kamehameha))) {
+            specificLines = new VoiceLine[]{
                     voiceLines[VoiceLine.Line.SENPAI_DONT_TELL],
                     voiceLines[VoiceLine.Line.STILL_NOT_HAPPY]
             };
-            Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
-        } else if (input.contains(context.getString(R.string.salieri))
-                || input.contains(context.getString(R.string.maho))
-                || input.contains(context.getString(R.string.hiyajo))) {
-            VoiceLine[] specificLines = {
+        } else if (containInput(input,context.getString(R.string.salieri),context.getString(R.string.maho),context.getString(R.string.hiyajo))) {
+            specificLines = new VoiceLine[]{
                     voiceLines[VoiceLine.Line.SENPAI_QUESTION],
                     voiceLines[VoiceLine.Line.SENPAI_WHAT_WE_TALKING],
                     voiceLines[VoiceLine.Line.SENPAI_QUESTIONMARK],
                     voiceLines[VoiceLine.Line.SENPAI_WHO_IS_THIS]
             };
-            Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
-        } else if (input.contains(context.getString(R.string.time_machine))
-                || input.contains(context.getString(R.string.cern))
-                || input.contains(context.getString(R.string.time_travel))) {
-            VoiceLine[] specificLines = {
+        } else if (containInput(input,context.getString(R.string.time_machine),context.getString(R.string.cern),context.getString(R.string.time_travel))) {
+            specificLines = new VoiceLine[]{
                     voiceLines[VoiceLine.Line.TM_NONCENCE],
                     voiceLines[VoiceLine.Line.TM_YOU_SAID],
                     voiceLines[VoiceLine.Line.TM_NO_EVIDENCE],
                     voiceLines[VoiceLine.Line.TM_DONT_KNOW],
                     voiceLines[VoiceLine.Line.TM_NOT_POSSIBLE]
             };
-            Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
-        } else if (input.contains(context.getString(R.string.memory))
-                || input.contains(context.getString(R.string.amadeus))
-                || input.contains(context.getString(R.string.science))) {
-            VoiceLine[] specificLines = {
+        } else if (containInput(input,context.getString(R.string.memory),context.getString(R.string.amadeus),context.getString(R.string.science))) {
+            specificLines = new VoiceLine[]{
                     voiceLines[VoiceLine.Line.HUMANS_SOFTWARE],
                     voiceLines[VoiceLine.Line.MEMORY_COMPLEXITY],
                     voiceLines[VoiceLine.Line.SECRET_DIARY],
                     voiceLines[VoiceLine.Line.MODIFIYING_MEMORIES],
                     voiceLines[VoiceLine.Line.MEMORIES_CHRISTINA]
             };
-            Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
-        } else if (input.contains(context.getString(R.string.hello))
-                || input.contains(context.getString(R.string.good_morning))
-                || input.contains(context.getString(R.string.konnichiwa))
-                || input.contains(context.getString(R.string.good_evening))) {
-            VoiceLine[] specificLines = {
+        } else if (containInput(input,context.getString(R.string.hello),context.getString(R.string.good_morning),context.getString(R.string.konnichiwa),context.getString(R.string.good_evening))) {
+            specificLines = new VoiceLine[]{
                     voiceLines[VoiceLine.Line.HELLO],
                     voiceLines[VoiceLine.Line.NICE_TO_MEET_OKABE],
                     voiceLines[VoiceLine.Line.PLEASED_TO_MEET],
                     voiceLines[VoiceLine.Line.LOOKING_FORWARD_TO_WORKING]
             };
-            Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
-        } else if (input.contains(context.getString(R.string.nice_body))
-                || input.contains(context.getString(R.string.hot))
-                || input.contains(context.getString(R.string.sexy))
-                || input.contains(context.getString(R.string.boobies))
-                || input.contains(context.getString(R.string.oppai))) {
-            VoiceLine[] specificLines = {
+        } else if (containInput(input,context.getString(R.string.nice_body),context.getString(R.string.hot),context.getString(R.string.sexy),context.getString(R.string.boobies),context.getString(R.string.oppai))) {
+            specificLines = new VoiceLine[]{
                     voiceLines[VoiceLine.Line.DEVILISH_PERVERT],
                     voiceLines[VoiceLine.Line.PERVERT_CONFIRMED],
                     voiceLines[VoiceLine.Line.PERVERT_IDIOT]
             };
-            Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
-        } else if (input.contains(context.getString(R.string.robotics_notes))
-                || input.contains(context.getString(R.string.antimatter))) {
-            Amadeus.speak(voiceLines[VoiceLine.Line.HEHEHE], activity);
+        } else if (containInput(input,context.getString(R.string.robotics_notes),context.getString(R.string.antimatter))) {
+            specificLines = new VoiceLine[]{voiceLines[VoiceLine.Line.HEHEHE]};
         } else {
-            VoiceLine[] specificLines = {
+            specificLines = new VoiceLine[]{
                     voiceLines[VoiceLine.Line.ASK_ME],
                     voiceLines[VoiceLine.Line.WHAT_DO_YOU_WANT],
                     voiceLines[VoiceLine.Line.WHAT_IS_IT],
@@ -231,10 +207,17 @@ class Amadeus {
                     voiceLines[VoiceLine.Line.WHY_SAY_THAT],
                     voiceLines[VoiceLine.Line.YOU_SURE]
             };
-            Amadeus.speak(specificLines[randomgen.nextInt(specificLines.length)], activity);
         }
+        int intTarget = 0;
+        if(specificLines.length>1){intTarget = new Random().nextInt(specificLines.length);}
+        Amadeus.speak(specificLines[intTarget], activity);
     }
-
+    private static boolean containInput(final String input, final String... strings){
+        for(String s:strings){
+            if(input.contains(s)) return true;
+        }
+        return false;
+    }
     static void openApp(String[] input, Activity activity) {
         final PackageManager pm = activity.getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
