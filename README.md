@@ -48,11 +48,14 @@ Here is a short list of available options:
   <li><a href="https://twitter.com/SG_EPK_X29">EPK</a> for Phenogram Voice Lines</li>
   <li><a href="https://twitter.com/DavixxaYT">Davixxa</a> for Assets</li>
   <li>But He's a Guy and Deadeye for finding the hidden animation in 0</li>
-  <li>MARIORUI11 for Portuguese translation</li>
-  <li><a href="https://twitter.com/gioghurt">Gioghurt</a> for Spanish translation</li>
-  <li>Alternis Dim96 for Italian translation</li>
-  <li>Woute and Okami Amaterasu for French translation</li>
-  <li>History-exe for Chinese (Simplified) translation</li>
-  <li>jaidTw and ekrekeler for Chinese (Traditional) translation</li>
+  <li>MARIORUI11 for the Portuguese (Portugal) translation</li>
+  <li><a href="https://twitter.com/TehVict">TehVict</a> for the Portuguese (Brazil) translation</li>
+  <li><a href="https://twitter.com/gioghurt">Gioghurt</a> for the Spanish translation</li>
+  <li><a href="https://twitter.com/DelusionParadox">Ice</a> for a revision of the Spanish translation</li>
+  <li>Alternis Dim96 for the Italian translation</li>
+  <li>Woute and Okami Amaterasu for the French translation</li>
+  <li>History-exe for the Chinese (Simplified) translation</li>
+  <li>jaidTw and ekrekeler for the Chinese (Traditional) translation</li>
   <li>Mk-Chan and alexsh for refactoring</li>
+  <li><a href="https://twitter.com/Chaos_World_300">Rigs</a> for the Japanese subtitles</li>
 </ul>
