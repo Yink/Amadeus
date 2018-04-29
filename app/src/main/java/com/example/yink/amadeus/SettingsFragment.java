@@ -1,5 +1,6 @@
 package com.example.yink.amadeus;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
@@ -11,10 +12,11 @@ import android.support.annotation.RequiresApi;
 
 @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
 public class SettingsFragment extends PreferenceFragment {
+    SharedPreferences sharedPreferences;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
     }
-
 }
