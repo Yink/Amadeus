@@ -7,6 +7,7 @@
         <item>Español</item>
         <item>Italiano</item>
         <item>日本語</item>
+        <item>繁體中文</item>
     </string-array>
     
     <string-array name="languagesValues">
@@ -16,6 +17,7 @@
         <item>es</item>
         <item>it</item>
         <item>ja</item>
+        <item>zh-rTW</item>
     </string-array>
 
     <string-array name="languagesRecogArray">
