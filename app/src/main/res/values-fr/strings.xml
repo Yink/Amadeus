@@ -83,6 +83,7 @@
     <string name="christina">christina</string>
     <string name="nullpo">nullpo</string>
     <string name="the_zombie">the zombie</string>
+    <string name="the_zombie2">the zombie</string>
     <string name="celeb17">celeb seventeen</string>
     <string name="atchannel">atchannel</string>
     <string name="kurigohan">kurigohan</string>
@@ -93,6 +94,7 @@
     <string name="time_machine">machine à voyager dans le temps</string>
     <string name="cern">cern</string>
     <string name="time_travel">voyage dans le temps</string>
+    <string name="time_travel2">voyage dans le temps</string>
     <string name="memory">mémoire</string>
     <string name="amadeus">amadeus</string>
     <string name="science">science</string>

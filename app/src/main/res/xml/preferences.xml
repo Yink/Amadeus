@@ -28,10 +28,9 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_alarm_settings">
         <Preference android:title="@string/pref_alarm_setup">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetPackage="com.example.yink.amadeus"
-                android:targetClass="com.example.yink.amadeus.AlarmActivity" />
+            <intent android:action="android.intent.action.VIEW.Alarm" />
+            <!--android:targetPackage="com.example.yink.amadeus"
+            android:targetClass="com.example.yink.amadeus.AlarmActivity" />-->
         </Preference>
         <ListPreference
             android:entries="@array/ringtonesArray"

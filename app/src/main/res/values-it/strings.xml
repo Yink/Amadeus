@@ -24,15 +24,15 @@
     <string name="pref_alarm_setup">Imposta sveglia</string>
     <string name="pref_alarm_ringtone">Suoneria sveglia</string>
     <string name="pref_alarm_ringtone_desc">Seleziona suoneria per la sveglia</string>
-    <string name="pref_alarm_vibrate">Vibra durante la sveglia</string>
+    <string name="pref_alarm_vibrate">Vibra durante la suoneria</string>
     <string name="pref_alarm_24hour_format">Formato 24-ore</string>
 
     <!-- Subtitles -->
     <string name="line_hello">Ciao.</string>
     <string name="line_dont_call_me_like_that">Non chiamarmi in quel modo!</string>
     <string name="line_but_i_refuse">Ma mi rifiuto.</string>
-    <string name="line_devilish_pervert">Non ho mai pensato che tu fossi un tale diabolico pervertito. Immagino di averti giudicato male.</string>
-    <string name="line_i_guess">Suppongo.</string>
+    <string name="line_devilish_pervert">Non ho mai pensato che tu fossi un pervertito malizioso di questo tipo. Immagino di averti giudicato male.</string>
+    <string name="line_i_guess">Lo immagino.</string>
     <string name="line_nice">Ottimo.</string>
     <string name="line_pervert_confirmed">PERVERTITO CONFERMATO.</string>
     <string name="line_sorry">Scusa.</string>
@@ -43,14 +43,14 @@
     <string name="line_pervert_idiot_wanttodie">Pervertito! Sei un idiota!? Vuoi morire?!</string>
     <string name="line_pleased_to_meet_you">Sono Makise Kurisu, piacere di conoscerti.</string>
     <string name="line_who_the_hell_christina">Chi diavolo è Christina?</string>
-    <string name="line_why_christina">Sono preoccupata per quello. Perchè  sono Christina?</string>
+    <string name="line_why_christina">Sono preoccupata per quello. Perché sono Christina?</string>
     <string name="line_christina">Christina?</string>
     <string name="line_ask_me_whatever">Chiedimi qualunque cosa tu voglia. Risponderò a tutto ciò che posso.</string>
-    <string name="line_could_i_help">Um, posso aiutarti a farlo?</string>
+    <string name="line_could_i_help">Um, ti posso aiutare?</string>
     <string name="line_what_do_you_want">Cosa desideri?</string>
     <string name="line_what_is_it">Cosa è?</string>
     <string name="line_heheh">Hehehe.</string>
-    <string name="line_huh_why_say">Huh? Perchè lo hai detto?</string>
+    <string name="line_huh_why_say">Huh? Perché lo hai detto?</string>
     <string name="line_you_sure">Sei sicuro?</string>
     <string name="line_nice_to_meet_okabe">Piacere di conoscerti, Okabe Rintaro. Sono Makise Kurisu.</string>
     <string name="line_look_forward_to_working">Attendo con ansia di lavorare con te.</string>
@@ -59,23 +59,23 @@
     <string name="line_senpai_what_we_talkin">Ehi Senpai, riguardo a quanto stavamo discutendo prima…</string>
     <string name="line_senpai_who_is_this">Uh, chi è questo?</string>
     <string name="line_senpai_please_dont_tell">Senpai, ti prego, non dirlo agli altri…</string>
-    <string name="line_still_not_happy">Non sono ancora felice riguardo a ciò.</string>
+    <string name="line_still_not_happy">Non sono ancora felice a riguardo.</string>
     <string name="line_tm_nonsense">Non ha totalmente senso.</string>
     <string name="line_tm_not_possible">Vediamo… La mia conclusione è che non sia possibile.</string>
     <string name="line_tm_scientist_no_evidence">Probabilmente perchè gli scienziati non hanno ancora scoperto nulla di importante.</string>
     <string name="line_tm_we_dont_know">Ma non sappiamo per certo che sia impossibile, suppongo.</string>
     <string name="line_tm_you_said">Una macchina del tempo, hai detto?</string>
-    <string name="line_humans_software">Persino gli umani parlano di sé stessi come una combinazione di hardware e software, giusto?</string>
+    <string name="line_humans_software">Persino gli umani parlano di se stessi come una combinazione di hardware e software, giusto?</string>
     <string name="line_memory_complex">Ma i dati della memoria non sono come i dati normali. E\' molto più complicato.</string>
     <string name="line_secret_diary">Custodisco un diario personale.</string>
     <string name="line_modifying_memories_impossible">Modificare le mie memorie? E\' teoricamente possibile.</string>
-    <string name="line_memories_christina">Ad esempio, sarebbe possibile farmi credere che il nome fosse Christina.</string>
+    <string name="line_memories_christina">Ad esempio, sarebbe possibile farmi credere che il mio nome fosse Christina.</string>
     <string name="line_gah_extended">Gah. Ah… Aaaaah.</string>
     <string name="line_Leskinen_awesome">Magnifico, sei davvero speciale!</string>
     <string name="line_Leskinen_nice">Ottimo!</string>
     <string name="line_Leskinen_oh_no">Oh no!</string>
     <string name="line_Leskinen_shaman">Dove sono le sciamane giapponesi, Lintahlo?</string>
-    <string name="line_Leskinen_holy_cow">Dio santo! Così ho detto che dovremmo venire presto.</string>
+    <string name="line_Leskinen_holy_cow">Santo Cielo! Così ho detto che dovremmo venire presto.</string>
     <string name="line_should_christina">O mi sarei dovuta presentare con, \"Sono Christina\"?</string>
     <string name="line_ok">OK.</string>
 
@@ -83,6 +83,7 @@
     <string name="christina">christina</string>
     <string name="nullpo">nullpo</string>
     <string name="the_zombie">the zombie</string>
+    <string name="the_zombie2">the zombie</string>
     <string name="celeb17">celeb seventeen</string>
     <string name="atchannel">atchannel</string>
     <string name="kurigohan">kurigohan</string>
@@ -93,6 +94,7 @@
     <string name="time_machine">time machine</string>
     <string name="cern">cern</string>
     <string name="time_travel">time travel</string>
+    <string name="time_travel2">time travel</string>
     <string name="memory">memory</string>
     <string name="amadeus">amadeus</string>
     <string name="science">science</string>

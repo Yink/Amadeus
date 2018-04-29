@@ -1,0 +1,115 @@
+<resources>
+    <!-- LaunchActivity -->
+    <string name="app_name">Amadeus</string>
+    <string name="call">Verbindung mit Kurisu herstellen?</string>
+    <string name="connecting">Verbindung wird hergestellt…</string>
+    <string name="disconnected">Verbindung unterbrochen.</string>
+    <string name="default_lang">de</string>
+    <string name="default_recog_lang">de-DE</string>
+    <string name="google_app_error">Google App wurde nicht erkannt.</string>
+    <string name="incoming_call">Eingehender Anruf von Kurisu.</string>
+    <string name="notification_text">Deine Waifu vermisst dich.</string>
+
+    <!-- Settings -->
+    <string name="pref_app_settings">App Einstellungen</string>
+    <string name="pref_recog_lang">Spracherkennung</string>
+    <string name="pref_recog_lang_desc">Wähle Sprache zur Spracherkennung</string>
+    <string name="pref_lang">Sprache</string>
+    <string name="pref_lang_desc">Wähle App Sprache (App Neustart erforderlich)</string>
+    <string name="pref_subtitles">Untertitel anzeigen</string>
+    <string name="pref_subtitles_desc">Untertitel für Amadeus Antworten anzeigen</string>
+    <string name="pref_notification">Show &quot;XP&quot;-Icon</string>
+    <string name="pref_notification_desc">Symbol in der Statusleiste einblenden (App Neustart erforderlich)</string>
+    <string name="pref_alarm_settings">Alarm Einstellungen</string>
+    <string name="pref_alarm_setup">Alarm Voreinstellungen</string>
+    <string name="pref_alarm_ringtone">Alarm Klingelton</string>
+    <string name="pref_alarm_ringtone_desc">Wähle Alarm Klingelton</string>
+    <string name="pref_alarm_vibrate">Vibration im Alarm-Modus</string>
+    <string name="pref_alarm_24hour_format">24-Stunden Format</string>
+
+    <!-- Subtitles -->
+    <string name="line_hello">Hallo.</string>
+    <string name="line_dont_call_me_like_that">Nenn mich nicht so!</string>
+    <string name="line_but_i_refuse">Aber ich weigere mich.</string>
+    <string name="line_devilish_pervert">Ich hätte nie gedacht, dass du so ein ekelhafter Perverser bist. Anscheinend habe ich dich falsch eingeschätzt.</string>
+    <string name="line_i_guess">Vielleicht.</string>
+    <string name="line_nice">Cool.</string>
+    <string name="line_pervert_confirmed">PERVERSLING ALARM.</string>
+    <string name="line_sorry">Entschuldige.</string>
+    <string name="line_sounds_tough">Das klingt nach einem Problem</string>
+    <string name="line_this_guy_hopeless">Er ist wahnsinnig! Ich muss schnell was unternehmen… !</string>
+    <string name="line_gah">Gah.</string>
+    <string name="line_dont_add_tina">Hör auf -tina hinzuzufügen!</string>
+    <string name="line_pervert_idiot_wanttodie">Du Perversling! Bist du komplett bescheuert!? Willst du sterben?!</string>
+    <string name="line_pleased_to_meet_you">Ich heiße Makise Kurisu, schön dich kennenzulernen.</string>
+    <string name="line_who_the_hell_christina">Wer zur Hölle ist Christina?</string>
+    <string name="line_why_christina">Das beschäftigt mich immer noch. Warum bin ich Christina?</string>
+    <string name="line_christina">Christina?</string>
+    <string name="line_ask_me_whatever">Frag mich was immer du willst. Ich werde mich bemühen, alles zu beantworten.</string>
+    <string name="line_could_i_help">Ähm, kann ich dir mit irgendetwas behilflich sein?</string>
+    <string name="line_what_do_you_want">Brauchst du bei etwas meine Hilfe?</string>
+    <string name="line_what_is_it">Was ist los?</string>
+    <string name="line_heheh">Hehehe.</string>
+    <string name="line_huh_why_say">Häh? Was meinst du damit?</string>
+    <string name="line_you_sure">Bist du dir da sicher?</string>
+    <string name="line_nice_to_meet_okabe">Schön dich kennenzulernen, Okabe Rintaro. Mein Name ist Makise Kurisu.</string>
+    <string name="line_look_forward_to_working">Freut mich deine Bekanntschaft zu machen.</string>
+    <string name="line_senpai_question">Wie auch immer, kann ich dich etwas fragen?</string>
+    <string name="line_senpai_question_mark">Ähm, Senpai?</string>
+    <string name="line_senpai_what_we_talkin">Hey Senpai, wegen des, was du mir neulich erzählt hast…</string>
+    <string name="line_senpai_who_is_this">Ähm, wer ist das?</string>
+    <string name="line_senpai_please_dont_tell">Senpai, bitte, erzähl das nicht den Anderen..</string>
+    <string name="line_still_not_happy">Ich bin immer noch nicht zufrieden damit.</string>
+    <string name="line_tm_nonsense">Das ist kompletter Schwachsinn.</string>
+    <string name="line_tm_not_possible">Lass mich nachdenken… Im Endeffekt denke ich nicht, dass es möglich ist.</string>
+    <string name="line_tm_scientist_no_evidence">Das ist wahrscheinlich, weil Wissenschaftler noch keinen Druchbruch in diesem Gebiet erreicht haben.</string>
+    <string name="line_tm_we_dont_know">Aber wir können auch nicht mit Sicherheit sagen dass es unmöglich ist, glaube ich zumindest.</string>
+    <string name="line_tm_you_said">Eine Zeitmaschine?</string>
+    <string name="line_humans_software">Sogar Menschen betrachten sich selbst als eine Kombination aus Hardware und Software, oder nicht?</string>
+    <string name="line_memory_complex">Aber Erinnerungsdaten sind nicht wie normale Daten. Sie sind viel komplexer.</string>
+    <string name="line_secret_diary">Ich führe ein geheimes Tagebuch.</string>
+    <string name="line_modifying_memories_impossible">Erinnerungen verändern? Das wäre theoretisch möglich.</string>
+    <string name="line_memories_christina">Zum Beispiel wäre es möglich, mich denken zu lassen, dass ich Christina heiße.</string>
+    <string name="line_gah_extended">Gah. Ah… Aaaaah.</string>
+    <string name="line_Leskinen_awesome">Awesome, he\'s really something!</string>
+    <string name="line_Leskinen_nice">Nice!</string>
+    <string name="line_Leskinen_oh_no">Oh no!</string>
+    <string name="line_Leskinen_shaman">Where are the Japanese shaman girls, Lintahlo?</string>
+    <string name="line_Leskinen_holy_cow">Holy Cow! So I said we should come soon.</string>
+    <string name="line_should_christina">Oder hätte ich mich mit "Hier ist Christina" vorstellen sollen?</string>
+    <string name="line_ok">OK.</string>
+
+
+    <!-- Input strings -->
+    <string name="christina">christina</string>
+    <string name="nullpo">nullpo</string>
+    <string name="the_zombie">the zombie</string>
+    <string name="the_zombie2">the zombie</string>
+    <string name="celeb17">celeb seventeen</string>
+    <string name="atchannel">atchannel</string>
+    <string name="kurigohan">kurigohan</string>
+    <string name="kamehameha">kamehameha</string>
+    <string name="salieri">salieri</string>
+    <string name="maho">maho</string>
+    <string name="hiyajo">hiyajo</string>
+    <string name="time_machine">zeitmaschine</string>
+    <string name="cern">cern</string>
+    <string name="time_travel">zeitreisen</string>
+    <string name="time_travel2">zeitreisen</string>
+    <string name="memory">memory</string>
+    <string name="amadeus">amadeus</string>
+    <string name="science">wissenschaft</string>
+    <string name="hello">hallo</string>
+    <string name="good_morning">guten morgen</string>
+    <string name="konnichiwa">guten tag</string>
+    <string name="good_evening">guten abend</string>
+    <string name="nice_body">nette figur</string>
+    <string name="hot">heiß</string>
+    <string name="sexy">sexy</string>
+    <string name="boobies">titten</string>
+    <string name="oppai">oppai</string>
+    <string name="robotics_notes">Robotics Notes</string>
+    <string name="antimatter">antimatter</string>
+    <string name="assistant">assistent</string>
+    <string name="open">öffne</string>
+</resources>

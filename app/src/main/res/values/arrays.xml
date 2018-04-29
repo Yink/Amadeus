@@ -6,7 +6,8 @@
         <item>Português</item>
         <item>Español</item>
         <item>Italiano</item>
-        <item>French</item>
+        <item>Française</item>
+        <item>Deutsch</item>
         <item>日本語</item>
         <item>简体中文</item>
         <item>繁體中文</item>
@@ -19,6 +20,7 @@
         <item>es</item>
         <item>it</item>
         <item>fr</item>
+        <item>de</item>
         <item>ja</item>
         <item>zh-rCN</item>
         <item>zh-rTW</item>
@@ -26,14 +28,20 @@
 
     <string-array name="languagesRecogArray">
         <item>English</item>
-        <item>Русский</item>
         <item>日本語</item>
+        <item>Русский</item>
+        <item>Español</item>
+        <item>Deutsch</item>
+        <item>Française</item>
     </string-array>
 
     <string-array name="languagesRecogValues">
         <item>en-US</item>
-        <item>ru-RU</item>
         <item>ja-JP</item>
+        <item>ru-RU</item>
+        <item>es-ES</item>
+        <item>de-DE</item>
+        <item>fr-FR</item>
     </string-array>
 
     <string-array name="ringtonesArray">

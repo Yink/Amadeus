@@ -82,6 +82,7 @@
     <!-- Фразы для ввода -->
     <string name="christina">кристина</string>
     <string name="the_zombie">зомби</string>
+    <string name="the_zombie2">зомби</string>
     <string name="celeb17">поп-дива</string>
     <string name="kurigohan">кури гохан</string>
     <string name="kamehameha">камехамеха</string>
@@ -89,6 +90,7 @@
     <string name="time_machine">машина времени</string>
     <string name="cern">церн</string>
     <string name="time_travel">путешествие во времени</string>
+    <string name="time_travel2">путешествие во времени</string>
     <string name="memory">воспоминания</string>
     <string name="amadeus">amadeus</string>
     <string name="science">наука</string>

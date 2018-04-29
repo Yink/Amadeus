@@ -18,57 +18,20 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 class Amadeus {
 
-    private static String TAG = "Amadeus";
-
-    private static int shaman_girls = -1;
-    private static VoiceLine[] voiceLines = VoiceLine.Line.getLines();
-
     static Boolean isSpeaking = false;
     static Boolean isLoop = false;
     static MediaPlayer m;
-
+    private static String TAG = "Amadeus";
+    private static int shaman_girls = -1;
+    private static VoiceLine[] voiceLines = VoiceLine.Line.getLines();
     private static HashMap<Bundle<Integer>, Bundle<VoiceLine>> responseInputMap = new HashMap<>();
-
-    private static class Bundle<T> implements Iterable<T> {
-
-        private T[] list;
-
-        public Bundle(T... list) {
-            this.list = list;
-        }
-
-        public T[] toArray() {
-            return list;
-        }
-
-        @NonNull
-        @Override
-        public Iterator<T> iterator() {
-            Iterator<T> iterator = new Iterator<T>() {
-                int index = 0;
-
-                @Override
-                public boolean hasNext() {
-                    return index < list.length;
-                }
-
-                @Override
-                public T next() {
-                    return list[index++];
-                }
-            };
-            return iterator;
-        }
-    }
 
     static {
         responseInputMap.put(new Bundle<>(
@@ -80,7 +43,7 @@ class Amadeus {
                 voiceLines[VoiceLine.Line.NO_TINA]
         ));
         responseInputMap.put(new Bundle<>(
-                R.string.the_zombie,
+                R.string.the_zombie, R.string.the_zombie2,
                 R.string.celeb17
         ), new Bundle<>(
                 voiceLines[VoiceLine.Line.DONT_CALL_ME_LIKE_THAT]
@@ -104,7 +67,7 @@ class Amadeus {
                 voiceLines[VoiceLine.Line.SENPAI_WHO_IS_THIS]
         ));
         responseInputMap.put(new Bundle<>(
-                R.string.time_machine,
+                R.string.time_machine, R.string.time_travel2,
                 R.string.cern,
                 R.string.time_travel
         ), new Bundle<>(
@@ -295,12 +258,14 @@ class Amadeus {
         if(specificLines.length>1){intTarget = new Random().nextInt(specificLines.length);}
         Amadeus.speak(specificLines[intTarget], activity);
     }
+
     private static boolean containInput(final String input, final String... strings){
         for(String s:strings){
             if(input.contains(s)) return true;
         }
         return false;
     }
+
     static void openApp(String[] input, Activity activity) {
         final PackageManager pm = activity.getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -366,6 +331,38 @@ class Amadeus {
                 /* Don't need to search for other ones, so break this loop */
                 break;
             }
+        }
+    }
+
+    private static class Bundle<T> implements Iterable<T> {
+
+        private T[] list;
+
+        public Bundle(T... list) {
+            this.list = list;
+        }
+
+        public T[] toArray() {
+            return list;
+        }
+
+        @NonNull
+        @Override
+        public Iterator<T> iterator() {
+            Iterator<T> iterator = new Iterator<T>() {
+                int index = 0;
+
+                @Override
+                public boolean hasNext() {
+                    return index < list.length;
+                }
+
+                @Override
+                public T next() {
+                    return list[index++];
+                }
+            };
+            return iterator;
         }
     }
 
