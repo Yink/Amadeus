@@ -57,5 +57,6 @@ Here is a short list of available options:
   <li>History-exe for the Chinese (Simplified) translation</li>
   <li>jaidTw and ekrekeler for the Chinese (Traditional) translation</li>
   <li>Mk-Chan and alexsh for refactoring</li>
-  <li><a href="https://twitter.com/Chaos_World_300">Rigs</a> for the Japanese subtitles</li>
+  <li><a href="https://twitter.com/rintarokabe">Tiffylenia</a> for the German translation</li>
+  <!--<li><a href="https://twitter.com/Chaos_World_300">Rigs</a> for the Japanese subtitles</li>-->
 </ul>
