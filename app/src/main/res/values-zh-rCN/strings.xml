@@ -4,7 +4,7 @@
     <string name="call">连接到助手</string>
     <string name="connecting">连接中...</string>
     <string name="disconnected">断开连接</string>
-    <string name="default_lang">en</string>
+    <string name="default_lang">zh-rCN</string>
     <string name="default_recog_lang">en-US</string>
     <string name="google_app_error">没有检测到Google App</string>
     <string name="incoming_call">来自助手的电话</string>

@@ -37,6 +37,12 @@ public class LangContext extends ContextWrapper {
                 locale = new Locale(langArr[0]);
                 break;
         }
+
+        if (lang.equals("zh-rTW"))
+            locale = Locale.TAIWAN;
+        else if (lang.equals("zh-rCN"))
+            locale = Locale.CHINA;
+
         Locale.setDefault(locale);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             setSystemLocale(config, locale);

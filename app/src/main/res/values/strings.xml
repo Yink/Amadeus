@@ -55,13 +55,13 @@
     <string name="line_nice_to_meet_okabe">Nice to meet you, Okabe Rintaro. I\'m Makise Kurisu.</string>
     <string name="line_look_forward_to_working">I look forward to working with you.</string>
     <string name="line_senpai_question">Anyway, can I ask a question?</string>
-    <string name="line_senpai_question_mark">Um� Senpai? Excuse me.</string>
-    <string name="line_senpai_what_we_talkin">Hey Senpai, about what we were just talking about�</string>
+    <string name="line_senpai_question_mark">Um… Senpai? Excuse me.</string>
+    <string name="line_senpai_what_we_talkin">Hey Senpai, about what we were just talking about…</string>
     <string name="line_senpai_who_is_this">Uh, who is this?</string>
-    <string name="line_senpai_please_dont_tell">Senpai, please, don\'t tell the others�</string>
+    <string name="line_senpai_please_dont_tell">Senpai, please, don\'t tell the others…</string>
     <string name="line_still_not_happy">I\'m still not happy about that.</string>
     <string name="line_tm_nonsense">That\s pure nonsense.</string>
-    <string name="line_tm_not_possible">Let\'s see� My conclusion is that it\'s not possible.</string>
+    <string name="line_tm_not_possible">Let\'s see… My conclusion is that it\'s not possible.</string>
     <string name="line_tm_scientist_no_evidence">That\'s probably because scientists haven\'t discovered something important yet.</string>
     <string name="line_tm_we_dont_know">But we don\'t know for sure that it\'s impossible, I guess.</string>
     <string name="line_tm_you_said">A time machine, you said?</string>
@@ -70,7 +70,7 @@
     <string name="line_secret_diary">I keep a secret diary.</string>
     <string name="line_modifying_memories_impossible">Modifying my memories? It\'s theoretically possible.</string>
     <string name="line_memories_christina">For example, it would be possible to make me think my name was Christina.</string>
-    <string name="line_gah_extended">Gah. Ah� Aaaaah.</string>
+    <string name="line_gah_extended">Gah. Ah… Aaaaah.</string>
     <string name="line_Leskinen_awesome">Awesome, he\'s really something!</string>
     <string name="line_Leskinen_nice">Nice!</string>
     <string name="line_Leskinen_oh_no">Oh no!</string>
