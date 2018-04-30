@@ -6,7 +6,14 @@ Hit me up on the Steins;Gate Discord.
 
 To start speech recognition simply touch her once. If you long-click her, she will go on a loop and say random sentences in random intervals. Long-Click again to stop.
 
-To enter Amadeus settings tap on Amadeus logo.
+# HOW TO INSTALL
+<ol>
+  <li>Download the <b>amadeus.apk</b> from <a href="https://github.com/Yink/Amadeus/releases">here</a> to your phone (you only need this file).</li>
+<li>Make sure to have <b>installation from unknown sources</b> activated in your phone's security settings (<a href="https://www.wikihow.tech/Install-APK-Files-on-Android">How-to<a>)</li>
+<li>Click on <b>amadeus.apk</b> on your phone to install it</li>
+<li>Choose your preferred settings by clicking on the "Amadeus" logo</li>
+</ol>
+
 
 # Screenshots
 <ul>
