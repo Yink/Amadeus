@@ -43,9 +43,9 @@ Here is a short list of available options:
 <ul>
 <li>Show subtitles - Shows subtitles according to selected app language.</li>
 <li>Show XP-Icon - Show XP-Icon in notification bar (see in-game or app screenshots, app restart required)</li>
-<li>Recognition language - Switches recognition language. Currently available languages: English, Japanese, Russian</li>
-<li>Application language - Switches application language. Doesn't affect recognition language. Currently available languages: English, Russian, Spanish, Portuguese.</li>
-<li>Alarm setup - Work in progress. Opens dialog window with alarm feature. Triggers Amadeus call on alarm.</li>
+<li>Recognition language - Switches recognition language. Currently available languages: English, Japanese, Russian, German, French</li>
+<li>Application language - Switches application language. Doesn't affect recognition language. Currently available languages: English, Russian, Spanish, Portuguese, Italian, French, German and Chinese (Traditional and Simplified).</li>
+<li>Alarm setup - Opens dialog window with alarm feature. Triggers Amadeus call on alarm.</li>
 </ul>
 
 # Credits
