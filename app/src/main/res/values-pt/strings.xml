@@ -3,9 +3,28 @@
     <string name="call">Conectar a Kurisu?</string>
     <string name="connecting">Conectando…</string>
     <string name="disconnected">Desconectado.</string>
-    <string name="default_lang">pt</string>
     <string name="default_recog_lang">ja-JP</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
+
+    <!-- Settings -->
+    <string name="pref_app_settings">Application settings</string>
+    <string name="pref_app_restart_required">App restart required</string>
+    <string name="pref_recog_lang">Recognition language</string>
+    <string name="pref_recog_lang_desc">Select voice recognition language</string>
+    <string name="pref_lang">Language</string>
+    <string name="pref_lang_desc">Select app language (app restart required)</string>
+    <string name="pref_lang_system">System Language (Default)</string>
+    <string name="pref_subtitles">Show subtitles</string>
+    <string name="pref_subtitles_desc">Shows subtitles for Amadeus\' answers</string>
+    <string name="pref_notification">Show &quot;XP&quot;-Icon</string>
+    <string name="pref_notification_desc">Shows Icon in the notification bar (app restart required)</string>
+    <string name="pref_alarm">Alarm</string>
+    <string name="pref_alarm_settings">Alarm settings</string>
+    <string name="pref_alarm_setup">Alarm setup</string>
+    <string name="pref_alarm_ringtone">Alarm ringtone</string>
+    <string name="pref_alarm_ringtone_desc">Select ringtone for alarm</string>
+    <string name="pref_alarm_vibrate">Vibrate on alarm</string>
+    <string name="pref_alarm_24hour_format">24-hour format</string>
 
     <string name="line_hello">Olá.</string>
     <string name="line_dont_call_me_like_that">Não me chames assim!</string>

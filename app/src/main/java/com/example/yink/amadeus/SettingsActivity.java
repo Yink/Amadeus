@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentActivity;
  * Created by Yink on 05.03.2017.
  */
 
-public class SettingsActivity extends FragmentActivity {
+public class SettingsActivity extends FragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +17,6 @@ public class SettingsActivity extends FragmentActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LangContext.wrap(newBase));
+        super.attachBaseContext(ContextLocalWrapper.wrap(newBase));
     }
 }

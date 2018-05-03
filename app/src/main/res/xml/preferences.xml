@@ -16,14 +16,14 @@
             android:entries="@array/languagesRecogArray"
             android:entryValues="@array/languagesRecogValues"
             android:key="recognition_lang"
-            android:summary="@string/pref_recog_lang_desc"
+            android:summary="%s"
             android:title="@string/pref_recog_lang" />
         <ListPreference
             android:defaultValue="@string/default_lang"
             android:entries="@array/languagesArray"
             android:entryValues="@array/languagesValues"
             android:key="lang"
-            android:summary="@string/pref_lang_desc"
+            android:summary="%s"
             android:title="@string/pref_lang" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_alarm_settings">
@@ -33,10 +33,11 @@
             android:targetClass="com.example.yink.amadeus.AlarmActivity" />-->
         </Preference>
         <ListPreference
+            android:defaultValue="0"
             android:entries="@array/ringtonesArray"
             android:entryValues="@array/ringtonesValues"
             android:key="ringtone"
-            android:summary="@string/pref_alarm_ringtone_desc"
+            android:summary="%s"
             android:title="@string/pref_alarm_ringtone" />
         <SwitchPreference
             android:defaultValue="true"

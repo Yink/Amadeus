@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="languagesArray">
-        <item>English</item>
-        <item>Русский</item>
-        <item>Português</item>
-        <item>Español</item>
-        <item>Italiano</item>
-        <item>Française</item>
-        <item>Deutsch</item>
-        <item>日本語</item>
-        <item>中文(大陆)</item>
+        <item>@string/pref_lang_system</item>
+        <item>@string/pref_lang_en</item>
+        <item>@string/pref_lang_ru</item>
+        <item>@string/pref_lang_pt</item>
+        <item>@string/pref_lang_es</item>
+        <item>@string/pref_lang_it</item>
+        <item>@string/pref_lang_fr</item>
+        <item>@string/pref_lang_de</item>
+        <item>@string/pref_lang_ja</item>
+        <item>@string/pref_lang_zh_cn</item>
     </string-array>
     
     <string-array name="languagesValues">
+        <item>system</item>
         <item>en</item>
         <item>ru</item>
         <item>pt</item>
@@ -25,12 +27,12 @@
     </string-array>
 
     <string-array name="languagesRecogArray">
-        <item>English</item>
-        <item>日本語</item>
-        <item>Русский</item>
-        <item>Español</item>
-        <item>Deutsch</item>
-        <item>Française</item>
+        <item>@string/pref_lang_en</item>
+        <item>@string/pref_lang_ja</item>
+        <item>@string/pref_lang_pt</item>
+        <item>@string/pref_lang_es</item>
+        <item>@string/pref_lang_de</item>
+        <item>@string/pref_lang_fr</item>
     </string-array>
 
     <string-array name="languagesRecogValues">
@@ -43,13 +45,13 @@
     </string-array>
 
     <string-array name="ringtonesArray">
-        <item>Gate Of Steiner</item>
-        <item>Village</item>
-        <item>Beginning Of Fight</item>
-        <item>Easygoingness</item>
-        <item>Reunion</item>
-        <item>Precaution</item>
-        <item>Over The Sky</item>
+        <item>@string/pref_alarm_ringtone_gate_of_steiner</item>
+        <item>@string/pref_alarm_ringtone_village</item>
+        <item>@string/pref_alarm_ringtone_beginning_of_fight</item>
+        <item>@string/pref_alarm_ringtone_easygoingness</item>
+        <item>@string/pref_alarm_ringtone_reunion</item>
+        <item>@string/pref_alarm_ringtone_precaution</item>
+        <item>@string/pref_alarm_ringtone_over_the_sky</item>
     </string-array>
 
     <string-array name="ringtonesValues">

@@ -4,7 +4,6 @@
     <string name="call">Verbindung mit Kurisu herstellen?</string>
     <string name="connecting">Verbindung wird hergestellt…</string>
     <string name="disconnected">Verbindung unterbrochen.</string>
-    <string name="default_lang">de</string>
     <string name="default_recog_lang">de-DE</string>
     <string name="google_app_error">Google App wurde nicht erkannt.</string>
     <string name="incoming_call">Eingehender Anruf von Kurisu.</string>
@@ -12,10 +11,12 @@
 
     <!-- Settings -->
     <string name="pref_app_settings">App Einstellungen</string>
+    <string name="pref_app_restart_required">App restart required</string>
     <string name="pref_recog_lang">Spracherkennung</string>
     <string name="pref_recog_lang_desc">Wähle Sprache zur Spracherkennung</string>
     <string name="pref_lang">Sprache</string>
     <string name="pref_lang_desc">Wähle App Sprache (App Neustart erforderlich)</string>
+    <string name="pref_lang_system">System Language (Default)</string>
     <string name="pref_subtitles">Untertitel anzeigen</string>
     <string name="pref_subtitles_desc">Untertitel für Amadeus Antworten anzeigen</string>
     <string name="pref_notification">Show &quot;XP&quot;-Icon</string>

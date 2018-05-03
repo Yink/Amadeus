@@ -4,18 +4,32 @@
     <string name="call">Connect to Kurisu?</string>
     <string name="connecting">Connecting…</string>
     <string name="disconnected">Disconnected.</string>
-    <string name="default_lang">en</string>
+    <string name="default_lang" translatable="false">system</string>
     <string name="default_recog_lang">en-US</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
+    <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
     <string name="incoming_call">Call from Kurisu.</string>
     <string name="notification_text">Your waifu misses you.</string>
 
     <!-- Settings -->
     <string name="pref_app_settings">Application settings</string>
+    <string name="pref_app_restart_required">App restart required</string>
     <string name="pref_recog_lang">Recognition language</string>
     <string name="pref_recog_lang_desc">Select voice recognition language</string>
     <string name="pref_lang">Language</string>
     <string name="pref_lang_desc">Select app language (app restart required)</string>
+
+    <string name="pref_lang_system">System Language (Default)</string>
+    <string name="pref_lang_en" translatable="false">English</string>
+    <string name="pref_lang_ru" translatable="false">Русский</string>
+    <string name="pref_lang_pt" translatable="false">Português</string>
+    <string name="pref_lang_es" translatable="false">Español</string>
+    <string name="pref_lang_it" translatable="false">Italiano</string>
+    <string name="pref_lang_fr" translatable="false">Française</string>
+    <string name="pref_lang_de" translatable="false">Deutsch</string>
+    <string name="pref_lang_ja" translatable="false">日本語</string>
+    <string name="pref_lang_zh_cn" translatable="false">中文（大陆）</string>
+
     <string name="pref_subtitles">Show subtitles</string>
     <string name="pref_subtitles_desc">Shows subtitles for Amadeus\' answers</string>
     <string name="pref_notification">Show &quot;XP&quot;-Icon</string>
@@ -27,6 +41,14 @@
     <string name="pref_alarm_ringtone_desc">Select ringtone for alarm</string>
     <string name="pref_alarm_vibrate">Vibrate on alarm</string>
     <string name="pref_alarm_24hour_format">24-hour format</string>
+
+    <string name="pref_alarm_ringtone_gate_of_steiner">Gate Of Steiner</string>
+    <string name="pref_alarm_ringtone_village">Village</string>
+    <string name="pref_alarm_ringtone_beginning_of_fight">Beginning Of Fight</string>
+    <string name="pref_alarm_ringtone_easygoingness">Easygoingness</string>
+    <string name="pref_alarm_ringtone_reunion">Reunion</string>
+    <string name="pref_alarm_ringtone_precaution">Precaution</string>
+    <string name="pref_alarm_ringtone_over_the_sky">Over The Sky</string>
 
     <!-- Subtitles -->
     <string name="line_hello">Hello.</string>
