@@ -20,6 +20,7 @@
     <string name="pref_subtitles_desc">Shows subtitles for Amadeus\' answers</string>
     <string name="pref_notification">Show &quot;XP&quot;-Icon</string>
     <string name="pref_notification_desc">Shows Icon in the notification bar (app restart required)</string>
+    <string name="pref_alarm">Alarm</string>
     <string name="pref_alarm_settings">Alarm settings</string>
     <string name="pref_alarm_setup">Alarm setup</string>
     <string name="pref_alarm_ringtone">Alarm ringtone</string>
@@ -111,4 +112,5 @@
     <string name="antimatter">antimatter</string>
     <string name="assistant">assistant</string>
     <string name="open">open</string>
+    <string name="alarm_on_off">Alarm On/Off</string>
 </resources>

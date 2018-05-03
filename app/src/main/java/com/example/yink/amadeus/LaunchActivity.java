@@ -1,5 +1,6 @@
 package com.example.yink.amadeus;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -23,6 +25,7 @@ import android.widget.TextView;
 public class LaunchActivity extends AppCompatActivity {
 
     private static final String GOOGLE_PACKAGE_NAME = "com.google.android.googlequicksearchbox";
+    private static final String CHANNEL_ID = "amadeus_channel_icon";
 
     private ImageView connect, cancel, logo;
     private TextView status;
@@ -185,17 +188,24 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private void showNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(LaunchActivity.this)
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager == null) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID, getString(R.string.pref_notification), NotificationManager.IMPORTANCE_LOW));
+        }
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(LaunchActivity.this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.xp2)
                 .setContentTitle(getString(R.string.app_name))
-                .setContentText(getString(R.string.notification_text));
+                .setContentText(getString(R.string.notification_text))
+                .setChannelId(CHANNEL_ID);
         Intent resultIntent = new Intent(LaunchActivity.this, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(LaunchActivity.this);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(resultPendingIntent);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
     }
 }

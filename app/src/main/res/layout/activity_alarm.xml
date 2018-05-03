@@ -14,7 +14,7 @@
     <ToggleButton
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Alarm On/Off"
+        android:text="@string/alarm_on_off"
         android:id="@+id/alarmToggle"
         android:onClick="onToggleClicked"
         android:layout_below="@+id/alarmTimePicker"

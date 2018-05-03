@@ -56,17 +56,23 @@ class Alarm {
 
         if (isPlaying) {
             settings = PreferenceManager.getDefaultSharedPreferences(context);
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-            final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("alarm_toggle", false);
             editor.apply();
+
+            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+            final PendingIntent pendingIntent =
+                    PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                alarmManager.cancel(pendingIntent);
+            }
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                notificationManager.cancel(ALARM_NOTIFICATION_ID);
+            }
             m.release();
-            notificationManager.cancel(ALARM_NOTIFICATION_ID);
-            alarmManager.cancel(pendingIntent);
             releaseCpuLock();
             isPlaying = false;
             if (v != null) {
