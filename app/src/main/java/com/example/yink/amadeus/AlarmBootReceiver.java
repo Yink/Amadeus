@@ -26,11 +26,14 @@ public class AlarmBootReceiver extends WakefulBroadcastReceiver {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
                     Alarm.ALARM_ID, new Intent(context, AlarmReceiver.class), 0);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, settings.getLong("alarm_time", 0), pendingIntent);
-            } else {
-                alarmManager.set(AlarmManager.RTC_WAKEUP, settings.getLong("alarm_time", 0), pendingIntent);
+            if (alarmManager != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, settings.getLong("alarm_time", 0), pendingIntent);
+                } else {
+                    alarmManager.set(AlarmManager.RTC_WAKEUP, settings.getLong("alarm_time", 0), pendingIntent);
+                }
             }
+
             Log.d(TAG, "Alarm has been recovered");
         }
 

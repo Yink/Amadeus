@@ -33,8 +33,10 @@ class Alarm {
 
         if (settings.getBoolean("vibrate", false)) {
             v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            long[] pattern = {500, 2000};
-            v.vibrate(pattern, 0);
+            if (v != null) {
+                long[] pattern = {500, 2000};
+                v.vibrate(pattern, 0);
+            }
         }
 
         m = MediaPlayer.create(context, ringtone);
@@ -86,11 +88,14 @@ class Alarm {
 
         PowerManager pm =
                 (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (pm == null) {
+            return;
+        }
         sCpuWakeLock = pm.newWakeLock(
                 PowerManager.PARTIAL_WAKE_LOCK |
                         PowerManager.ACQUIRE_CAUSES_WAKEUP |
                         PowerManager.ON_AFTER_RELEASE, TAG);
-        sCpuWakeLock.acquire();
+        sCpuWakeLock.acquire(10*60*1000L /*10 minutes*/);
     }
 
     private static void releaseCpuLock() {

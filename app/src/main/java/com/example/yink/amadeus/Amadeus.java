@@ -338,18 +338,20 @@ class Amadeus {
 
         private T[] list;
 
-        public Bundle(T... list) {
+        @SafeVarargs
+        private Bundle(T... list) {
             this.list = list;
         }
 
-        public T[] toArray() {
+        private T[] toArray() {
             return list;
         }
 
         @NonNull
         @Override
         public Iterator<T> iterator() {
-            Iterator<T> iterator = new Iterator<T>() {
+            Iterator<T> iterator;
+            iterator = new Iterator<T>() {
                 int index = 0;
 
                 @Override
