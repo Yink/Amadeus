@@ -8,7 +8,7 @@
     <string name="default_recog_lang">en-US</string>
     <string name="google_app_error">没有检测到Google App</string>
     <string name="incoming_call">来自助手的电话</string>
-    <string name="notification_text">你的老婆想你了</string>
+    <string name="notification_text">你的纸片人老婆想你了</string>
 
     <!-- Settings -->
     <string name="pref_app_settings">设置</string>
@@ -17,7 +17,7 @@
     <string name="pref_lang">界面语言</string>
     <string name="pref_lang_desc">选择界面语言 （需重启应用）</string>
     <string name="pref_subtitles">显示字幕</string>
-    <string name="pref_subtitles_desc">显示Amadeus说的话</string>
+    <string name="pref_subtitles_desc">显示 Amadeus 说的话</string>
     <string name="pref_notification">显示 “XP” 图标</string>
     <string name="pref_notification_desc">在状态栏显示 “XP” 图标 （需重启应用）</string>
     <string name="pref_alarm_settings">闹钟设置</string>
@@ -25,15 +25,15 @@
     <string name="pref_alarm_ringtone">闹钟铃声</string>
     <string name="pref_alarm_ringtone_desc">选择闹钟铃声</string>
     <string name="pref_alarm_vibrate">响铃时震动</string>
-    <string name="pref_alarm_24hour_format">24小时制</string>
+    <string name="pref_alarm_24hour_format">24 小时制</string>
 
     <!-- Subtitles -->
-    <string name="line_hello">你好。</string>
+    <string name="line_hello">你好！</string>
     <string name="line_dont_call_me_like_that">别 那 样 叫 我。</string>
     <string name="line_but_i_refuse">但是我拒绝。</string>
     <string name="line_devilish_pervert">没想到你竟然这么变态，我看错你了。</string>
     <string name="line_i_guess">也对呢。</string>
-    <string name="line_nice">干得漂亮。</string>
+    <string name="line_nice">干得漂亮！</string>
     <string name="line_pervert_confirmed">变 态 确 定。</string>
     <string name="line_sorry">抱歉。</string>
     <string name="line_sounds_tough">很幸苦呢。</string>
