@@ -73,48 +73,43 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        kurisu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    MainActivity host = (MainActivity) view.getContext();
+        kurisu.setOnClickListener(view -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                MainActivity host = (MainActivity) view.getContext();
 
-                    int permissionCheck = ContextCompat.checkSelfPermission(host,
-                            Manifest.permission.RECORD_AUDIO);
+                int permissionCheck = ContextCompat.checkSelfPermission(host,
+                        Manifest.permission.RECORD_AUDIO);
 
-                    /* Input during loop produces bugs and mixes with output */
-                    if (!Amadeus.isLoop && !Amadeus.isSpeaking) {
-                        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                            promptSpeechInput();
-                        } else {
-                            Amadeus.speak(voiceLines[VoiceLine.Line.DAGA_KOTOWARU], MainActivity.this);
-                        }
-                    }
-
-                } else if (!Amadeus.isLoop && !Amadeus.isSpeaking) {
-                    promptSpeechInput();
-                }
-            }});
-
-
-        kurisu.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
+                /* Input during loop produces bugs and mixes with output */
                 if (!Amadeus.isLoop && !Amadeus.isSpeaking) {
-                    handler.post(loop);
-                    Amadeus.isLoop = true;
-                } else {
-                    handler.removeCallbacks(loop);
-                    Amadeus.isLoop = false;
+                    if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                        promptSpeechInput();
+                    } else {
+                        Amadeus.speak(voiceLines[VoiceLine.Line.DAGA_KOTOWARU], MainActivity.this);
+                    }
                 }
-                return true;
+
+            } else if (!Amadeus.isLoop && !Amadeus.isSpeaking) {
+                promptSpeechInput();
             }
+        });
+
+
+        kurisu.setOnLongClickListener(view -> {
+            if (!Amadeus.isLoop && !Amadeus.isSpeaking) {
+                handler.post(loop);
+                Amadeus.isLoop = true;
+            } else {
+                handler.removeCallbacks(loop);
+                Amadeus.isLoop = false;
+            }
+            return true;
         });
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LangContext.wrap(newBase));
+        super.attachBaseContext(ContextLocalWrapper.wrap(newBase));
     }
 
     @Override
@@ -165,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK && null != data) {
 
                     /* Switch language within current context for voice recognition */
-                    Context context = LangContext.load(getApplicationContext(), contextLang[0]);
+                    Context context = ContextLocalWrapper.load(getApplicationContext(), contextLang[0]);
 
                     ArrayList<String> input = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
@@ -225,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             /* Switch language within current context for voice recognition */
-            Context context = LangContext.load(getApplicationContext(), contextLang[0]);
+            Context context = ContextLocalWrapper.load(getApplicationContext(), contextLang[0]);
 
             if (splitInput.length > 2 && splitInput[0].equalsIgnoreCase(context.getString(R.string.assistant))) {
                 String cmd = splitInput[1].toLowerCase();

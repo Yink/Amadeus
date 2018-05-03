@@ -142,29 +142,23 @@ class Amadeus {
                 m = new MediaPlayer();
             }
 
-            m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    isSpeaking = true;
-                    mp.start();
-                    v.setEnabled(true);
-                }
+            m.setOnPreparedListener(mp -> {
+                isSpeaking = true;
+                mp.start();
+                v.setEnabled(true);
             });
 
-            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    isSpeaking = false;
-                    mp.release();
-                    v.setEnabled(false);
+            m.setOnCompletionListener(mp -> {
+                isSpeaking = false;
+                mp.release();
+                v.setEnabled(false);
 
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            kurisu.setImageDrawable(animation.getFrame(0));
-                        }
-                    });
-                }
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        kurisu.setImageDrawable(animation.getFrame(0));
+                    }
+                });
             });
 
 
@@ -180,15 +174,12 @@ class Amadeus {
                             // The normalized volume
                             final float normalized = sum / (float) bytes.length;
 
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (normalized > 50) {
-                                        // Todo: Maybe choose sprite based on previous choice and volume instead of random
-                                        kurisu.setImageDrawable(animation.getFrame((int) Math.ceil(Math.random() * 2)));
-                                    } else {
-                                        kurisu.setImageDrawable(animation.getFrame(0));
-                                    }
+                            activity.runOnUiThread(() -> {
+                                if (normalized > 50) {
+                                    // Todo: Maybe choose sprite based on previous choice and volume instead of random
+                                    kurisu.setImageDrawable(animation.getFrame((int) Math.ceil(Math.random() * 2)));
+                                } else {
+                                    kurisu.setImageDrawable(animation.getFrame(0));
                                 }
                             });
                         }
