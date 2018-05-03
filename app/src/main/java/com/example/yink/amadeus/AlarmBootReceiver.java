@@ -19,7 +19,7 @@ public class AlarmBootReceiver extends BroadcastReceiver {
 
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 
-        if ("android.intent.action.BOOT_COMPLETED".equals(intent.getAction())
+        if (("android.intent.action.BOOT_COMPLETED".equals(intent.getAction()) || "android.intent.action.QUICKBOOT_POWERON".equals(intent.getAction()))
                 && settings.getBoolean("alarm_toggle", false)) {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(
                     Context.ALARM_SERVICE);
