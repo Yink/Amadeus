@@ -18,8 +18,8 @@
     <string name="pref_lang_desc">选择界面语言 （需重启应用）</string>
     <string name="pref_subtitles">显示字幕</string>
     <string name="pref_subtitles_desc">显示Amadeus说的话</string>
-    <string name="pref_notification">在状态栏显示</string>
-    <string name="pref_notification_desc">在状态栏显示提示 （需重启应用）</string>
+    <string name="pref_notification">显示 “XP” 图标</string>
+    <string name="pref_notification_desc">在状态栏显示 “XP” 图标 （需重启应用）</string>
     <string name="pref_alarm_settings">闹钟设置</string>
     <string name="pref_alarm_setup">设置时间</string>
     <string name="pref_alarm_ringtone">闹钟铃声</string>
