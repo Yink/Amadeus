@@ -46,7 +46,7 @@ class VoiceLine {
     }
 
     static class Line {
-        static VoiceLine[] voiceLines = new VoiceLine[45];
+        static final VoiceLine[] voiceLines = new VoiceLine[45];
 
         static final int HELLO = 0;
         static final int DAGA_KOTOWARU = 1;

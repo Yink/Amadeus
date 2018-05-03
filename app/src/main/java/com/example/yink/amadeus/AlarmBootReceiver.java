@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class AlarmBootReceiver extends WakefulBroadcastReceiver {
 
-    final String TAG = "AlarmBootReceiver";
+    private static final String TAG = "AlarmBootReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {

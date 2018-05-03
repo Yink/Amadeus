@@ -29,10 +29,10 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
-    private VoiceLine[] voiceLines = VoiceLine.Line.getLines();
-    private Random randomgen = new Random();
+    private final VoiceLine[] voiceLines = VoiceLine.Line.getLines();
+    private final Random randomgen = new Random();
     private String recogLang;
     private String[] contextLang;
     private SpeechRecognizer sr;

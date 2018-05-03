@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 public class AlarmActivity extends AppCompatActivity {
 
-    private final String TAG = "AlarmActivity";
+    private static final String TAG = "AlarmActivity";
 
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;

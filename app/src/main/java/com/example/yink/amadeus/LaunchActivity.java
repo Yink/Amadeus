@@ -31,11 +31,11 @@ public class LaunchActivity extends AppCompatActivity {
     private TextView status;
     private Boolean isPressed = false;
     private MediaPlayer m;
-    private Handler aniHandle = new Handler();
+    private final Handler aniHandle = new Handler();
 
     private int i = 0;
 
-    Runnable aniRunnable = new Runnable() {
+    private final Runnable aniRunnable = new Runnable() {
         public void run() {
             final int DURATION = 20;
             if (i < 39) {

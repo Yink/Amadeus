@@ -28,10 +28,10 @@ class Amadeus {
     static Boolean isSpeaking = false;
     static Boolean isLoop = false;
     static MediaPlayer m;
-    private static String TAG = "Amadeus";
+    private static final String TAG = "Amadeus";
     private static int shaman_girls = -1;
-    private static VoiceLine[] voiceLines = VoiceLine.Line.getLines();
-    private static HashMap<Bundle<Integer>, Bundle<VoiceLine>> responseInputMap = new HashMap<>();
+    private static final VoiceLine[] voiceLines = VoiceLine.Line.getLines();
+    private static final HashMap<Bundle<Integer>, Bundle<VoiceLine>> responseInputMap = new HashMap<>();
 
     static {
         responseInputMap.put(new Bundle<>(
@@ -120,8 +120,8 @@ class Amadeus {
 
     static void speak(VoiceLine line, final Activity activity) {
         final AnimationDrawable animation;
-        final TextView subtitles = (TextView) activity.findViewById(R.id.textView_subtitles);
-        final ImageView kurisu = (ImageView) activity.findViewById(R.id.imageView_kurisu);
+        final TextView subtitles = activity.findViewById(R.id.textView_subtitles);
+        final ImageView kurisu = activity.findViewById(R.id.imageView_kurisu);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity);
 
         try {
@@ -336,7 +336,7 @@ class Amadeus {
 
     private static class Bundle<T> implements Iterable<T> {
 
-        private T[] list;
+        private final T[] list;
 
         @SafeVarargs
         private Bundle(T... list) {

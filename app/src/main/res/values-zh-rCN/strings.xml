@@ -2,7 +2,7 @@
     <!-- LaunchActivity -->
     <string name="app_name">Amadeus</string>
     <string name="call">连接到助手</string>
-    <string name="connecting">连接中...</string>
+    <string name="connecting">连接中&#8230;</string>
     <string name="disconnected">断开连接</string>
     <string name="default_lang">zh-rCN</string>
     <string name="default_recog_lang">en-US</string>
@@ -56,7 +56,7 @@
     <string name="line_look_forward_to_working">请多指教。</string>
     <string name="line_senpai_question">那么前辈，我能再问一个问题吗？</string>
     <string name="line_senpai_question_mark">前辈？</string>
-    <string name="line_senpai_what_we_talkin">呐，前辈。关于刚才那件事...</string>
+    <string name="line_senpai_what_we_talkin">呐，前辈。关于刚才那件事&#8230;</string>
     <string name="line_senpai_who_is_this">嗯，前辈，那边的那个人是？</string>
     <string name="line_senpai_please_dont_tell">前辈，拜托请不要告诉其他人。</string>
     <string name="line_still_not_happy">我对这件事不是很满意。</string>
@@ -70,7 +70,7 @@
     <string name="line_secret_diary">也就是说，是秘密日记。</string>
     <string name="line_modifying_memories_impossible">修改我的记忆？ 理论上是可行的。</string>
     <string name="line_memories_christina">举例来说，可以做到让我认为自己的名字是克莉斯缇娜。</string>
-    <string name="line_gah_extended">咔、啊、嗯嗯嗯...</string>
+    <string name="line_gah_extended">咔、啊、嗯嗯嗯&#8230;</string>
     <string name="line_Leskinen_awesome">太棒了，他真的可以。</string>
     <string name="line_Leskinen_nice">太棒了！</string>
     <string name="line_Leskinen_oh_no">天呐！</string>
