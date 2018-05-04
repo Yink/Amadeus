@@ -153,12 +153,7 @@ class Amadeus {
                 mp.release();
                 v.setEnabled(false);
 
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        kurisu.setImageDrawable(animation.getFrame(0));
-                    }
-                });
+                activity.runOnUiThread(() -> kurisu.setImageDrawable(animation.getFrame(0)));
             });
 
 

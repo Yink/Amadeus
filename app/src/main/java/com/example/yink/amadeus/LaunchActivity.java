@@ -113,21 +113,15 @@ public class LaunchActivity extends AppCompatActivity {
                 if (!Alarm.isPlaying()) {
                     m = MediaPlayer.create(LaunchActivity.this, R.raw.tone);
 
-                    m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mp.start();
-                            status.setText(R.string.connecting);
-                        }
+                    m.setOnPreparedListener(mp -> {
+                        mp.start();
+                        status.setText(R.string.connecting);
                     });
 
-                    m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            mp.release();
-                            Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
-                            startActivity(intent);
-                        }
+                    m.setOnCompletionListener(mp -> {
+                        mp.release();
+                        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                        startActivity(intent);
                     });
                 } else {
                     Alarm.cancel(LaunchActivity.this);
