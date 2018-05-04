@@ -4,8 +4,8 @@
     <string name="call">Verbindung mit Kurisu herstellen?</string>
     <string name="connecting">Verbindung wird hergestellt…</string>
     <string name="disconnected">Verbindung unterbrochen.</string>
-    <string name="default_recog_lang">de-DE</string>
     <string name="google_app_error">Google App wurde nicht erkannt.</string>
+    <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
     <string name="incoming_call">Eingehender Anruf von Kurisu.</string>
     <string name="notification_text">Deine Waifu vermisst dich.</string>
 

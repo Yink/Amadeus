@@ -3,8 +3,8 @@
     <string name="call">Подключиться к Курису?</string>
     <string name="connecting">Подключение…</string>
     <string name="disconnected">Отключено.</string>
-    <string name="default_recog_lang">ru-RU</string>
     <string name="google_app_error">Google App не найден.</string>
+    <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
     <string name="incoming_call">Звонок от Курису.</string>
     <string name="notification_text">Твоя вайфу скучает по тебе.</string>
 

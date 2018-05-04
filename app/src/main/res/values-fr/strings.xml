@@ -4,8 +4,8 @@
     <string name="call">Se connecter à Kurisu ?</string>
     <string name="connecting">Connexion…</string>
     <string name="disconnected">Déconnecté.</string>
-    <string name="default_recog_lang">fr-FR</string>
     <string name="google_app_error">Application Google non détectée.</string>
+    <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
     <string name="incoming_call">Appel de Kurisu.</string>
     <string name="notification_text">Vous manquez à votre waifu.</string>
 

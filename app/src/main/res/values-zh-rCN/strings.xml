@@ -4,8 +4,8 @@
     <string name="call">连接到助手</string>
     <string name="connecting">连接中&#8230;</string>
     <string name="disconnected">已断开连接</string>
-    <string name="default_recog_lang">en-US</string>
-    <string name="google_app_error">没有检测到Google App</string>
+    <string name="google_app_error">Google App 未安装</string>
+    <string name="assist_app_error">Google App 不是默认的辅助或语音输入应用</string>
     <string name="incoming_call">来自助手的电话</string>
     <string name="notification_text">你的纸片人老婆想你了。</string>
 
@@ -19,8 +19,8 @@
     <string name="pref_lang_system">系统语言（默认）</string>
     <string name="pref_subtitles">显示字幕</string>
     <string name="pref_subtitles_desc">显示 Amadeus 说的话</string>
-    <string name="pref_notification">显示 “XP” 图标</string>
-    <string name="pref_notification_desc">在状态栏显示 “XP” 图标（重启生效）</string>
+    <string name="pref_notification">显示“XP”图标</string>
+    <string name="pref_notification_desc">在状态栏显示“XP”图标（重启生效）</string>
     <string name="pref_alarm_settings">闹钟设置</string>
     <string name="pref_alarm_setup">设置时间</string>
     <string name="pref_alarm_ringtone">闹钟铃声</string>
@@ -41,7 +41,7 @@
     <string name="line_this_guy_hopeless">这家伙没救了，必须要做点什么。</string>
     <string name="line_gah">咔。</string>
     <string name="line_dont_add_tina">缇娜 禁止！！</string>
-    <string name="line_pervert_idiot_wanttodie">你个变态！ 你是笨蛋？ 想死吗?!</string>
+    <string name="line_pervert_idiot_wanttodie">你个变态！你是笨蛋？想死吗？！</string>
     <string name="line_pleased_to_meet_you">说起来，还没正式自我介绍过。我叫牧瀬红莉栖，初次见面，请多关照。</string>
     <string name="line_who_the_hell_christina">谁是克莉斯缇娜啊？我可没说过。</string>
     <string name="line_why_christina">我很好奇为什么我叫克莉斯缇娜？</string>

@@ -5,7 +5,7 @@
     <string name="connecting">Connecting…</string>
     <string name="disconnected">Disconnected.</string>
     <string name="default_lang" translatable="false">system</string>
-    <string name="default_recog_lang">en-US</string>
+    <string name="default_recog_lang" translatable="false">en-US</string>
     <string name="google_app_error">Google App wasn\'t detected.</string>
     <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
     <string name="incoming_call">Call from Kurisu.</string>

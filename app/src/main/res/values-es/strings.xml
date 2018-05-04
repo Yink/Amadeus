@@ -3,9 +3,8 @@
     <string name="call">¿Conectar a Kurisu?</string>
     <string name="connecting">Conectando…</string>
     <string name="disconnected">Desconectado.</string>
-    <string name="default_recog_lang">es-ES</string>
     <string name="google_app_error">Google App no fue detectado.</string>
-
+    <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
 
     <string name="pref_app_settings">Ajustes de la aplicación</string>
     <string name="pref_app_restart_required">App restart required</string>
