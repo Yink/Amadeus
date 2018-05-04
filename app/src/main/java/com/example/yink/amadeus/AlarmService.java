@@ -33,7 +33,7 @@ public class AlarmService extends IntentService {
             return;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            alarmNotificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID, getString(R.string.pref_alarm), NotificationManager.IMPORTANCE_LOW));
+            alarmNotificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID, getString(R.string.pref_alarm), NotificationManager.IMPORTANCE_HIGH));
         }
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
