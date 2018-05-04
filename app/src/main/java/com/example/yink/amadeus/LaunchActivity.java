@@ -87,11 +87,9 @@ public class LaunchActivity extends AppCompatActivity {
 
         if (!isAppInstalled(LaunchActivity.this, GOOGLE_PACKAGE_NAME)) {
             status.setText(R.string.google_app_error);
-        }
-
-        if (!isDefaultAssistApp(LaunchActivity.this, DEFAULT_ASSAIST)){
+        } else if (!isDefaultAssistApp(LaunchActivity.this, DEFAULT_ASSAIST)){
             status.setText(R.string.assist_app_error);
-            }
+        }
 
         if (Alarm.isPlaying()) {
             status.setText(R.string.incoming_call);
@@ -99,7 +97,9 @@ public class LaunchActivity extends AppCompatActivity {
             win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
 
-        if (settings.getBoolean("show_notification", false)) {
+        if (settings.getBoolean("show_notification", false)
+                && isAppInstalled(this, GOOGLE_PACKAGE_NAME)
+                && isDefaultAssistApp(this, DEFAULT_ASSAIST)) {
             showNotification();
         }
 
