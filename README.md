@@ -59,7 +59,7 @@ Here is a short list of available options:
   <li><a href="https://twitter.com/TehVict">TehVict</a> for the Portuguese (Brazil) translation</li>
   <li><a href="https://twitter.com/gioghurt">Gioghurt</a> for the Spanish translation</li>
   <li><a href="https://twitter.com/DelusionParadox">Ice</a> for a revision of the Spanish translation</li>
-  <li>Alternis Dim96 for the Italian translation</li>
+  <li><a href="https://twitter.com/AlternisDim96">Alternis Dim96</a> for the Italian translation</li>
   <li>Woute and Okami Amaterasu for the French translation</li>
   <li>History-exe for the Chinese (Simplified) translation</li>
   <li>jaidTw and ekrekeler for the Chinese (Traditional) translation</li>
