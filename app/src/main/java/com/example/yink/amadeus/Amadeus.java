@@ -28,10 +28,10 @@ class Amadeus {
     static Boolean isSpeaking = false;
     static Boolean isLoop = false;
     static MediaPlayer m;
-    private static String TAG = "Amadeus";
+    private static final String TAG = "Amadeus";
     private static int shaman_girls = -1;
-    private static VoiceLine[] voiceLines = VoiceLine.Line.getLines();
-    private static HashMap<Bundle<Integer>, Bundle<VoiceLine>> responseInputMap = new HashMap<>();
+    private static final VoiceLine[] voiceLines = VoiceLine.Line.getLines();
+    private static final HashMap<Bundle<Integer>, Bundle<VoiceLine>> responseInputMap = new HashMap<>();
 
     static {
         responseInputMap.put(new Bundle<>(
@@ -120,8 +120,8 @@ class Amadeus {
 
     static void speak(VoiceLine line, final Activity activity) {
         final AnimationDrawable animation;
-        final TextView subtitles = (TextView) activity.findViewById(R.id.textView_subtitles);
-        final ImageView kurisu = (ImageView) activity.findViewById(R.id.imageView_kurisu);
+        final TextView subtitles = activity.findViewById(R.id.textView_subtitles);
+        final ImageView kurisu = activity.findViewById(R.id.imageView_kurisu);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(activity);
 
         try {
@@ -142,29 +142,18 @@ class Amadeus {
                 m = new MediaPlayer();
             }
 
-            m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    isSpeaking = true;
-                    mp.start();
-                    v.setEnabled(true);
-                }
+            m.setOnPreparedListener(mp -> {
+                isSpeaking = true;
+                mp.start();
+                v.setEnabled(true);
             });
 
-            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    isSpeaking = false;
-                    mp.release();
-                    v.setEnabled(false);
+            m.setOnCompletionListener(mp -> {
+                isSpeaking = false;
+                mp.release();
+                v.setEnabled(false);
 
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            kurisu.setImageDrawable(animation.getFrame(0));
-                        }
-                    });
-                }
+                activity.runOnUiThread(() -> kurisu.setImageDrawable(animation.getFrame(0)));
             });
 
 
@@ -180,15 +169,12 @@ class Amadeus {
                             // The normalized volume
                             final float normalized = sum / (float) bytes.length;
 
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (normalized > 50) {
-                                        // Todo: Maybe choose sprite based on previous choice and volume instead of random
-                                        kurisu.setImageDrawable(animation.getFrame((int) Math.ceil(Math.random() * 2)));
-                                    } else {
-                                        kurisu.setImageDrawable(animation.getFrame(0));
-                                    }
+                            activity.runOnUiThread(() -> {
+                                if (normalized > 50) {
+                                    // Todo: Maybe choose sprite based on previous choice and volume instead of random
+                                    kurisu.setImageDrawable(animation.getFrame((int) Math.ceil(Math.random() * 2)));
+                                } else {
+                                    kurisu.setImageDrawable(animation.getFrame(0));
                                 }
                             });
                         }
@@ -336,20 +322,22 @@ class Amadeus {
 
     private static class Bundle<T> implements Iterable<T> {
 
-        private T[] list;
+        private final T[] list;
 
-        public Bundle(T... list) {
+        @SafeVarargs
+        private Bundle(T... list) {
             this.list = list;
         }
 
-        public T[] toArray() {
+        private T[] toArray() {
             return list;
         }
 
         @NonNull
         @Override
         public Iterator<T> iterator() {
-            Iterator<T> iterator = new Iterator<T>() {
+            Iterator<T> iterator;
+            iterator = new Iterator<T>() {
                 int index = 0;
 
                 @Override

@@ -3,18 +3,19 @@
     <string name="call">Подключиться к Курису?</string>
     <string name="connecting">Подключение…</string>
     <string name="disconnected">Отключено.</string>
-    <string name="default_lang">ru</string>
-    <string name="default_recog_lang">ru-RU</string>
     <string name="google_app_error">Google App не найден.</string>
+    <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
     <string name="incoming_call">Звонок от Курису.</string>
     <string name="notification_text">Твоя вайфу скучает по тебе.</string>
 
     <!-- Настройки -->
     <string name="pref_app_settings">Настройки приложения</string>
+    <string name="pref_app_restart_required">App restart required</string>
     <string name="pref_recog_lang">Язык распознавания</string>
     <string name="pref_recog_lang_desc">Выберите язык распознавания голоса</string>
     <string name="pref_lang">Язык</string>
     <string name="pref_lang_desc">Выберите язык приложения (требуется перезапуск)</string>
+    <string name="pref_lang_system">System Language (Default)</string>
     <string name="pref_subtitles">Показывать субтитры</string>
     <string name="pref_subtitles_desc">Показывает субтитры с ответами Амадеуса</string>
     <string name="pref_notification">Показывать иконку &quot;XP&quot;</string>

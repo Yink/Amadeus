@@ -4,18 +4,19 @@
     <string name="call">Se connecter à Kurisu ?</string>
     <string name="connecting">Connexion…</string>
     <string name="disconnected">Déconnecté.</string>
-    <string name="default_lang">fr</string>
-    <string name="default_recog_lang">fr-FR</string>
     <string name="google_app_error">Application Google non détectée.</string>
+    <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
     <string name="incoming_call">Appel de Kurisu.</string>
     <string name="notification_text">Vous manquez à votre waifu.</string>
 
     <!-- Settings -->
     <string name="pref_app_settings">Paramètres de l\'application</string>
+    <string name="pref_app_restart_required">App restart required</string>
     <string name="pref_recog_lang">Langue de reconnaissance vocale</string>
     <string name="pref_recog_lang_desc">Sélectionnez la langue pour la reconnaissance vocale</string>
     <string name="pref_lang">Langue</string>
     <string name="pref_lang_desc">Sélectionnez la langue de l\'application (redémarrage requis)</string>
+    <string name="pref_lang_system">System Language (Default)</string>
     <string name="pref_subtitles">Afficher les sous-titres</string>
     <string name="pref_subtitles_desc">Affiche les sous-titres pour les réponses d\'Amadeus</string>
     <string name="pref_notification">Afficher Icône-&quot;XP&quot;</string>
@@ -61,7 +62,7 @@
     <string name="line_senpai_please_dont_tell">Senpai, s\'il vous plaît, ne le dites pas aux autres…</string>
     <string name="line_still_not_happy">Cela ne me satisfait toujours pas.</string>
     <string name="line_tm_nonsense">Cela ne fait aucun sens.</string>
-    <string name="line_tm_not_possible">Voyons voir... Ma conclusion est que cela n\'est pas possible.</string>
+    <string name="line_tm_not_possible">Voyons voir&#8230; Ma conclusion est que cela n\'est pas possible.</string>
     <string name="line_tm_scientist_no_evidence">C\'est probablement car les scientifiques n\'ont encore rien découvert d\'important.</string>
     <string name="line_tm_we_dont_know">Mais on ne sait pas si c\'est réellement impossible, je suppose.</string>
     <string name="line_tm_you_said">Une machine à voyager dans le temps, dites-vous ?</string>

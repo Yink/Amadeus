@@ -4,18 +4,19 @@
     <string name="call">Connettere a Kurisu?</string>
     <string name="connecting">Collegamento…</string>
     <string name="disconnected">Disconnesso.</string>
-    <string name="default_lang">it</string>
-    <string name="default_recog_lang">en-US</string>
     <string name="google_app_error">App Google  non rilevata.</string>
+    <string name="assist_app_error">Google App is\'t default Assist &amp; voice input app.</string>
     <string name="incoming_call">Chiamata da Kurisu.</string>
     <string name="notification_text">Manchi alla tua waifu.</string>
 
     <!-- Settings -->
     <string name="pref_app_settings">Impostazioni applicazione</string>
+    <string name="pref_app_restart_required">App restart required</string>
     <string name="pref_recog_lang">Lingua di riconoscimento</string>
     <string name="pref_recog_lang_desc">Seleziona lingua di riconoscimento vocale</string>
     <string name="pref_lang">Lingua</string>
     <string name="pref_lang_desc">Seleziona lingua app (riavvio app richiesto)</string>
+    <string name="pref_lang_system">System Language (Default)</string>
     <string name="pref_subtitles">Mostra sottotitoli</string>
     <string name="pref_subtitles_desc">Mostra sottotitoli per le risposte di Amadeus</string>
     <string name="pref_notification">Mostra &quot;XP&quot;-Icon</string>

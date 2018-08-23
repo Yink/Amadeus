@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 public class AlarmActivity extends AppCompatActivity {
 
-    private final String TAG = "AlarmActivity";
+    private static final String TAG = "AlarmActivity";
 
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
@@ -32,8 +32,8 @@ public class AlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
         settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
-        alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
+        alarmTimePicker = findViewById(R.id.alarmTimePicker);
+        alarmToggle = findViewById(R.id.alarmToggle);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         pendingIntent = PendingIntent.getBroadcast(this, Alarm.ALARM_ID, new Intent(this, AlarmReceiver.class), PendingIntent.FLAG_CANCEL_CURRENT);
 

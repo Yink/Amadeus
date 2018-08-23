@@ -1,5 +1,6 @@
 package com.example.yink.amadeus;
 
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -7,30 +8,36 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LaunchActivity extends AppCompatActivity {
+
+    private static final String GOOGLE_PACKAGE_NAME = "com.google.android.googlequicksearchbox";
+    private static final String DEFAULT_ASSAIST = "com.google.android.googlequicksearchbox/com.google.android.voiceinteraction.GsaVoiceInteractionService";
+    private static final String CHANNEL_ID = "amadeus_channel_icon";
 
     private ImageView connect, cancel, logo;
     private TextView status;
     private Boolean isPressed = false;
     private MediaPlayer m;
-    private Handler aniHandle = new Handler();
+    private final Handler aniHandle = new Handler();
 
     private int i = 0;
 
-    Runnable aniRunnable = new Runnable() {
+    private final Runnable aniRunnable = new Runnable() {
         public void run() {
             final int DURATION = 20;
             if (i < 39) {
@@ -52,21 +59,38 @@ public class LaunchActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isDefaultAssistApp(Context context, String app){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return true;
+        }
+        final String assistant = Settings.Secure.getString(context.getContentResolver(), "assistant");
+        if (assistant.equals(app)) {
+            return true;
+        }
+        Toast.makeText(context, getString(R.string.assist_app_error), Toast.LENGTH_LONG).show();
+        startActivity(new Intent(Settings.ACTION_VOICE_INPUT_SETTINGS));
+        return false;
+        }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        connect = (ImageView) findViewById(R.id.imageView_connect);
-        cancel = (ImageView) findViewById(R.id.imageView_cancel);
-        status = (TextView) findViewById(R.id.textView_call);
-        logo = (ImageView) findViewById(R.id.imageView_logo);
+        connect = findViewById(R.id.imageView_connect);
+        cancel = findViewById(R.id.imageView_cancel);
+        status = findViewById(R.id.textView_call);
+        logo = findViewById(R.id.imageView_logo);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final Window win = getWindow();
 
         aniHandle.post(aniRunnable);
 
-        if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
+        if (!isAppInstalled(LaunchActivity.this, GOOGLE_PACKAGE_NAME)) {
             status.setText(R.string.google_app_error);
+        } else if (!isDefaultAssistApp(LaunchActivity.this, DEFAULT_ASSAIST)){
+            status.setText(R.string.assist_app_error);
+        } else if (settings.getBoolean("show_notification", false)) {
+            showNotification();
         }
 
         if (Alarm.isPlaying()) {
@@ -75,76 +99,58 @@ public class LaunchActivity extends AppCompatActivity {
             win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         }
 
-        if (settings.getBoolean("show_notification", false)) {
-            showNotification();
-        }
+        connect.setOnClickListener(view -> {
+            if (!isPressed && isAppInstalled(LaunchActivity.this, GOOGLE_PACKAGE_NAME)
+                    && isDefaultAssistApp(LaunchActivity.this, DEFAULT_ASSAIST)) {
+                isPressed = true;
 
-        connect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isPressed && isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
-                    isPressed = true;
+                connect.setImageResource(R.drawable.connect_select);
 
-                    connect.setImageResource(R.drawable.connect_select);
+                if (!Alarm.isPlaying()) {
+                    m = MediaPlayer.create(LaunchActivity.this, R.raw.tone);
 
-                    if (!Alarm.isPlaying()) {
-                        m = MediaPlayer.create(LaunchActivity.this, R.raw.tone);
+                    m.setOnPreparedListener(mp -> {
+                        mp.start();
+                        status.setText(R.string.connecting);
+                    });
 
-                        m.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                            @Override
-                            public void onPrepared(MediaPlayer mp) {
-                                mp.start();
-                                status.setText(R.string.connecting);
-                            }
-                        });
-
-                        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mp) {
-                                mp.release();
-                                Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }
-                        });
-                    } else {
-                        Alarm.cancel(LaunchActivity.this);
-                        win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-                        win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
-
+                    m.setOnCompletionListener(mp -> {
+                        mp.release();
                         Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
                         startActivity(intent);
-                    }
+                    });
+                } else {
+                    Alarm.cancel(LaunchActivity.this);
+                    win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+                    win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
+                    Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cancel.setImageResource(R.drawable.cancel_select);
-                Alarm.cancel(getApplicationContext());
-                win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-                win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        cancel.setOnClickListener(view -> {
+            cancel.setImageResource(R.drawable.cancel_select);
+            Alarm.cancel(getApplicationContext());
+            win.clearFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            win.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
 
-        logo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent settingIntent = new Intent(LaunchActivity.this, SettingsActivity.class);
-                startActivity(settingIntent);
-            }
+        logo.setOnClickListener(view -> {
+            Intent settingIntent = new Intent(LaunchActivity.this, SettingsActivity.class);
+            startActivity(settingIntent);
         });
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LangContext.wrap(newBase));
+        super.attachBaseContext(ContextLocalWrapper.wrap(newBase));
     }
 
     @Override
@@ -169,8 +175,10 @@ public class LaunchActivity extends AppCompatActivity {
 
         if (isPressed) {
             status.setText(R.string.disconnected);
-        } else if (!isAppInstalled(LaunchActivity.this, "com.google.android.googlequicksearchbox")) {
+        } else if (!isAppInstalled(LaunchActivity.this, GOOGLE_PACKAGE_NAME)) {
             status.setText(R.string.google_app_error);
+        } else if (!isDefaultAssistApp(LaunchActivity.this, DEFAULT_ASSAIST)){
+            status.setText(R.string.assist_app_error);
         } else if (Alarm.isPlaying()) {
             status.setText(R.string.incoming_call);
         } else {
@@ -183,17 +191,24 @@ public class LaunchActivity extends AppCompatActivity {
     }
 
     private void showNotification() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(LaunchActivity.this)
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager == null) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(new NotificationChannel(CHANNEL_ID, getString(R.string.pref_notification), NotificationManager.IMPORTANCE_LOW));
+        }
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(LaunchActivity.this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.xp2)
                 .setContentTitle(getString(R.string.app_name))
-                .setContentText(getString(R.string.notification_text));
+                .setContentText(getString(R.string.notification_text))
+                .setChannelId(CHANNEL_ID);
         Intent resultIntent = new Intent(LaunchActivity.this, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(LaunchActivity.this);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(resultPendingIntent);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
     }
 }

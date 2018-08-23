@@ -2,45 +2,46 @@
     <!-- LaunchActivity -->
     <string name="app_name">Amadeus</string>
     <string name="call">连接到助手</string>
-    <string name="connecting">连接中...</string>
-    <string name="disconnected">断开连接</string>
-    <string name="default_lang">zh-rCN</string>
-    <string name="default_recog_lang">en-US</string>
-    <string name="google_app_error">没有检测到Google App</string>
+    <string name="connecting">连接中&#8230;</string>
+    <string name="disconnected">已断开连接</string>
+    <string name="google_app_error">Google App 未安装</string>
+    <string name="assist_app_error">Google App 不是默认的辅助或语音输入应用</string>
     <string name="incoming_call">来自助手的电话</string>
-    <string name="notification_text">你的老婆想你了</string>
+    <string name="notification_text">你的纸片人老婆想你了。</string>
 
     <!-- Settings -->
     <string name="pref_app_settings">设置</string>
+    <string name="pref_app_restart_required">重启 App 后生效</string>
     <string name="pref_recog_lang">语音识别</string>
     <string name="pref_recog_lang_desc">选择语种</string>
     <string name="pref_lang">界面语言</string>
-    <string name="pref_lang_desc">选择界面语言 （需重启应用）</string>
+    <string name="pref_lang_desc">选择界面语言（重启生效）</string>
+    <string name="pref_lang_system">系统语言（默认）</string>
     <string name="pref_subtitles">显示字幕</string>
-    <string name="pref_subtitles_desc">显示Amadeus说的话</string>
-    <string name="pref_notification">在状态栏显示</string>
-    <string name="pref_notification_desc">在状态栏显示提示 （需重启应用）</string>
+    <string name="pref_subtitles_desc">显示 Amadeus 说的话</string>
+    <string name="pref_notification">显示“XP”图标</string>
+    <string name="pref_notification_desc">在状态栏显示“XP”图标（重启生效）</string>
     <string name="pref_alarm_settings">闹钟设置</string>
     <string name="pref_alarm_setup">设置时间</string>
     <string name="pref_alarm_ringtone">闹钟铃声</string>
     <string name="pref_alarm_ringtone_desc">选择闹钟铃声</string>
     <string name="pref_alarm_vibrate">响铃时震动</string>
-    <string name="pref_alarm_24hour_format">24小时制</string>
+    <string name="pref_alarm_24hour_format">24 小时制</string>
 
     <!-- Subtitles -->
-    <string name="line_hello">你好。</string>
+    <string name="line_hello">你好！</string>
     <string name="line_dont_call_me_like_that">别 那 样 叫 我。</string>
     <string name="line_but_i_refuse">但是我拒绝。</string>
     <string name="line_devilish_pervert">没想到你竟然这么变态，我看错你了。</string>
     <string name="line_i_guess">也对呢。</string>
-    <string name="line_nice">干得漂亮。</string>
+    <string name="line_nice">干得漂亮！</string>
     <string name="line_pervert_confirmed">变 态 确 定。</string>
     <string name="line_sorry">抱歉。</string>
     <string name="line_sounds_tough">很幸苦呢。</string>
     <string name="line_this_guy_hopeless">这家伙没救了，必须要做点什么。</string>
     <string name="line_gah">咔。</string>
     <string name="line_dont_add_tina">缇娜 禁止！！</string>
-    <string name="line_pervert_idiot_wanttodie">你个变态！ 你是笨蛋？ 想死吗?!</string>
+    <string name="line_pervert_idiot_wanttodie">你个变态！你是笨蛋？想死吗？！</string>
     <string name="line_pleased_to_meet_you">说起来，还没正式自我介绍过。我叫牧瀬红莉栖，初次见面，请多关照。</string>
     <string name="line_who_the_hell_christina">谁是克莉斯缇娜啊？我可没说过。</string>
     <string name="line_why_christina">我很好奇为什么我叫克莉斯缇娜？</string>
@@ -56,7 +57,7 @@
     <string name="line_look_forward_to_working">请多指教。</string>
     <string name="line_senpai_question">那么前辈，我能再问一个问题吗？</string>
     <string name="line_senpai_question_mark">前辈？</string>
-    <string name="line_senpai_what_we_talkin">呐，前辈。关于刚才那件事...</string>
+    <string name="line_senpai_what_we_talkin">呐，前辈。关于刚才那件事&#8230;</string>
     <string name="line_senpai_who_is_this">嗯，前辈，那边的那个人是？</string>
     <string name="line_senpai_please_dont_tell">前辈，拜托请不要告诉其他人。</string>
     <string name="line_still_not_happy">我对这件事不是很满意。</string>
@@ -70,7 +71,7 @@
     <string name="line_secret_diary">也就是说，是秘密日记。</string>
     <string name="line_modifying_memories_impossible">修改我的记忆？ 理论上是可行的。</string>
     <string name="line_memories_christina">举例来说，可以做到让我认为自己的名字是克莉斯缇娜。</string>
-    <string name="line_gah_extended">咔、啊、嗯嗯嗯...</string>
+    <string name="line_gah_extended">咔、啊、嗯嗯嗯&#8230;</string>
     <string name="line_Leskinen_awesome">太棒了，他真的可以。</string>
     <string name="line_Leskinen_nice">太棒了！</string>
     <string name="line_Leskinen_oh_no">天呐！</string>

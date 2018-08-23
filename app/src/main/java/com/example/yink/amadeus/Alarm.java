@@ -33,8 +33,10 @@ class Alarm {
 
         if (settings.getBoolean("vibrate", false)) {
             v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            long[] pattern = {500, 2000};
-            v.vibrate(pattern, 0);
+            if (v != null) {
+                long[] pattern = {500, 2000};
+                v.vibrate(pattern, 0);
+            }
         }
 
         m = MediaPlayer.create(context, ringtone);
@@ -54,17 +56,23 @@ class Alarm {
 
         if (isPlaying) {
             settings = PreferenceManager.getDefaultSharedPreferences(context);
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-            final PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("alarm_toggle", false);
             editor.apply();
+
+            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+            final PendingIntent pendingIntent =
+                    PendingIntent.getBroadcast(context, ALARM_ID, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarmManager != null) {
+                alarmManager.cancel(pendingIntent);
+            }
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (notificationManager != null) {
+                notificationManager.cancel(ALARM_NOTIFICATION_ID);
+            }
             m.release();
-            notificationManager.cancel(ALARM_NOTIFICATION_ID);
-            alarmManager.cancel(pendingIntent);
             releaseCpuLock();
             isPlaying = false;
             if (v != null) {
@@ -86,11 +94,14 @@ class Alarm {
 
         PowerManager pm =
                 (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (pm == null) {
+            return;
+        }
         sCpuWakeLock = pm.newWakeLock(
                 PowerManager.PARTIAL_WAKE_LOCK |
                         PowerManager.ACQUIRE_CAUSES_WAKEUP |
                         PowerManager.ON_AFTER_RELEASE, TAG);
-        sCpuWakeLock.acquire();
+        sCpuWakeLock.acquire(10*60*1000L /*10 minutes*/);
     }
 
     private static void releaseCpuLock() {
