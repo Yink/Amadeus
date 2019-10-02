@@ -3,7 +3,8 @@
     <string-array name="languagesArray">
         <item>English</item>
         <item>Русский</item>
-        <item>Português</item>
+        <item>Português (Brasil)</item>
+        <item>Português (Portugal)</item>
         <item>Español</item>
         <item>Italiano</item>
         <item>Française</item>
@@ -16,6 +17,7 @@
     <string-array name="languagesValues">
         <item>en</item>
         <item>ru</item>
+        <item>pt-BR</item>
         <item>pt</item>
         <item>es</item>
         <item>it</item>
